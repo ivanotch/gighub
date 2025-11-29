@@ -1,7 +1,7 @@
 // app/page.tsx
 import React from "react";
-import ImageCard from "../components/ImageCard";
-import Button from "../components/Button";
+import ImageCard from "../components/landingpage/ImageCard";
+import Button from "../components/landingpage/Button";
 import Link from "next/link";
 
 function LandingPage() {
