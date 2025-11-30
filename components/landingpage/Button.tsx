@@ -29,7 +29,7 @@ function Button({
     secondary: 'bg-gray-500 hover:bg-gray-600 text-white focus:ring-gray-500 shadow-sm',
     danger: 'bg-red-500 hover:bg-red-600 text-white focus:ring-red-500 shadow-sm',
     warning: 'bg-yellow-500 hover:bg-yellow-600 text-white focus:ring-yellow-500 shadow-sm',
-    success: 'bg-green-500 hover:bg-green-600 text-white focus:ring-green-500 shadow-sm',
+    success: 'bg-primary-500 hover:bg-primary-600 text-white focus:ring-primary-500 shadow-sm',
     outline: 'border border-gray-300 hover:bg-gray-50 text-gray-700 focus:ring-blue-500 bg-transparent',
     ghost: 'hover:bg-gray-100 text-gray-700 focus:ring-blue-500 bg-transparent'
   };

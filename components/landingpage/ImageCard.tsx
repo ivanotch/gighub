@@ -2,14 +2,12 @@
 import React from 'react';
 import Card from './Card';
 import CardHeader from './CardHeader';
-import CardFooter from './CardFooter';
 
 interface ImageCardProps {
   imageUrl: string;
   imageAlt?: string;
   title: string;
   subtitle?: React.ReactNode;
-  location?: string;
   description?: string;
   action?: React.ReactNode;
   className?: string;
@@ -24,26 +22,18 @@ function ImageCard({
   title,
   subtitle,
   description,
-  location,
   action,
   className = '',
   size = 'md',
   imageFit = 'cover',
   onClick
 }: ImageCardProps) {
-  // Fixed card dimensions for each size
-  const sizeClasses = {
-    sm: 'w-64 h-80',      // 256px x 320px
-    md: 'w-80 h-96',      // 320px x 384px  
-    lg: 'w-96 h-[28rem]', // 384px x 448px
-    xl: 'w-[28rem] h-[32rem]' // 448px x 512px
-  };
 
   const imageHeightClasses = {
-    sm: 'h-40', // 160px
-    md: 'h-48', // 192px
-    lg: 'h-56', // 224px
-    xl: 'h-64'  // 256px
+    sm: 'h-40',
+    md: 'h-48',
+    lg: 'h-56',
+    xl: 'h-64'
   };
 
   const imageFitClasses = {
@@ -53,38 +43,33 @@ function ImageCard({
 
   return (
     <Card 
-      className={`${sizeClasses[size]} flex flex-col overflow-hidden ${className}`} 
+      className={`flex flex-col overflow-hidden ${className} h-full`} // h-full lets flex grow in grid
       hover 
       onClick={onClick}
-      padding="none" // Remove padding since we're handling layout manually
+      padding="none"
     >
-      {/* Image Section - Fixed height */}
+      {/* Image */}
       <div className={`w-full ${imageHeightClasses[size]} overflow-hidden bg-gray-100`}>
         <img 
           src={imageUrl} 
           alt={imageAlt}
-          className={`
-            w-full h-full 
-            ${imageFitClasses[imageFit]}
-            transition-transform duration-300 hover:scale-105
-          `}
+          className={`w-full h-full ${imageFitClasses[imageFit]} transition-transform duration-300 hover:scale-105`}
         />
       </div>
-      
-      {/* Content Section - Flexible height that fills remaining space */}
-      <div className="flex-1 p-4 flex flex-col">
-        <CardHeader 
-          title={title}
-          subtitle={subtitle}
-          action={action}
-          className="mb-2"
-        />
-        
-        {description && (
-          <p className="text-gray-600 text-sm mt-2 line-clamp-3 flex-1">
-            {description}
-          </p>
-        )}
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-4">
+        <div className="mb-4">
+          <CardHeader title={title} subtitle={subtitle} />
+          {description && (
+            <p className="text-gray-600 text-sm mt-2 line-clamp-3">
+              {description}
+            </p>
+          )}
+        </div>
+
+        {/* Bottom-aligned button */}
+        {action && <div className="mt-auto">{action}</div>}
       </div>
     </Card>
   );

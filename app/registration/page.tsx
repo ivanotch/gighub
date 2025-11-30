@@ -42,7 +42,7 @@ export default function Registration() {
                         <div className="border border-gray-400  rounded-lg p-6 flex-1 min-w-[300px] shadow-md hover:shadow-lg transition duration-300">
                             <div className="flex justify-between items-center mb-4">
                                 <UserLock className="w-8 h-8 " />
-                                <input type="checkbox" className="w-6 h-6 accent-green-500" />
+                                <input type="checkbox" className="w-6 h-6 accent-primary-500" />
                             </div>
 
                             {/* Two-line text */}
