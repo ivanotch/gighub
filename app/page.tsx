@@ -129,23 +129,30 @@ function LandingPage() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <section id="services" className="py-20  bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
-              <span className="w-2.5 h-2.5 bg-primary-600 rounded-full animate-pulse"></span>
-              Immediate Openings
+            <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-4 border border-green-200">
+              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+              Open Positions
             </div>
-            <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground ${rocaTwo.className}`}>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 bg-linear-to-r from-gray-900 to-green-600 bg-clip-text">
               Find Your Perfect Role
             </h2>
-            <p className="text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Discover opportunities that match your skills and passion.
-              <span className="text-primary-600 font-semibold"> {services.length} active positions </span> available with competitive benefits and growth potential.
+              <span className="text-green-600 font-semibold">
+                {" "}
+                {services.length} positions{" "}
+                {/* Dependes how many srvices are active */}
+              </span>{" "}
+              available with competitive benefits and growth potential.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10">
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-30 gap-y-6">
             {services.map((service) => (
               <ImageCard
                 key={service.id}
@@ -156,20 +163,18 @@ function LandingPage() {
                 description={service.description}
                 size="md"
                 imageFit="cover"
-                className="bg-white rounded-xl shadow-lg p-5 border border-gray-100 hover:shadow-2xl hover:border-primary-200 transition-all duration-300"
+                className="hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-green-200"
                 action={
-                  <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 rounded-lg transition-colors">
-                    Apply
+                  <Button
+                    variant="success"
+                    size="sm"
+                    className="bg-green-500 hover:bg-green-600 text-white"
+                  >
+                    Apply Now
                   </Button>
                 }
               />
             ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button className="bg-transparent border-2 border-primary-600 text-primary-600 hover:bg-primary-50 px-8 py-3 rounded-xl font-semibold transition-colors">
-              Explore All {services.length} Gigs
-            </Button>
           </div>
         </div>
       </section>
