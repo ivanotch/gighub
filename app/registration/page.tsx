@@ -30,10 +30,10 @@ export default function Registration() {
                             </div>
 
                             {/* Two-line text */}
-                            <p className="text-[1.25rem]">
+                            <p className="text-[1.25rem] text-black">
                                 I'm a GigBoss,
                             </p>
-                            <p className="text-[1.25rem]">
+                            <p className="text-[1.25rem] text-black">
                                 hiring for a task
                             </p>
                         </div>
