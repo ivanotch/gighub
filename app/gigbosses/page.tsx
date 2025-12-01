@@ -70,11 +70,11 @@ export default function Bosses() {
 
     const boxes = [
         { id: 1, title: "Cut 10 meter tree, add a website while fixing the faucet.", button: "Add Details", details: "Details" },
-        { id: 2, title: "Cut 8 meter tree", button: "Add Budget", details: "Add your budget to continue" },
-        { id: 3, title: "Cut 12 meter tree", button: "Add Contact", details: "Add your contact to continue" },
-        { id: 4, title: "Cut 6 meter tree", button: "Add Skills", details: "Add the skills you need to continue" },
-        { id: 5, title: "Cut 8 meter tree", button: "Add Details", details: "Add your gig details to continue" },
-        { id: 6, title: "Cut 12 meter tree", button: "View", details: "Details" },
+        { id: 2, title: "Fix leaking faucet", button: "Add Budget", details: "Add your budget to continue" },
+        { id: 3, title: "House Cleaning", button: "Add Contact", details: "Add your contact to continue" },
+        { id: 4, title: "Power wash my lawn", button: "Add Skills", details: "Add the skills you need to continue" },
+        { id: 5, title: "Fix roof leak", button: "Add Details", details: "Add your gig details to continue" },
+        { id: 6, title: "Home Service LCD Repair", button: "View", details: "Details" },
         { id: 7, title: "Cut 6 meter tree", button: "View", details: "Details" }, // slider triggers now
     ];
 
