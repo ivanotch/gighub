@@ -28,20 +28,29 @@ import {
     LayoutGrid,
     LayoutList,
     Ellipsis,
-    Axe
+    Axe,
 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
 interface TreeBox {
     id: number;
     title: string;
     details: string;
 }
 
+
 export default function Bosses() {
     const [active, setActive] = useState<"grid" | "list">("grid");
     const containerRef = useRef<HTMLDivElement>(null);
+    const gigDaddyProfile = useRef<HTMLDivElement>(null);
 
-    const scrollAmount = 432; // adjust to your box width + gap
+    const scrollAmount = 425; // adjust to your box width + gap
+    const scrollAmountProfile = 426;
 
     const scrollLeft = () => {
         containerRef.current?.scrollBy({ left: -scrollAmount, behavior: "smooth" });
@@ -51,14 +60,33 @@ export default function Bosses() {
         containerRef.current?.scrollBy({ left: scrollAmount, behavior: "smooth" });
     };
 
+    const scrollProfileLeft = () => {
+        gigDaddyProfile.current?.scrollBy({ left: -scrollAmountProfile, behavior: "smooth" });
+    };
+
+    const scrollProfileRight = () => {
+        gigDaddyProfile.current?.scrollBy({ left: scrollAmountProfile, behavior: "smooth" });
+    };
+
     const boxes = [
-        { id: 1, title: "Cut 10 meter tree", details: "Details" },
-        { id: 2, title: "Cut 8 meter tree", details: "Details" },
-        { id: 3, title: "Cut 12 meter tree", details: "Details" },
-        { id: 4, title: "Cut 6 meter tree", details: "Details" },
-        { id: 5, title: "Cut 8 meter tree", details: "Details" },
-        { id: 6, title: "Cut 12 meter tree", details: "Details" },
-        { id: 7, title: "Cut 6 meter tree", details: "Details" }, // slider triggers now
+        { id: 1, title: "Cut 10 meter tree, add a website while fixing the faucet.", button: "Add Details", details: "Details" },
+        { id: 2, title: "Cut 8 meter tree", button: "Add Budget", details: "Add your budget to continue" },
+        { id: 3, title: "Cut 12 meter tree", button: "Add Contact", details: "Add your contact to continue" },
+        { id: 4, title: "Cut 6 meter tree", button: "Add Skills", details: "Add the skills you need to continue" },
+        { id: 5, title: "Cut 8 meter tree", button: "Add Details", details: "Add your gig details to continue" },
+        { id: 6, title: "Cut 12 meter tree", button: "View", details: "Details" },
+        { id: 7, title: "Cut 6 meter tree", button: "View", details: "Details" }, // slider triggers now
+    ];
+
+    const gigDaddy = [
+        { id: 1, name: "Ivanotch Babida", location: "Manila", jobSuccess: "100%", jobs: "56", hourly: "₱70/hr", title: "Manual Labor | Knitting | Dishwasher", description: "This is a description of my profile, i do varous task with complete and trustable information using verified account information." },
+        { id: 2, name: "Jay Untalan", location: "Quezon City", jobSuccess: "60%", jobs: "11", hourly: "₱50/hr", title: "Cleaning | Knitting | Dishwasher", description: "This is a description of my profile, i do varous task with complete and trustable information using verified account information." },
+        { id: 3, name: "Matthew Perez", location: "San Mateo", jobSuccess: "80%", jobs: "45", hourly: "₱80/hr", title: "Construction | Knitting | Dishwasher", description: "This is a description of my profile, i do varous task with complete and trustable information using verified account information." },
+        { id: 4, name: "Hans Dela cruz", location: "Marikina", jobSuccess: "60%", jobs: "63", hourly: "₱40/hr", title: "Writing Services | Knitting | Dishwasher", description: "This is a description of my profile, i do varous task with complete and trustable information using verified account information." },
+        { id: 5, name: "Jojo Binay", location: "Montalban", jobSuccess: "90%", jobs: "23", hourly: "₱40/hr", title: "Baking | Knitting | Dishwasher", description: "This is a description of my profile, i do varous task with complete and trustable information using verified account information." },
+        { id: 6, name: "Aquino Dela pena", location: "Manila", jobSuccess: "50%", jobs: "56", hourly: "₱73/hr", title: "Manual Labor | Knitting | Dishwasher", description: "This is a description of my profile, i do varous task with complete and trustable information using verified account information." },
+        { id: 7, name: "Jermey Cruz", location: "Manila", jobSuccess: "46%", jobs: "56", hourly: "₱70/hr", title: "Manual Labor | Knitting | Dishwasher", description: "This is a description of my profile, i do varous task with complete and trustable information using verified account information." },
+
     ];
     return (
         <main>
@@ -84,11 +112,11 @@ export default function Bosses() {
                                     <SelectContent>
                                         <SelectGroup>
                                             <SelectLabel>Post a gig</SelectLabel>
-                                            <SelectItem value="apple">Apple</SelectItem>
-                                            <SelectItem value="banana">Banana</SelectItem>
-                                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                                            <SelectItem value="grapes">Grapes</SelectItem>
-                                            <SelectItem value="pineapple">Pineapple</SelectItem>
+                                            <SelectItem value="apple">Post a gig</SelectItem>
+                                            <SelectItem value="banana">Gig proposal</SelectItem>
+                                            <SelectItem value="blueberry">Search for a GigDaddy</SelectItem>
+                                            <SelectItem value="grapes">Gigdaddy you've hired</SelectItem>
+                                            <SelectItem value="pineapple">Gigdaddy you've saved</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
@@ -103,11 +131,10 @@ export default function Bosses() {
                                     <SelectContent>
                                         <SelectGroup>
                                             <SelectLabel>Manage gig</SelectLabel>
-                                            <SelectItem value="apple">Apple</SelectItem>
-                                            <SelectItem value="banana">Banana</SelectItem>
-                                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                                            <SelectItem value="grapes">Grapes</SelectItem>
-                                            <SelectItem value="pineapple">Pineapple</SelectItem>
+                                            <SelectItem value="apple">Your contracts</SelectItem>
+                                            <SelectItem value="banana">Timesheets</SelectItem>
+                                            <SelectItem value="blueberry">Work Diaries</SelectItem>
+                                            <SelectItem value="grapes">Time by gig worker</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
@@ -121,32 +148,13 @@ export default function Bosses() {
                                     <SelectContent>
                                         <SelectGroup>
                                             <SelectLabel>Reports</SelectLabel>
-                                            <SelectItem value="apple">Apple</SelectItem>
-                                            <SelectItem value="banana">Banana</SelectItem>
-                                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                                            <SelectItem value="grapes">Grapes</SelectItem>
-                                            <SelectItem value="pineapple">Pineapple</SelectItem>
+                                            <SelectItem value="apple">Weekly financial summary</SelectItem>
+                                            <SelectItem value="banana">Transaction History</SelectItem>
+                                            <SelectItem value="blueberry">Spending by activity</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-                                <Select>
-                                    <SelectTrigger
-                                        className="w-[100px] border-0 shadow-none px-0 text-black data-[placeholder]:text-black data-[placeholder]:opacity-100"
-                                    >
-                                        <SelectValue placeholder="Messages" />
-                                    </SelectTrigger>
-
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Messages</SelectLabel>
-                                            <SelectItem value="apple">Apple</SelectItem>
-                                            <SelectItem value="banana">Banana</SelectItem>
-                                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                                            <SelectItem value="grapes">Grapes</SelectItem>
-                                            <SelectItem value="pineapple">Pineapple</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
+                                <div className="text-[0.9rem]">Messages</div>
                             </div>
                         </div>
 
@@ -210,7 +218,7 @@ export default function Bosses() {
                 </div>
             </div>
 
-            <div className="px-25 mt-[3rem]">
+            <div className="px-25 mt-[3rem] mb-[3rem]">
                 <div className="flex justify-between items-center">
                     <header className="text-[1.95rem] font-[400] my-[1rem]">Overview</header>
 
@@ -255,7 +263,7 @@ export default function Bosses() {
                             {boxes.map((box) => (
                                 <div
                                     key={box.id}
-                                    className="min-w-[416px] flex-shrink-0 border border-slate-400 rounded-sm p-5"
+                                    className="w-[410px] h-[280px] flex-shrink-0 border border-slate-400 rounded-sm p-5 flex flex-col"
                                 >
                                     {/* Header */}
                                     <div className="flex justify-between items-start mb-2">
@@ -263,16 +271,29 @@ export default function Bosses() {
                                             <div className="bg-primary-100 rounded-full p-3">
                                                 <Axe />
                                             </div>
-                                            <p>{box.title}</p>
+                                            <p className="text-[1.2rem] line-clamp-2">{box.title}</p>
                                         </div>
                                         <Ellipsis />
                                     </div>
 
-                                    {/* Details */}
-                                    <div className="mb-2">{box.details}</div>
+                                    <div className="flex flex-col gap-3 h-full">
+                                        <div className="flex flex-col gap-3">
+                                            <Badge
+                                                variant="secondary"
+                                                className="bg-blue-500 text-white dark:bg-blue-600"
+                                            >
+                                                Draft Gig Post
+                                            </Badge>
 
-                                    {/* Action */}
-                                    <div>Button Action</div>
+                                            <div className="mb-2 text-[1.4rem]">{box.details}</div>
+                                        </div>
+
+                                        <Button
+                                            className="mt-auto border border-1 rounded-sm bg-white border-blue-700 text-primary-700 hover:bg-blue-700 hover:text-white"
+                                        >
+                                            {box.button}
+                                        </Button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -289,8 +310,141 @@ export default function Bosses() {
                     </div>
 
                 ) : (
-                    <div>list</div>
+                    <div>
+                        {boxes.map((item) => (
+                            <div
+                                key={item.id}
+                                className="border-1 rounded-xs  p-3 flex justify-between items-center gap-4"
+                            >
+                                {/* Left row */}
+                                <div className="flex items-center w-[50%] gap-6 flex-1 min-w-0">
+                                    {/* Icon + Title */}
+                                    <div className="flex items-start w-[30%] gap-3 min-w-0">
+                                        <div className="bg-primary-100 rounded-full p-3">
+                                            <Axe />
+                                        </div>
+                                        <p className="text-[1.2rem] leading-snug line-clamp-2 min-w-0">
+                                            {item.title}
+                                        </p>
+                                    </div>
+
+                                    {/* Badge + Details */}
+                                    <div className="flex items-center gap-6 flex-shrink-0">
+                                        <Badge
+                                            variant="secondary"
+                                            className="bg-blue-500 text-white dark:bg-blue-600"
+                                        >
+                                            Draft Gig Post
+                                        </Badge>
+
+                                        <div className="text-[1.1rem] whitespace-nowrap">
+                                            {item.details}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-5">
+                                    <Button
+                                        className="mt-auto border border-1 rounded-sm bg-white border-blue-700 text-primary-700 hover:bg-blue-700 hover:text-white"
+                                    >
+                                        {item.button}
+                                    </Button>
+                                    {/* Ellipsis */}
+                                    <Ellipsis />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 )}
+            </div>
+
+            <div className="px-25 mt-[3rem] mb-[3rem]">
+                <div className="flex justify-between items-center">
+                    <header className="text-[1.95rem] font-[400] my-[1rem]">Book With Expert GigDaddy</header>
+                    <div className="flex gap-3"><p>Browse GigDaddy</p> <ArrowRight /></div>
+                </div>
+                <div className="mt-[2rem]">
+                    <div className="relative">
+                        {/* Left Arrow */}
+                        {gigDaddy.length > 3 && (
+                            <button
+                                onClick={scrollProfileLeft}
+                                className="absolute left-[-2.5rem] top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow z-10"
+                            >
+                                <ArrowLeft className="w-5 h-5" />
+                            </button>
+                        )}
+
+                        {/* Boxes Container */}
+                        <div
+                            ref={gigDaddyProfile}
+                            className={`flex gap-4 overflow-hidden`}
+                        >
+                            {gigDaddy.map((box) => (
+                                <div
+                                    key={box.id}
+                                    className="w-[304px] h-[380px] flex-shrink-0 border border-slate-400 rounded-sm p-5 flex flex-col"
+                                >
+                                    {/* Header */}
+                                    <div className="flex justify-between items-center mb-2">
+                                        <div className="flex gap-5">
+                                            <Avatar className="h-12 w-12">
+                                                <AvatarImage src="https://github.com/shadcn.png" />
+                                                <AvatarFallback>CN</AvatarFallback>
+                                            </Avatar>
+                                            <div className="flex flex-col">
+                                                <p className="font-[500] text-[1.2rem]">{box.name}</p>
+                                                <p>{box.location}</p>
+                                            </div>
+                                        </div>
+                                        <i className="text-[1.5rem] ri-heart-2-line"></i>
+                                    </div>
+
+                                    <div className="flex justify-around my-[0.5rem]">
+                                        <div className="flex items-center flex-col">
+                                            <p className="font-[500]">{box.jobSuccess}</p>
+                                            <p className="font-[500] text-[0.8rem] text-slate-700">Job Success</p>
+                                        </div>
+                                        <div className="flex items-center flex-col">
+                                            <p className="font-[500]">{box.jobs}</p>
+                                            <p className="font-[500] text-[0.8rem] text-slate-700">Jobs</p>
+                                        </div>
+                                        <div className="flex items-center flex-col">
+                                            <p className="font-[500]">{box.hourly}</p>
+                                            <p className="font-[500] text-[0.8rem] text-slate-700">Hourly Rate</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col gap-3 h-full">
+                                        <div className="">
+                                        <p className="mb-2 text-[1.1rem]">{box.title}</p>
+                                        </div>
+
+                                        <div>
+                                            {box.description}
+                                        </div>
+
+                                        <Button
+                                            className="mt-auto border border-1 rounded-sm bg-white border-blue-700 text-primary-700 hover:bg-blue-700 hover:text-white"
+                                        >
+                                            Book a Gig
+                                        </Button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Right Arrow */}
+                        {boxes.length > 3 && (
+                            <button
+                                onClick={scrollProfileRight}
+                                className="absolute right-[-2.5rem] top-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow z-10"
+                            >
+                                <ArrowRight className="w-5 h-5" />
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
         </main>
     )
