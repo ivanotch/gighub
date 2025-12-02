@@ -1,23 +1,9 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
-import Link from "next/link"
 import Image from "next/image"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-    SelectGroup,
-    SelectLabel
-} from "@/components/ui/select"
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupInput,
-} from "@/components/ui/input-group"
 import { Button } from "@/components/ui/button"
 import {
     SearchIcon,
@@ -37,15 +23,18 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar"
-interface TreeBox {
-    id: number;
-    title: string;
-    details: string;
-}
+import { Input } from "@/components/ui/input"
+import Nav from "@/components/gigbosspage/Nav";
+
 
 
 export default function Bosses() {
+    const router = useRouter()
     const [active, setActive] = useState<"grid" | "list">("grid");
+    const [open, setOpen] = useState(false);
+    const [openEmail, setOpenEmail] = useState(false);
+
+
     const containerRef = useRef<HTMLDivElement>(null);
     const gigDaddyProfile = useRef<HTMLDivElement>(null);
 
@@ -90,92 +79,12 @@ export default function Bosses() {
     ];
     return (
         <main>
-            <nav className="bg-white sticky top-0 z-50">
-                <div className="">
-                    <div className="flex items-center justify-between w-full h-20 px-10">
-                        {/* left Side */}
-                        <div className="flex gap-8">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <Image src="/gigdaddy-logo.png" alt="GigDaddy Logo" height={150} width={150} />
-                                </Link>
-                            </div>
-
-                            <div className="flex items-center gap-4">
-                                <Select>
-                                    <SelectTrigger
-                                        className="w-[100px] border-0 shadow-none px-0 text-black data-[placeholder]:text-black data-[placeholder]:opacity-100"
-                                    >
-                                        <SelectValue placeholder="Post a gig" />
-                                    </SelectTrigger>
-
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Post a gig</SelectLabel>
-                                            <SelectItem value="apple">Post a gig</SelectItem>
-                                            <SelectItem value="banana">Gig proposal</SelectItem>
-                                            <SelectItem value="blueberry">Search for a GigDaddy</SelectItem>
-                                            <SelectItem value="grapes">Gigdaddy you've hired</SelectItem>
-                                            <SelectItem value="pineapple">Gigdaddy you've saved</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-
-                                <Select>
-                                    <SelectTrigger
-                                        className="w-[100px] border-0 shadow-none px-0 text-black data-[placeholder]:text-black data-[placeholder]:opacity-100"
-                                    >
-                                        <SelectValue placeholder="Manage gig" />
-                                    </SelectTrigger>
-
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Manage gig</SelectLabel>
-                                            <SelectItem value="apple">Your contracts</SelectItem>
-                                            <SelectItem value="banana">Timesheets</SelectItem>
-                                            <SelectItem value="blueberry">Work Diaries</SelectItem>
-                                            <SelectItem value="grapes">Time by gig worker</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                                <Select>
-                                    <SelectTrigger
-                                        className="w-[100px] border-0 shadow-none px-0 text-black data-[placeholder]:text-black data-[placeholder]:opacity-100"
-                                    >
-                                        <SelectValue placeholder="Reports" />
-                                    </SelectTrigger>
-
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Reports</SelectLabel>
-                                            <SelectItem value="apple">Weekly financial summary</SelectItem>
-                                            <SelectItem value="banana">Transaction History</SelectItem>
-                                            <SelectItem value="blueberry">Spending by activity</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                                <div className="text-[0.9rem]">Messages</div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-5">
-                            <InputGroup>
-                                <InputGroupInput placeholder="Search..." />
-                                <InputGroupAddon>
-                                    <SearchIcon />
-                                </InputGroupAddon>
-                                <InputGroupAddon align="inline-end">12 results</InputGroupAddon>
-                            </InputGroup>
-                            <div><Bell /></div>
-                            <div><CircleUser /></div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <Nav />
+            
             <div className="mt-3">
                 <div className="flex items-center justify-between px-25">
                     <header className="text-[1.5rem] font-[500]">Welcome, Ivanotch</header>
-                    <Button className="bg-primary-600 text-white w-[150px] h-[45px] text-[1.1rem] gap-2" variant="outline">
+                    <Button onClick={() => router.push('/gigbosses/postgig')} className="bg-primary-600 text-white w-[150px] h-[45px] text-[1.1rem] gap-2" variant="outline">
                         <BadgePlus />
                         Post a gig
                     </Button>
@@ -185,7 +94,8 @@ export default function Bosses() {
             <div className="px-25">
                 <header className="text-[1.95rem] font-[400] my-[1rem]">Finish setting up to hire a GigDaddy</header>
                 <div className="flex gap-4">
-                    <div className="flex border-1 rounded-md p-5">
+
+                    <div onClick={() => setOpen(true)} className="flex border-1 rounded-md p-5">
                         <div className="flex flex-col ">
                             <p className="text-slate-600 text-[0.9rem] font-[400]">Required to publish a gig</p>
                             <header className="text-[1.3rem]">Verify Phone Number</header>
@@ -195,6 +105,7 @@ export default function Bosses() {
                         </div>
                         <Smartphone size={50} strokeWidth={1.3} />
                     </div>
+
                     <div className="flex border-1 rounded-md p-5">
                         <div className="flex flex-col ">
                             <p className="text-slate-600 text-[0.9rem] font-[400]">Required to publish a gig</p>
@@ -205,7 +116,8 @@ export default function Bosses() {
                         </div>
                         <i className="ri-bank-card-line text-[2rem] "></i>
                     </div>
-                    <div className="flex border-1 rounded-md p-5">
+
+                    <div onClick={() => setOpenEmail(true)} className="flex border-1 rounded-md p-5">
                         <div className="flex flex-col ">
                             <p className="text-slate-600 text-[0.9rem] font-[400]">Required to publish a gig</p>
                             <header className="text-[1.3rem]">Verify Email Address</header>
@@ -417,7 +329,7 @@ export default function Bosses() {
 
                                     <div className="flex flex-col gap-3 h-full">
                                         <div className="">
-                                        <p className="mb-2 text-[1.1rem]">{box.title}</p>
+                                            <p className="mb-2 text-[1.1rem]">{box.title}</p>
                                         </div>
 
                                         <div>
@@ -446,6 +358,87 @@ export default function Bosses() {
                     </div>
                 </div>
             </div>
+            {open && (
+                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+                    <div className="bg-white flex flex-col items-center p-6 w-[90%] max-w-[40rem] h-[25rem] rounded-lg shadow-xl">
+                        <div className="flex w-full justify-end items-center">
+                            <div
+                                className=""
+                                onClick={() => setOpen(false)}
+                            >
+                                <i className="ri-close-large-line"></i>
+                            </div>
+                        </div>
+                        <h2 className="text-xl text-center mb-[1.5rem] font-semibold mb-3">Please Verify your phone number</h2>
+                        <p className="mb-[2rem] text-center mt-[1rem]">We'll text you a code to verify your number.</p>
+
+                        <div className="mx-[3rem] mb-[1rem]">
+                            <div className="text-slate-600 mb-1">Phone Number</div>
+
+                            <div className="flex items-center gap-3 border-2 border-black rounded-md px-2 bg-white max-w-sm">
+                                {/* PH Flag */}
+                                <Image
+                                    src="/philippines.png"
+                                    width={30}
+                                    height={20}
+                                    alt="Philippines Flag"
+                                    className="rounded-sm"
+                                />
+
+                                {/* Country Code */}
+                                <p className="text-slate-700 font-medium">+63</p>
+
+                                {/* Phone Number Input */}
+                                <Input
+                                    type="text"
+                                    placeholder="912 345 6789"
+                                    className="flex-1 border-none shadow-none focus-visible:ring-0"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="text-sm text-slate-600 text-center ">
+                            Messaging rates may apply. We'll use this number for verification purposes only — we won't share it or use it for marketing.
+                        </div>
+
+                        <button
+                            className="mt-5 px-4 py-2 bg-blue-600 text-white rounded-md"
+                            onClick={() => setOpen(false)}
+                        >
+                            Send Code
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {openEmail && (
+                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+                    <div className="bg-white flex flex-col items-center p-6 w-[90%] max-w-[40rem] h-[23rem] rounded-lg shadow-xl">
+                        <div className="flex w-full justify-end items-center">
+                            <div
+                                className=""
+                                onClick={() => setOpenEmail(false)}
+                            >
+                                <i className="ri-close-large-line"></i>
+                            </div>
+                        </div>
+                        <h2 className="text-xl text-center mb-[1.5rem] font-semibold mb-3">Please Verify your email Address</h2>
+                        <p className="mb-[2rem] text-center mt-[1rem]">We'll text you a link to verify your email.</p>
+
+                        <div className="mx-[3rem] flex flex-col items-center gap-2 mb-[1rem]">
+                            <span>We've sent an email to</span>
+                            <span className="text-[1.1rem] font-[500]">Babida.cij.bscs@gmail.com</span>
+                        </div>
+
+                        <button
+                            className="mt-5 px-4 py-2 bg-blue-600 text-white rounded-md"
+                            onClick={() => setOpen(false)}
+                        >
+                            Send Link Verification
+                        </button>
+                    </div>
+                </div>
+            )}
         </main>
     )
 }
