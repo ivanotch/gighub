@@ -45,7 +45,6 @@ export default function Nav() {
                                     <SelectGroup>
                                         <SelectLabel>Post a gig</SelectLabel>
                                         <SelectItem value="apple">Post a gig</SelectItem>
-                                        <SelectItem value="banana">Gig proposal</SelectItem>
                                         <SelectItem value="blueberry">Search for a GigDaddy</SelectItem>
                                         <SelectItem value="grapes">Gigdaddy you've hired</SelectItem>
                                         <SelectItem value="pineapple">Gigdaddy you've saved</SelectItem>
@@ -63,8 +62,6 @@ export default function Nav() {
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Manage gig</SelectLabel>
-                                        <SelectItem value="apple">Your contracts</SelectItem>
-                                        <SelectItem value="banana">Timesheets</SelectItem>
                                         <SelectItem value="blueberry">Work Diaries</SelectItem>
                                         <SelectItem value="grapes">Time by gig worker</SelectItem>
                                     </SelectGroup>

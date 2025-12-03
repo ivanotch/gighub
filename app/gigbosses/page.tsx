@@ -321,10 +321,7 @@ export default function Bosses() {
                                             <p className="font-[500]">{box.jobs}</p>
                                             <p className="font-[500] text-[0.8rem] text-slate-700">Jobs</p>
                                         </div>
-                                        <div className="flex items-center flex-col">
-                                            <p className="font-[500]">{box.hourly}</p>
-                                            <p className="font-[500] text-[0.8rem] text-slate-700">Hourly Rate</p>
-                                        </div>
+                                        
                                     </div>
 
                                     <div className="flex flex-col gap-3 h-full">
