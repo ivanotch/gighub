@@ -17,6 +17,10 @@ function LandingPage() {
     router.push("/registration");
   };
 
+  const handleLoginClick = () => {
+    router.push("/login");
+  };
+
   // Updated categories with nested subservices
   const categories = [
     {
@@ -159,7 +163,7 @@ function LandingPage() {
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               ))}
-              <Button onClick={handleApplyClick} className="ml-6 px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300">
+              <Button onClick={handleLoginClick} className="ml-6 px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-md transition-all duration-300 cursor-pointer">
                 Login
               </Button>
             </div>
@@ -207,7 +211,7 @@ function LandingPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                <Button onClick={handleApplyClick} className="bg-primary-100 hover:bg-primary-700 hover:text-white text-white font-bold text-xl px-10 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5">
+                <Button onClick={handleApplyClick} className="bg-primary-100 hover:bg-primary-700 hover:text-white text-white font-bold text-xl px-10 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
                   Apply Now
                 </Button>
               </div>
@@ -395,29 +399,25 @@ function LandingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {[
               {
-                name: "John Doe",
-                role: "CEO",
+                name: "Charlz Ivan John Babida",
                 imageUrl: "/images/avatar.jpg",
                 linkedin: "#",
                 twitter: "#"
               },
               {
-                name: "Jane Smith",
-                role: "Head of Operations",
+                name: "John Matthew Perez",
                 imageUrl: "/images/avatar.jpg",
                 linkedin: "#",
                 twitter: "#"
               },
               {
-                name: "Alice Johnson",
-                role: "Marketing Lead",
+                name: "Trisha Fate Salubre",
                 imageUrl: "/images/avatar.jpg",
                 linkedin: "#",
                 twitter: "#"
               },
               {
-                name: "Bob Williams",
-                role: "Product Manager",
+                name: "Jay-Ar Untalan",
                 imageUrl: "/images/avatar.jpg",
                 linkedin: "#",
                 twitter: "#"
@@ -428,7 +428,7 @@ function LandingPage() {
                 className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col items-center p-6 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
               >
                 {/* Image with border gradient */}
-                <div className="w-32 h-32 rounded-full overflow-hidden mb-4 ring-4 ring-primary-200 hover:ring-primary-400 transition-all duration-300">
+                <div className="w-32 h-32 rounded-full overflow-hidden mb-4 ring-3 ring-primary-500 ring-offset-4 ring-offset-slate-50 transition-all duration-300">
                   <img
                     src={member.imageUrl}
                     alt={member.name}
@@ -436,8 +436,7 @@ function LandingPage() {
                   />
                 </div>
 
-                <h3 className="text-xl font-bold text-foreground mb-1">{member.name}</h3>
-                <p className="text-primary-600 mb-4">{member.role}</p>
+                <h3 className="text-xl font-bold text-foreground mb-3">{member.name}</h3>
 
                 {/* Social Icons */}
                 <div className="flex space-x-3">
