@@ -7,6 +7,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { rocaTwo } from "./fonts";
 import { useRouter } from "next/navigation";
+import {
+  BrushCleaning,
+  ShoppingBag,
+  Sparkles,
+  Droplets,
+  Shirt,
+  Users,
+  Package,
+  Tag,
+  BarChart,
+  Truck,
+  Package2,
+  CheckCircle,
+  Check,
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Twitter,
+  ChevronRight,
+  DollarSign,
+  Briefcase,
+  Award,
+  Shield,
+  Clock,
+  Zap,
+  Home,
+  Building
+} from "lucide-react";
 
 function LandingPage() {
   const router = useRouter();
@@ -17,112 +46,45 @@ function LandingPage() {
     router.push("/registration");
   };
 
-  // Updated categories with nested subservices
+  // Categories with exact subservices you provided
   const categories = [
     {
       id: 1,
       name: "Cleaning Services",
       description: "Professional cleaning for homes and businesses",
-      mainImageUrl: "/images/Housework.png",
+      icon: BrushCleaning,
       subServices: [
-        { id: 1, title: "House Cleaning", description: "Complete home cleaning service", icon: "🏠" },
-        { id: 2, title: "Office Cleaning", description: "Commercial space maintenance", icon: "🏢" },
-        { id: 3, title: "Deep Cleaning", description: "Intensive cleaning for special occasions", icon: "✨" },
-        { id: 4, title: "Window Cleaning", description: "Indoor and outdoor window washing", icon: "🪟" },
-        { id: 5, title: "Carpet Cleaning", description: "Professional carpet and upholstery cleaning", icon: "🧹" },
-      ]
+        { id: 1, title: "Power Wash", description: "High-pressure exterior cleaning", icon: Droplets },
+        { id: 2, title: "Deep Cleaning", description: "Intensive comprehensive cleaning", icon: Sparkles },
+        { id: 3, title: "Dish Washer", description: "Commercial dish washing", icon: Shirt },
+        { id: 4, title: "Laundry", description: "Clothing and linen cleaning", icon: Shirt },
+        { id: 5, title: "Cleaning Assistant", description: "General cleaning support", icon: Users },
+      ],
+      stats: {
+        availableJobs: 245,
+        rating: 4.8,
+        quickHire: true
+      }
     },
     {
       id: 2,
-      name: "Food & Beverage",
-      description: "Culinary and hospitality positions",
-      mainImageUrl: "/images/Barista.png",
+      name: "E-commerce",
+      description: "Online retail and fulfillment operations",
+      icon: ShoppingBag,
       subServices: [
-        { id: 1, title: "Barista", description: "Coffee preparation and service", icon: "☕" },
-        { id: 2, title: "Bakery Assistant", description: "Pastry baking and preparation", icon: "🥐" },
-        { id: 3, title: "Kitchen Staff", description: "Food preparation and cooking", icon: "👨‍🍳" },
-        { id: 4, title: "Wait Staff", description: "Customer service and order taking", icon: "🍽️" },
-        { id: 5, title: "Food Delivery", description: "Local food delivery service", icon: "🛵" },
-      ]
-    },
-    {
-      id: 3,
-      name: "Construction",
-      description: "Building and renovation services",
-      mainImageUrl: "/images/Construction.png",
-      subServices: [
-        { id: 1, title: "General Laborer", description: "Basic construction assistance", icon: "🔨" },
-        { id: 2, title: "Carpenter", description: "Woodworking and framing", icon: "🪚" },
-        { id: 3, title: "Painter", description: "Interior and exterior painting", icon: "🎨" },
-        { id: 4, title: "Electrician Assistant", description: "Electrical work support", icon: "⚡" },
-        { id: 5, title: "Plumbing Assistant", description: "Plumbing installation and repair", icon: "🔧" },
-      ]
-    },
-    {
-      id: 4,
-      name: "Landscaping",
-      description: "Outdoor maintenance and gardening",
-      mainImageUrl: "/images/Lawnmower.png",
-      subServices: [
-        { id: 1, title: "Lawn Care", description: "Mowing and lawn maintenance", icon: "🌱" },
-        { id: 2, title: "Gardener", description: "Plant care and garden design", icon: "🌷" },
-        { id: 3, title: "Tree Service", description: "Tree trimming and removal", icon: "🌳" },
-        { id: 4, title: "Irrigation", description: "Sprinkler system installation", icon: "💧" },
-        { id: 5, title: "Hardscaping", description: "Patio and walkway construction", icon: "🧱" },
-      ]
-    },
-    {
-      id: 5,
-      name: "Retail & Sales",
-      description: "Customer service and sales positions",
-      mainImageUrl: "/images/Shopclerk.png",
-      subServices: [
-        { id: 1, title: "Sales Associate", description: "Retail customer service", icon: "💳" },
-        { id: 2, title: "Cashier", description: "Point of sale operations", icon: "💰" },
-        { id: 3, title: "Store Manager", description: "Retail operations management", icon: "👔" },
-        { id: 4, title: "Inventory Clerk", description: "Stock management and organization", icon: "📦" },
-        { id: 5, title: "Visual Merchandiser", description: "Store display arrangement", icon: "🛍️" },
-      ]
-    },
-    {
-      id: 6,
-      name: "Education",
-      description: "Teaching and tutoring services",
-      mainImageUrl: "/images/Tutor.png",
-      subServices: [
-        { id: 1, title: "Academic Tutor", description: "Subject-specific tutoring", icon: "📚" },
-        { id: 2, title: "Music Teacher", description: "Instrument and voice lessons", icon: "🎵" },
-        { id: 3, title: "Language Instructor", description: "Foreign language teaching", icon: "🗣️" },
-        { id: 4, title: "Test Prep Coach", description: "Exam preparation assistance", icon: "✏️" },
-        { id: 5, title: "Child Care", description: "Babysitting and child supervision", icon: "👶" },
-      ]
-    },
-    {
-      id: 7,
-      name: "Laundry Services",
-      description: "Clothing care and maintenance",
-      mainImageUrl: "/images/Laundryclerk.png",
-      subServices: [
-        { id: 1, title: "Laundry Attendant", description: "Washing and folding service", icon: "👕" },
-        { id: 2, title: "Dry Cleaning", description: "Specialty fabric care", icon: "🧥" },
-        { id: 3, title: "Ironing Service", description: "Professional pressing and steaming", icon: "🧺" },
-        { id: 4, title: "Alterations", description: "Clothing repair and fitting", icon: "🪡" },
-        { id: 5, title: "Pickup & Delivery", description: "Convenient laundry service", icon: "🚚" },
-      ]
-    },
-    {
-      id: 8,
-      name: "Automotive",
-      description: "Vehicle maintenance and repair",
-      mainImageUrl: "/images/Construction.png", // You can replace this with a car image
-      subServices: [
-        { id: 1, title: "Car Wash", description: "Vehicle cleaning and detailing", icon: "🚗" },
-        { id: 2, title: "Mechanic Assistant", description: "Auto repair support", icon: "🔧" },
-        { id: 3, title: "Tire Service", description: "Tire rotation and replacement", icon: "🛞" },
-        { id: 4, title: "Oil Change", description: "Basic vehicle maintenance", icon: "🛢️" },
-        { id: 5, title: "Detailing", description: "Interior and exterior detailing", icon: "✨" },
-      ]
-    },
+        { id: 1, title: "Packaging", description: "Product packaging and preparation", icon: Package },
+        { id: 2, title: "Labeling", description: "Inventory labeling and organization", icon: Tag },
+        { id: 3, title: "Inventory Management", description: "Stock tracking and management", icon: BarChart },
+        { id: 4, title: "Shipping/Dropping off", description: "Order shipping and logistics", icon: Truck },
+        { id: 5, title: "Restocking", description: "Warehouse restocking operations", icon: Package2 },
+        { id: 6, title: "Order Processing", description: "Order fulfillment and processing", icon: CheckCircle },
+      ],
+      stats: {
+        availableJobs: 189,
+        rating: 4.6,
+        quickHire: true
+      }
+    }
   ];
 
   const navLinks = [
@@ -134,9 +96,12 @@ function LandingPage() {
 
   const handleCategoryClick = (category: any) => {
     setSelectedCategory(category);
-    // You can add logic to show a modal or navigate to category details
     console.log('Category clicked:', category);
   };
+
+  // Calculate totals
+  const totalGigs = categories.reduce((total, cat) => total + cat.subServices.length, 0);
+  const totalJobs = categories.reduce((total, cat) => total + cat.stats.availableJobs, 0);
 
   return (
     <div className="min-h-screen text-foreground bg-background">
@@ -203,11 +168,11 @@ function LandingPage() {
                 Your Next Great <span className="text-primary-600">Gig Opportunity</span> is Here.
               </h1>
               <p className="text-xl text-primary-950 max-w-2xl font-light">
-                Connecting you directly to high-paying, flexible, and full-time Gigs across various industries. Start your application today!
+                Connecting you directly to high-paying, flexible, and full-time Gigs in Cleaning & E-commerce. Start your application today!
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                <Button onClick={handleApplyClick} className="bg-primary-100 hover:bg-primary-700 hover:text-white text-white font-bold text-xl px-10 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5">
+                <Button onClick={handleApplyClick} className="bg-primary-600 hover:bg-primary-700 text-white font-bold text-xl px-10 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5">
                   Apply Now
                 </Button>
               </div>
@@ -228,107 +193,218 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Services Section - Updated with Category Carousel */}
+      {/* Services Section */}
       <section id="services" className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
               <span className="w-2.5 h-2.5 bg-primary-600 rounded-full animate-pulse"></span>
-              Browse Categories
+              Browse Our Top Categories
             </div>
             <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground ${rocaTwo.className}`}>
-              Explore Service Categories
+              Explore High-Demand Categories
             </h2>
             <p className="text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed mb-8">
-              Find opportunities that match your skills. Each category contains multiple specialized gigs.
+              Focused on quality opportunities in our most popular sectors. Find your perfect gig match.
             </p>
             
             {/* Category Stats */}
             <div className="flex flex-wrap justify-center gap-6 mb-12">
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary-600">{categories.length}</div>
-                <div className="text-gray-600">Categories</div>
+                <div className="text-gray-600">Featured Categories</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600">
-                  {categories.reduce((total, cat) => total + cat.subServices.length, 0)}
-                </div>
-                <div className="text-gray-600">Available Gigs</div>
+                <div className="text-3xl font-bold text-primary-600">{totalGigs}</div>
+                <div className="text-gray-600">Service Types</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary-600">{totalJobs}+</div>
+                <div className="text-gray-600">Available Jobs</div>
               </div>
             </div>
           </div>
 
-          {/* Category Carousel */}
-          <div className="mb-12">
-            <CategoryCarousel
-              categories={categories}
-              onCategoryClick={handleCategoryClick}
-            />
-          </div>
-
-          {/* Featured Categories Grid */}
-          <div className="mt-16">
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-foreground mb-4">Most Popular Categories</h3>
-              <p className="text-gray-600 max-w-2xl mx-auto">These categories have the highest number of available gigs right now</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {categories.slice(0, 4).map((category) => (
+          {/* Category Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {categories.map((category) => {
+              const IconComponent = category.icon;
+              return (
                 <div
                   key={category.id}
-                  className="bg-white rounded-xl shadow-lg p-5 border border-gray-100 hover:shadow-2xl hover:border-primary-200 transition-all duration-300 cursor-pointer group"
                   onClick={() => handleCategoryClick(category)}
+                  className="relative p-8 rounded-2xl border-2 transition-all duration-300 min-h-[380px] flex flex-col cursor-pointer bg-white hover:border-primary-300 hover:shadow-xl group"
                 >
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-primary-50 p-2 group-hover:bg-primary-100 transition-colors">
-                      <img
-                        src={category.mainImageUrl}
-                        alt={category.name}
-                        className="w-full h-full object-cover rounded"
-                      />
+                  {/* Category Header */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0 w-20 h-20 rounded-xl flex items-center justify-center bg-primary-100 group-hover:bg-primary-200 transition-colors">
+                        <IconComponent className="w-10 h-10 text-primary-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900">
+                          {category.name}
+                        </h3>
+                        <p className="text-gray-600 mt-1">
+                          {category.description}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-gray-900 group-hover:text-primary-600 transition-colors">
-                        {category.name}
-                      </h3>
-                      <p className="text-sm text-gray-600">{category.subServices.length} services</p>
+                    
+                    {/* Stats Badge */}
+                    <div className="flex flex-col items-end gap-2">
+                      <div className="bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-sm font-semibold">
+                        {category.stats.availableJobs} jobs
+                      </div>
+                      {category.stats.quickHire && (
+                        <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs">
+                          <Zap className="w-3 h-3" />
+                          Quick Hire
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <div className="space-y-2 mb-4">
-                    {category.subServices.slice(0, 3).map((service) => (
-                      <div key={service.id} className="flex items-center text-sm group/item">
-                        <span className="mr-3 text-lg">{service.icon}</span>
-                        <div>
-                          <span className="text-gray-700 group-hover/item:text-primary-600 transition-colors">
-                            {service.title}
-                          </span>
-                          <p className="text-xs text-gray-500 truncate">{service.description}</p>
+
+                  {/* Sub-services */}
+                  <div className="mb-6">
+                    <h4 className="font-semibold text-gray-700 mb-4">Available Services:</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      {category.subServices.map((service) => {
+                        const ServiceIcon = service.icon;
+                        return (
+                          <div 
+                            key={service.id}
+                            className="flex items-center gap-3 text-sm p-3 rounded-lg bg-gray-50 hover:bg-primary-50 transition-colors group/item"
+                          >
+                            <ServiceIcon className="w-4 h-4 text-gray-500 group-hover/item:text-primary-600 flex-shrink-0" />
+                            <div className="min-w-0">
+                              <span className="font-medium text-gray-700 group-hover/item:text-primary-600 transition-colors block truncate">
+                                {service.title}
+                              </span>
+                              <p className="text-xs text-gray-500 truncate">{service.description}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Category Stats Footer */}
+                  <div className="mt-auto pt-6 border-t border-gray-100">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2">
+                          <Award className="w-4 h-4 text-yellow-500" />
+                          <span className="text-sm font-medium text-gray-700">{category.stats.rating}/5</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock className="w-4 h-4 text-blue-500" />
+                          <span className="text-sm font-medium text-gray-700">Flexible</span>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  <div className="text-center">
-                    <span className="inline-flex items-center text-primary-600 text-sm font-medium group-hover:text-primary-700 transition-colors">
-                      View All Services
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
+                      <button className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+                        View Details
+                        <ChevronRight className="w-4 h-4 ml-1" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              ))}
+              );
+            })}
+          </div>
+
+          {/* Additional Info Section */}
+          <div className="mt-16 bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-bold text-foreground mb-4">Why Choose These Categories?</h3>
+              <p className="text-gray-600 max-w-2xl mx-auto">Our most reliable and high-demand sectors with consistent work opportunities</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-blue-100 p-3 rounded-lg flex-shrink-0">
+                    <Shield className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">Cleaning Services Benefits</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Immediate start opportunities</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Both residential and commercial work</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Equipment and supplies provided</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Flexible shift options</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="bg-primary-50 p-4 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <Home className="w-5 h-5 text-primary-600" />
+                    <Building className="w-5 h-5 text-primary-600" />
+                    <span className="font-medium text-primary-700">Residential & Commercial Cleaning Available</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-green-100 p-3 rounded-lg flex-shrink-0">
+                    <Briefcase className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">E-commerce Benefits</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Indoor work environment</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Consistent year-round demand</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Career advancement opportunities</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Modern warehouse facilities</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <Package className="w-5 h-5 text-green-600" />
+                    <Truck className="w-5 h-5 text-green-600" />
+                    <span className="font-medium text-green-700">Full Logistics Training Provided</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="text-center mt-16">
             <Button 
-              onClick={() => console.log('Explore all clicked')}
-              className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg hover:shadow-xl text-lg"
+              onClick={handleApplyClick}
+              className="bg-primary-600 hover:bg-primary-700 text-white px-10 py-5 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl text-lg transform hover:-translate-y-1"
             >
-              Explore All {categories.length} Categories
+              Start Your Application Today
             </Button>
-            <p className="text-gray-600 mt-4">Over {categories.reduce((total, cat) => total + cat.subServices.length, 0)} gigs available</p>
+            <p className="text-gray-600 mt-4">{totalJobs}+ gigs currently available across {totalGigs} service types</p>
           </div>
         </div>
       </section>
@@ -339,37 +415,43 @@ function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative order-2 lg:order-1">
               <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary-200/50">
-                <img src="/images/Lawnmower.png" alt="About Our Company" className="w-full h-96 object-cover" />
+                <img src="/images/deal.jpg" alt="About Our Company" className="w-full h-96 object-cover" />
               </div>
             </div>
 
             <div className="space-y-8 order-1 lg:order-2">
               <h2 className={`text-4xl md:text-5xl font-bold text-foreground ${rocaTwo.className}`}>
-                Why Join the GigDaddy Team?
+                Why Choose GigDaddy?
               </h2>
               <p className="text-lg text-foreground/80">
-                We're not just a Gig platform—we're a community committed to connecting great talent with genuine opportunities. Discover why thousands choose GigDaddy every month.
+                We specialize in connecting talented individuals with high-quality opportunities in our most in-demand sectors. Join thousands who've found their perfect gig through us.
               </p>
 
               <div className="space-y-5">
                 {[
-                  { title: "Competitive Compensation", desc: "Industry-leading pay with performance bonuses.", icon: "ri-money-dollar-circle-line" },
-                  { title: "Career Growth", desc: "Clear promotion paths and professional development.", icon: "ri-bar-chart-line" },
-                  { title: "Great Benefits", desc: "Health insurance, retirement plans, and paid time off.", icon: "ri-shield-flash-line" }
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="bg-primary-200 p-2 rounded-full shrink-0 flex items-center justify-center">
-                      <i className={`${item.icon} text-primary-800 text-3xl`}></i>
+                  { title: "Immediate Start", desc: "Get started quickly with our streamlined application process.", icon: Zap },
+                  { title: "Weekly Payments", desc: "Reliable weekly payments with direct deposit options.", icon: DollarSign },
+                  { title: "Career Support", desc: "Ongoing training and career development opportunities.", icon: Briefcase }
+                ].map((item, index) => {
+                  const ItemIcon = item.icon;
+                  return (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="bg-primary-200 p-2 rounded-full shrink-0 flex items-center justify-center">
+                        <ItemIcon className="text-primary-800 w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-xl text-foreground mb-1">{item.title}</h4>
+                        <p className="text-foreground/70">{item.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-xl text-foreground mb-1">{item.title}</h4>
-                      <p className="text-foreground/70">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
-              <Button className="mt-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md">
+              <Button 
+                onClick={handleApplyClick}
+                className="mt-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md"
+              >
                 Join Our Team
               </Button>
             </div>
@@ -447,7 +529,7 @@ function LandingPage() {
                     className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-100 text-primary-700 hover:bg-primary-600 hover:text-white transition-all duration-300"
                     aria-label="LinkedIn"
                   >
-                    <i className="ri-linkedin-line text-lg"></i>
+                    <Linkedin className="w-5 h-5" />
                   </a>
                   <a
                     href={member.twitter}
@@ -455,7 +537,7 @@ function LandingPage() {
                     className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-100 text-primary-700 hover:bg-primary-400 hover:text-white transition-all duration-300"
                     aria-label="Twitter"
                   >
-                    <i className="ri-twitter-line text-lg"></i>
+                    <Twitter className="w-5 h-5" />
                   </a>
                 </div>
               </div>
@@ -472,12 +554,15 @@ function LandingPage() {
             <div className="col-span-1 md:col-span-2 space-y-4">
               <h3 className="text-3xl font-bold text-primary-400">GigDaddy</h3>
               <p className="text-gray-400 max-w-md">
-                Connecting talented professionals with rewarding careers. Your future starts here.
+                Connecting talented professionals with rewarding careers in Cleaning & E-commerce. Your future starts here.
               </p>
               <div className="flex space-x-6 pt-2">
-                {/* Social Icons */}
-                <a href="#" className="text-gray-500 hover:text-primary-400 transition-colors">📘</a>
-                <a href="#" className="text-gray-500 hover:text-primary-400 transition-colors">🔗</a>
+                <a href="#" className="text-gray-500 hover:text-primary-400 transition-colors">
+                  <Linkedin className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-500 hover:text-primary-400 transition-colors">
+                  <Twitter className="w-6 h-6" />
+                </a>
               </div>
             </div>
 
@@ -497,9 +582,18 @@ function LandingPage() {
             <div>
               <h4 className="font-semibold text-primary-300 mb-6 border-b border-primary-800 pb-2">Contact Us</h4>
               <ul className="space-y-3 text-gray-400">
-                <li className="flex items-center space-x-2">📞 <span className="hover:text-primary-400 transition-colors">(555) 123-4567</span></li>
-                <li className="flex items-center space-x-2">✉️ <span className="hover:text-primary-400 transition-colors">careers@GigDaddy.com</span></li>
-                <li className="flex items-center space-x-2">📍 <span className="hover:text-primary-400 transition-colors">123 Primary St, Garden City</span></li>
+                <li className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4" />
+                  <span className="hover:text-primary-400 transition-colors">(555) 123-4567</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4" />
+                  <span className="hover:text-primary-400 transition-colors">careers@GigDaddy.com</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <MapPin className="w-4 h-4" />
+                  <span className="hover:text-primary-400 transition-colors">123 Primary St, Garden City</span>
+                </li>
               </ul>
             </div>
           </div>

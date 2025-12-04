@@ -26,7 +26,9 @@ import {
   Award,
   Wallet,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  Shield,
+  AlertCircle
 } from "lucide-react";
 import Head from "next/head";
 
@@ -34,6 +36,7 @@ function EmployeeAnalytics() {
   const router = useRouter();
   const [timeRange, setTimeRange] = useState("month");
   const [activeTab, setActiveTab] = useState("overview");
+  const [isVerified, setIsVerified] = useState(false); // State to control blur/verification
 
   const earningsData = {
     currentBalance: "₱12,500.00",
@@ -95,6 +98,15 @@ function EmployeeAnalytics() {
     alert("Exporting earnings data...");
   };
 
+  const handleBeFullyVerified = () => {
+    router.push("/registration/accountVerification");
+  };
+
+  const handleRemoveBlur = () => {
+    // For testing purposes only - will be removed when backend is connected
+    setIsVerified(true);
+  };
+
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "completed":
@@ -130,6 +142,7 @@ function EmployeeAnalytics() {
         />
       </Head>
 
+      {/* Left Navigation - NOT blurred */}
       <div className="w-64 bg-linear-to-b from-primary-50 to-white shadow-xl border-r border-gray-200 flex-col sticky top-0 h-screen hidden md:flex">
         <div className="p-6 border-b border-primary-100 bg-white">
           <div className="flex items-center space-x-3">
@@ -229,7 +242,73 @@ function EmployeeAnalytics() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Main Content Area  */}
+      <div className="flex-1 flex flex-col overflow-hidden relative">
+        {!isVerified && (
+          <>
+            <div className="absolute inset-0 z-40 bg-white/50 backdrop-blur-sm pointer-events-none"></div>
+            
+            {/* Warning Modal */}
+            <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
+              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all">
+                {/* Warning Icon */}
+                <div className="flex justify-center mb-6">
+                  <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <AlertCircle className="w-10 h-10 text-yellow-600" />
+                  </div>
+                </div>
+
+                {/* Warning Text */}
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    Verification Required
+                  </h2>
+                  <p className="text-gray-600">
+                    You need to complete the document verification first to access all dashboard features.
+                  </p>
+                </div>
+
+                {/* Stats/Info */}
+                <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">0%</div>
+                      <div className="text-xs text-gray-600">Verified</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">4</div>
+                      <div className="text-xs text-gray-600">Docs Pending</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-3">
+                  <button
+                    onClick={handleBeFullyVerified}
+                    className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2"
+                  >
+                    <Shield className="w-5 h-5" />
+                    Be Fully Verified
+                  </button>
+                  
+                  <button
+                    onClick={handleRemoveBlur}
+                    className="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors duration-300 text-sm"
+                  >
+                    Test Mode: Remove Blur (Development Only)
+                  </button>
+                  
+                  <p className="text-xs text-gray-500 text-center mt-4">
+                    Note: Full verification is required to access earnings analytics and features.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Mobile Header */}
         <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b">
           <div className="flex items-center gap-2">
             <img
@@ -239,10 +318,11 @@ function EmployeeAnalytics() {
             />
           </div>
           <button className="w-9 h-9 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
-            <span className="text-white font-semibold text-sm">JD</span>
+            <span className="text-white font-semibold text-sm">JU</span>
           </button>
         </div>
 
+        {/* Main Analytics Content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
@@ -545,45 +625,46 @@ function EmployeeAnalytics() {
             </div>
           </div>
         </main>
-      </div>
 
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md">
-        <div className="flex justify-around py-3 text-gray-600">
-          <button
-            className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy")}
-          >
-            <Home className="w-6 h-6" />
-            <span className="text-xs mt-1">Home</span>
-          </button>
-          <button
-            className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/myjobs")}
-          >
-            <Briefcase className="w-6 h-6" />
-            <span className="text-xs mt-1">Jobs</span>
-          </button>
-          <button
-            className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/analytics")}
-          >
-            <PhilippinePeso className="w-6 h-6" />
-            <span className="text-xs mt-1">Earnings</span>
-          </button>
-          <button
-            className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/profile")}
-          >
-            <User className="w-6 h-6" />
-            <span className="text-xs mt-1">Profile</span>
-          </button>
-          <button
-            className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/message")}
-          >
-            <MessageSquare className="w-6 h-6" />
-            <span className="text-xs mt-1">Chat</span>
-          </button>
+        {/* Mobile Bottom Navigation */}
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t shadow-md">
+          <div className="flex justify-around py-3 text-gray-600">
+            <button
+              className="flex flex-col items-center text-sm"
+              onClick={() => router.push("/gigdaddy")}
+            >
+              <Home className="w-6 h-6" />
+              <span className="text-xs mt-1">Home</span>
+            </button>
+            <button
+              className="flex flex-col items-center text-sm"
+              onClick={() => router.push("/gigdaddy/myjobs")}
+            >
+              <Briefcase className="w-6 h-6" />
+              <span className="text-xs mt-1">Jobs</span>
+            </button>
+            <button
+              className="flex flex-col items-center text-sm text-primary-600"
+              onClick={() => router.push("/gigdaddy/analytics")}
+            >
+              <PhilippinePeso className="w-6 h-6" />
+              <span className="text-xs mt-1">Earnings</span>
+            </button>
+            <button
+              className="flex flex-col items-center text-sm"
+              onClick={() => router.push("/gigdaddy/profile")}
+            >
+              <User className="w-6 h-6" />
+              <span className="text-xs mt-1">Profile</span>
+            </button>
+            <button
+              className="flex flex-col items-center text-sm"
+              onClick={() => router.push("/gigdaddy/message")}
+            >
+              <MessageSquare className="w-6 h-6" />
+              <span className="text-xs mt-1">Chat</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

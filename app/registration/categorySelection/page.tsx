@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { 
   BrushCleaning, 
   ShoppingBag, 
-  Drill, 
+  MonitorCheck, 
   Truck as TruckElectric,
   Check,
   ChevronLeft,
@@ -59,10 +59,10 @@ function CategorySelection() {
       available: true,
     },
     {
-      id: 'construction',
-      name: "Construction",
+      id: 'digitalFreelancer',
+      name: "Creative Digital Freelancer",
       description: "Building, renovation and repair work",
-      icon: Drill,
+      icon: MonitorCheck,
       subServices: [
         "General Labor",
         "Carpentry",
