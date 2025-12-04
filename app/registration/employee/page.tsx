@@ -8,7 +8,7 @@ function Employee() {
   const router = useRouter()
 
   const handleCreate = () => {
-    router.push('/gigdaddy')
+    router.push('/registration/categorySelection')
   }
 
   return (
