@@ -1,0 +1,593 @@
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { 
+  Home,
+  Briefcase,
+  FileText,
+  PhilippinePeso,
+  MessageSquare,
+  User,
+  Settings,
+  TrendingUp,
+  Calendar,
+  Clock,
+  BarChart3,
+  PieChart,
+  Download,
+  Filter,
+  ArrowUp,
+  ArrowDown,
+  MoreVertical,
+  CheckCircle,
+  XCircle,
+  Clock as ClockIcon,
+  Target,
+  Award,
+  Wallet,
+  ChevronRight,
+  ChevronLeft
+} from "lucide-react";
+import Head from "next/head";
+
+function EmployeeAnalytics() {
+  const router = useRouter();
+  const [timeRange, setTimeRange] = useState("month");
+  const [activeTab, setActiveTab] = useState("overview");
+
+  const earningsData = {
+    currentBalance: "₱12,500.00",
+    totalEarned: "₱45,800.00",
+    pending: "₱3,200.00",
+    withdrawn: "₱30,100.00"
+  };
+
+  const monthlyEarnings = [
+    { month: "Jan", earnings: 8500 },
+    { month: "Feb", earnings: 9200 },
+    { month: "Mar", earnings: 7800 },
+    { month: "Apr", earnings: 10500 },
+    { month: "May", earnings: 12000 },
+    { month: "Jun", earnings: 9800 },
+    { month: "Jul", earnings: 11200 },
+    { month: "Aug", earnings: 13500 },
+    { month: "Sep", earnings: 14200 },
+    { month: "Oct", earnings: 15800 },
+    { month: "Nov", earnings: 12500 },
+    { month: "Dec", earnings: 0 }
+  ];
+
+  const recentTransactions = [
+    { id: 1, job: "Office Cleaning", date: "Nov 15, 2023", amount: "₱750", status: "completed", type: "credit" },
+    { id: 2, job: "Lawn Maintenance", date: "Nov 14, 2023", amount: "₱500", status: "completed", type: "credit" },
+    { id: 3, job: "Furniture Assembly", date: "Nov 12, 2023", amount: "₱600", status: "completed", type: "credit" },
+    { id: 4, job: "Garden Setup", date: "Nov 10, 2023", amount: "₱1,200", status: "pending", type: "credit" },
+    { id: 5, job: "House Painting", date: "Nov 8, 2023", amount: "₱2,500", status: "pending", type: "credit" },
+    { id: 6, job: "Withdrawal", date: "Nov 5, 2023", amount: "₱5,000", status: "completed", type: "debit" },
+    { id: 7, job: "Car Wash Service", date: "Nov 3, 2023", amount: "₱450", status: "completed", type: "credit" }
+  ];
+
+  const jobCategories = [
+    { category: "Cleaning", earnings: "₱18,500", percentage: 40, jobs: 24 },
+    { category: "Gardening", earnings: "₱12,300", percentage: 27, jobs: 15 },
+    { category: "Construction", earnings: "₱8,000", percentage: 18, jobs: 10 },
+    { category: "Other", earnings: "₱7,000", percentage: 15, jobs: 8 }
+  ];
+
+  const stats = [
+    { label: "Avg. Hourly Rate", value: "₱250/hr", change: "+12%", trend: "up", icon: TrendingUp },
+    { label: "Jobs Completed", value: "45", change: "+8%", trend: "up", icon: CheckCircle },
+    { label: "Active Jobs", value: "3", change: "0%", trend: "neutral", icon: ClockIcon },
+    { label: "Success Rate", value: "98%", change: "+2%", trend: "up", icon: Target }
+  ];
+
+  const goals = [
+    { title: "Monthly Target", target: "₱15,000", current: "₱12,500", progress: 83 },
+    { title: "Jobs Target", target: "50 jobs", current: "45 jobs", progress: 90 },
+    { title: "Rating Goal", target: "4.8 stars", current: "4.7 stars", progress: 98 }
+  ];
+
+  const handleWithdraw = () => {
+    alert("Withdrawal functionality coming soon!");
+  };
+
+  const handleExport = () => {
+    alert("Exporting earnings data...");
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "completed":
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
+      case "pending":
+        return <ClockIcon className="w-5 h-5 text-yellow-500" />;
+      case "failed":
+        return <XCircle className="w-5 h-5 text-red-500" />;
+      default:
+        return null;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "completed":
+        return "text-green-700 bg-green-50 border-green-200";
+      case "pending":
+        return "text-yellow-700 bg-yellow-50 border-yellow-200";
+      case "failed":
+        return "text-red-700 bg-red-50 border-red-200";
+      default:
+        return "text-gray-700 bg-gray-50 border-gray-200";
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex">
+      <Head>
+        <link
+          href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet"
+        />
+      </Head>
+
+      <div className="w-64 bg-linear-to-b from-primary-50 to-white shadow-xl border-r border-gray-200 flex-col sticky top-0 h-screen hidden md:flex">
+        <div className="p-6 border-b border-primary-100 bg-white">
+          <div className="flex items-center space-x-3">
+            <div>
+              <img
+                src="/gigdaddy-logo2.png"
+                alt="Gigdaddy Logo"
+                className="w-64 h-16"
+              />
+            </div>
+          </div>
+        </div>
+
+        <nav className="flex-1 p-4">
+          <div className="mb-6">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-4">
+              Main Menu
+            </h3>
+            <ul className="space-y-1">
+              <li>
+                <button
+                  onClick={() => router.push("/gigdaddy")}
+                  className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
+                >
+                  <Home className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                  <span>Dashboard</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => router.push("/gigdaddy/myjobs")}
+                  className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
+                >
+                  <Briefcase className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                  <span>Browse Jobs</span>
+                </button>
+              </li>
+              <li>
+                <button className="flex items-center px-4 py-3 text-primary-700 bg-primary-50 rounded-lg border border-primary-200 shadow-sm w-full text-left">
+                  <PhilippinePeso className="w-5 h-5 mr-3" />
+                  <span className="font-semibold">Earnings</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => router.push("/gigdaddy/message")}
+                  className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
+                >
+                  <MessageSquare className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                  <span>Message</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-4">
+              Account
+            </h3>
+            <ul className="space-y-1">
+              <li>
+                <button
+                  onClick={() => router.push("/gigdaddy/profile")}
+                  className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
+                >
+                  <User className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                  <span>Profile</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => router.push("/gigdaddy/settings")}
+                  className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
+                >
+                  <Settings className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                  <span>Settings</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div className="p-4 border-t border-primary-100 bg-white">
+          <div className="flex items-center space-x-3 p-3 bg-linear-to-r from-primary-50 to-blue-50 rounded-lg border border-primary-100">
+            <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
+              <span className="text-white font-semibold text-sm">JU</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-gray-900 truncate">
+                Jay-ar Untalan
+              </p>
+              <p className="text-xs text-primary-600 font-medium">
+                Balance: {earningsData.currentBalance}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b">
+          <div className="flex items-center gap-2">
+            <img
+              src="/gigdaddy-logo2.png"
+              alt="Gigdaddy Logo"
+              className="h-10 w-auto"
+            />
+          </div>
+          <button className="w-9 h-9 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
+            <span className="text-white font-semibold text-sm">JD</span>
+          </button>
+        </div>
+
+        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Earnings Analytics</h1>
+                <p className="text-gray-600">Track your earnings, set goals, and manage payments</p>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleExport}
+                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  Export
+                </button>
+                <button
+                  onClick={handleWithdraw}
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
+                >
+                  <PhilippinePeso className="w-4 h-4" />
+                  Withdraw Funds
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                    <h2 className="text-lg font-semibold text-gray-900">Earnings Overview</h2>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setTimeRange("week")}
+                        className={`px-3 py-1 rounded-lg text-sm ${timeRange === "week" ? "bg-primary-100 text-primary-700" : "text-gray-600 hover:bg-gray-100"}`}
+                      >
+                        Week
+                      </button>
+                      <button
+                        onClick={() => setTimeRange("month")}
+                        className={`px-3 py-1 rounded-lg text-sm ${timeRange === "month" ? "bg-primary-100 text-primary-700" : "text-gray-600 hover:bg-gray-100"}`}
+                      >
+                        Month
+                      </button>
+                      <button
+                        onClick={() => setTimeRange("year")}
+                        className={`px-3 py-1 rounded-lg text-sm ${timeRange === "year" ? "bg-primary-100 text-primary-700" : "text-gray-600 hover:bg-gray-100"}`}
+                      >
+                        Year
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="mb-6">
+                    <div className="flex items-end justify-between h-64">
+                      {monthlyEarnings.map((monthData, index) => (
+                        <div key={index} className="flex flex-col items-center flex-1">
+                          <div className="text-xs text-gray-500 mb-2">{monthData.month}</div>
+                          <div className="relative w-8 flex justify-center">
+                            <div 
+                              className={`w-8 rounded-t-lg ${monthData.earnings > 0 ? "bg-primary-500 hover:bg-primary-600" : "bg-gray-200"}`}
+                              style={{ height: `${(monthData.earnings / 16000) * 100}%` }}
+                              title={`₱${monthData.earnings.toLocaleString()}`}
+                            ></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                      <p className="text-sm text-gray-600 mb-1">Current Balance</p>
+                      <p className="text-2xl font-bold text-gray-900">{earningsData.currentBalance}</p>
+                    </div>
+                    <div className="bg-green-50 border border-green-100 rounded-lg p-4">
+                      <p className="text-sm text-gray-600 mb-1">Total Earned</p>
+                      <p className="text-2xl font-bold text-gray-900">{earningsData.totalEarned}</p>
+                    </div>
+                    <div className="bg-yellow-50 border border-yellow-100 rounded-lg p-4">
+                      <p className="text-sm text-gray-600 mb-1">Pending</p>
+                      <p className="text-2xl font-bold text-gray-900">{earningsData.pending}</p>
+                    </div>
+                    <div className="bg-purple-50 border border-purple-100 rounded-lg p-4">
+                      <p className="text-sm text-gray-600 mb-1">Withdrawn</p>
+                      <p className="text-2xl font-bold text-gray-900">{earningsData.withdrawn}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-white rounded-xl shadow-sm border p-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                        <PieChart className="w-5 h-5" />
+                        Earnings by Category
+                      </h3>
+                      <Filter className="w-5 h-5 text-gray-400" />
+                    </div>
+                    
+                    <div className="space-y-4">
+                      {jobCategories.map((category, index) => (
+                        <div key={index} className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className="flex justify-between mb-1">
+                              <span className="font-medium text-gray-900">{category.category}</span>
+                              <span className="text-gray-600">{category.earnings}</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div 
+                                className="bg-primary-600 h-2 rounded-full"
+                                style={{ width: `${category.percentage}%` }}
+                              ></div>
+                            </div>
+                            <div className="flex justify-between mt-1">
+                              <span className="text-xs text-gray-500">{category.jobs} jobs</span>
+                              <span className="text-xs text-gray-500">{category.percentage}%</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl shadow-sm border p-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                        <Target className="w-5 h-5" />
+                        Goals & Targets
+                      </h3>
+                      <Award className="w-5 h-5 text-yellow-500" />
+                    </div>
+                    
+                    <div className="space-y-6">
+                      {goals.map((goal, index) => (
+                        <div key={index}>
+                          <div className="flex justify-between mb-2">
+                            <span className="font-medium text-gray-900">{goal.title}</span>
+                            <span className="text-primary-600 font-semibold">{goal.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2.5">
+                            <div 
+                              className="bg-primary-600 h-2.5 rounded-full"
+                              style={{ width: `${goal.progress}%` }}
+                            ></div>
+                          </div>
+                          <div className="flex justify-between mt-2 text-sm text-gray-600">
+                            <span>{goal.current}</span>
+                            <span>Target: {goal.target}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5" />
+                    Performance Stats
+                  </h3>
+                  
+                  <div className="space-y-4">
+                    {stats.map((stat, index) => {
+                      const Icon = stat.icon;
+                      return (
+                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center border">
+                              <Icon className="w-5 h-5 text-primary-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900">{stat.value}</p>
+                              <p className="text-sm text-gray-500">{stat.label}</p>
+                            </div>
+                          </div>
+                          <div className={`flex items-center gap-1 ${stat.trend === "up" ? "text-green-600" : stat.trend === "down" ? "text-red-600" : "text-gray-600"}`}>
+                            {stat.trend === "up" && <ArrowUp className="w-4 h-4" />}
+                            {stat.trend === "down" && <ArrowDown className="w-4 h-4" />}
+                            <span className="font-medium">{stat.change}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl shadow-sm border p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                      <Calendar className="w-5 h-5" />
+                      Recent Transactions
+                    </h3>
+                    <button className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                      View All
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {recentTransactions.map((transaction) => (
+                      <div key={transaction.id} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                            transaction.type === "credit" ? "bg-green-100" : "bg-blue-100"
+                          }`}>
+                            {transaction.type === "credit" ? (
+                              <PhilippinePeso className="w-5 h-5 text-green-600" />
+                            ) : (
+                              <Wallet className="w-5 h-5 text-blue-600" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">{transaction.job}</p>
+                            <p className="text-sm text-gray-500">{transaction.date}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className={`font-semibold ${
+                            transaction.type === "credit" ? "text-green-600" : "text-blue-600"
+                          }`}>
+                            {transaction.type === "credit" ? "+" : "-"}{transaction.amount}
+                          </span>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(transaction.status)}`}>
+                            {transaction.status}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <button className="w-full mt-6 py-3 text-center text-primary-600 hover:text-primary-700 font-medium border border-primary-200 rounded-lg hover:bg-primary-50 transition-colors">
+                    Load More Transactions
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-6">Earnings Tips & Insights</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+                  <div className="flex items-center gap-3 mb-3">
+                    <TrendingUp className="w-6 h-6 text-blue-600" />
+                    <h4 className="font-semibold text-gray-900">Increase Your Earnings</h4>
+                  </div>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      Complete your profile with certifications
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      Maintain high ratings for premium jobs
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      Apply for higher-paying categories
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className="p-4 bg-green-50 rounded-lg border border-green-100">
+                  <div className="flex items-center gap-3 mb-3">
+                    <ClockIcon className="w-6 h-6 text-green-600" />
+                    <h4 className="font-semibold text-gray-900">Payment Schedule</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Completed jobs:</span>
+                      <span className="font-medium">Paid within 24-48 hours</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Withdrawals:</span>
+                      <span className="font-medium">Processed in 1-3 business days</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Next payout:</span>
+                      <span className="font-medium">Nov 18, 2023</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-purple-50 rounded-lg border border-purple-100">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Target className="w-6 h-6 text-purple-600" />
+                    <h4 className="font-semibold text-gray-900">Top Categories</h4>
+                  </div>
+                  <div className="space-y-2">
+                    {jobCategories.slice(0, 3).map((category, index) => (
+                      <div key={index} className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">{category.category}</span>
+                        <span className="font-semibold text-gray-900">{category.earnings}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md">
+        <div className="flex justify-around py-3 text-gray-600">
+          <button
+            className="flex flex-col items-center text-sm"
+            onClick={() => router.push("/gigdaddy")}
+          >
+            <Home className="w-6 h-6" />
+            <span className="text-xs mt-1">Home</span>
+          </button>
+          <button
+            className="flex flex-col items-center text-sm"
+            onClick={() => router.push("/gigdaddy/myjobs")}
+          >
+            <Briefcase className="w-6 h-6" />
+            <span className="text-xs mt-1">Jobs</span>
+          </button>
+          <button
+            className="flex flex-col items-center text-sm"
+            onClick={() => router.push("/gigdaddy/analytics")}
+          >
+            <PhilippinePeso className="w-6 h-6" />
+            <span className="text-xs mt-1">Earnings</span>
+          </button>
+          <button
+            className="flex flex-col items-center text-sm"
+            onClick={() => router.push("/gigdaddy/profile")}
+          >
+            <User className="w-6 h-6" />
+            <span className="text-xs mt-1">Profile</span>
+          </button>
+          <button
+            className="flex flex-col items-center text-sm"
+            onClick={() => router.push("/gigdaddy/message")}
+          >
+            <MessageSquare className="w-6 h-6" />
+            <span className="text-xs mt-1">Chat</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default EmployeeAnalytics;
