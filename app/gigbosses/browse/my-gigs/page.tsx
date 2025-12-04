@@ -167,7 +167,7 @@ const gigs: Gig[] = [
         total: 500,
         size: "Large",
         potentialRepeat: true,
-        gigStatus: "cancelled",
+        gigStatus: "ongoing",
         workersId: 4,
     },
     {
@@ -182,7 +182,7 @@ const gigs: Gig[] = [
         total: 450,
         size: "Medium",
         potentialRepeat: false,
-        gigStatus: "cancelled",
+        gigStatus: "upcoming",
         workersId: 5,
     },
     {
@@ -207,6 +207,8 @@ export default function MyGigs() {
 
     const [filter, setFilter] = useState<"all" | "ongoing" | "upcoming" | "cancelled">("all");
     const [selectedGig, setSelectedGig] = useState<Gig | null>(null);
+    const tabs = ["all", "ongoing", "upcoming"] as const;
+    const [showPremiumPopup, setShowPremiumPopup] = useState(false);
 
     const filteredGigs = filter === "all" ? gigs : gigs.filter((gig) => gig.gigStatus === filter);
 
@@ -228,7 +230,7 @@ export default function MyGigs() {
                                 </div>
 
                                 <Button
-                                    onClick={() => router.push('/gigbosses/search')}
+                                    onClick={() => router.push('/gigbosses/postgig')}
                                     className="bg-blue-600 hover:bg-blue-200 hover:text-black hover:border hover:border-blue-600"
                                 >
                                     <i className="ri-add-large-line"></i> Post a gig
@@ -238,7 +240,7 @@ export default function MyGigs() {
                             {/* Filtering Tabs */}
                             <div className="mt-6 px-2">
                                 <div className="flex gap-3 border-b pb-2">
-                                    {["all", "ongoing", "upcoming", "cancelled"].map((tab) => (
+                                    {tabs.map((tab) => (
                                         <button
                                             key={tab}
                                             onClick={() => setFilter(tab)}
@@ -356,14 +358,14 @@ export default function MyGigs() {
             {/* Right Sheet */}
             <div
                 className={`
-                    fixed top-0 right-0 h-full bg-white shadow-2xl border-l z-50
-                    transition-transform duration-300
-                    ${selectedGig ? "translate-x-0" : "translate-x-full"}
-                    w-[70%]
-                `}
-                        >
+    fixed top-0 right-0 h-screen bg-white shadow-2xl border-l z-50
+    transition-transform duration-300
+    ${selectedGig ? "translate-x-0" : "translate-x-full"}
+    w-[70%] flex flex-col
+  `}
+            >
                 {/* Sheet Header */}
-                <div className="flex items-center justify-between p-5 border-b">
+                <div className="flex items-center justify-between p-5 border-b flex-shrink-0">
                     <h2 className="text-xl font-semibold">Gig Details</h2>
                     <button
                         onClick={() => setSelectedGig(null)}
@@ -375,71 +377,118 @@ export default function MyGigs() {
 
                 {/* Sheet Content */}
                 {selectedGig && (
-                    <div className="p-6 overflow-y-auto h-full">
+                    <div className="p-6 overflow-y-auto flex-1">
 
                         {/* Gig Info */}
                         <div>
-                            <h3 className="text-xl font-bold">{selectedGig.title}</h3>
-                            <p className="text-gray-600">{selectedGig.category}</p>
+                            <div className="flex justify-between">
+                                <div className={`${selectedGig.type === "instant" ? "w-[50%]" : "w-[80%]"}`}>
+                                    <h3 className="text-xl font-bold">{selectedGig.title}</h3>
+                                    <p className="text-gray-600">{selectedGig.category}</p>
 
-                            <div className="grid grid-cols-2 gap-4 mt-5">
-                                <div>
-                                    <span className="text-gray-500">Payment Type</span>
-                                    <p className="font-semibold">{selectedGig.paymentType}</p>
-                                </div>
+                                    <div className="grid grid-cols-2 gap-4 mt-5">
+                                        <div>
+                                            <span className="text-gray-500">Payment Type</span>
+                                            <p className="font-semibold">{selectedGig.paymentType}</p>
+                                        </div>
 
-                                <div>
-                                    <span className="text-gray-500">Items</span>
-                                    <p className="font-semibold">
-                                        {selectedGig.items ?? "Hourly Task"}
-                                    </p>
-                                </div>
+                                        <div>
+                                            <span className="text-gray-500">Items</span>
+                                            <p className="font-semibold">
+                                                {selectedGig.items ?? "Hourly Task"}
+                                            </p>
+                                        </div>
 
-                                <div>
-                                    <span className="text-gray-500">Total</span>
-                                    <p className="font-semibold">₱{selectedGig.total}</p>
-                                </div>
+                                        <div>
+                                            <span className="text-gray-500">Total</span>
+                                            <p className="font-semibold">₱{selectedGig.total}</p>
+                                        </div>
 
-                                <div>
-                                    <span className="text-gray-500">Size</span>
-                                    <p className="font-semibold">{selectedGig.size}</p>
-                                </div>
+                                        <div>
+                                            <span className="text-gray-500">Size</span>
+                                            <p className="font-semibold">{selectedGig.size}</p>
+                                        </div>
 
-                                <div>
-                                    <span className="text-gray-500">Status</span>
-                                    <p className="font-semibold">{selectedGig.gigStatus}</p>
-                                </div>
+                                        <div>
+                                            <span className="text-gray-500">Status</span>
+                                            <p className="font-semibold">{selectedGig.gigStatus}</p>
+                                        </div>
 
-                                <div>
-                                    <span className="text-gray-500">Info</span>
-                                    <p className="font-semibold capitalize">{selectedGig.infoDesc}</p>
+                                        <div>
+                                            <span className="text-gray-500">Info</span>
+                                            <p className="font-semibold capitalize">{selectedGig.infoDesc}</p>
+                                        </div>
+                                    </div>
                                 </div>
+                                {
+                                    selectedGig.type === "instant" ? (
+                                        <div className="w-[50%] h-[400px]">
+                                            <iframe
+                                                src="https://www.google.com/maps?q=Makati+City,+Philippines&output=embed"
+                                                width="100%"
+                                                height="100%"
+                                                className="rounded-xl border-0"
+                                                allowFullScreen
+                                                loading="lazy"
+                                                referrerPolicy="no-referrer-when-downgrade"
+                                            ></iframe>
+                                        </div>
+                                    ) : (null)
+                                }
                             </div>
 
                             {/* Tags */}
-                            <div className="flex flex-wrap gap-2 mt-6">
-                                {selectedGig.tags.map((tag, i) => (
-                                    <span
-                                        key={i}
-                                        className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
+                            <div className="flex justify-between items-center mt-6">
+                                <div className="flex flex-wrap gap-2">
+                                    {selectedGig.tags.map((tag, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                {selectedGig.type === "instant" ? (
+                                    <div>
+                                        <Button
+                                            className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg"
+                                        >
+                                            Cancel Gig
+                                        </Button>
+                                    </div>
+                                ): (null)}
                             </div>
                         </div>
 
                         {/* Worker Info */}
                         <div className="mt-10 border-t pt-6">
-                            <h3 className="text-lg font-bold mb-2">Assigned Worker</h3>
+                            <div className="flex items-center justify-between mb-2">
+                                {selectedGig.gigStatus === "upcoming" ? (
+                                    <h3 className="text-lg font-bold mb-2">Gigdaddy Applications</h3>
+                                ) : (
+                                    <h3 className="text-lg font-bold mb-2">Assigned Gigdaddy</h3>
+                                )}
+                                <Button
+                                    onClick={() => setShowPremiumPopup(true)}
+                                    className="bg-blue-600 hover:bg-blue-200 hover:text-black hover:border hover:border-blue-600"
+                                >
+                                    <i className="ri-add-large-line"></i> Add more gigdaddy
+                                </Button>
+                            </div>
 
                             {(() => {
                                 const worker = workers.find((w) => w.id === selectedGig.workersId);
 
                                 return worker ? (
                                     <div className="border p-4 rounded-xl shadow-sm bg-gray-50">
-                                        <h4 className="font-semibold text-lg">{worker.name}</h4>
-                                        <p className="text-gray-500">{worker.title}</p>
+                                        <div className="flex justify-between items-center">
+                                            <div>
+                                                <h4 className="font-semibold text-lg">{worker.name}</h4>
+                                                <p className="text-gray-500">{worker.title}</p>
+                                            </div>
+                                            <i className="text-[1.7rem] text-blue-700 p-1 mr-[1rem] ri-chat-ai-2-line"></i>
+                                        </div>
                                         <p className="text-sm text-gray-600 mt-2">{worker.description}</p>
 
                                         <div className="mt-4 flex flex-wrap gap-2">
@@ -453,12 +502,30 @@ export default function MyGigs() {
                                             ))}
                                         </div>
 
-                                        <p className="mt-4 text-sm text-gray-500">
-                                            Location: {worker.location}
-                                        </p>
-                                        <p className="text-sm text-gray-500">
-                                            Job Success: {worker.jobSuccess}
-                                        </p>
+                                        <div className="flex justify-between items-center">
+                                            <div>
+                                                <p className="mt-4 text-sm text-gray-500">
+                                                    Location: {worker.location}
+                                                </p>
+                                                <p className="text-sm text-gray-500">
+                                                    Job Success: {worker.jobSuccess}
+                                                </p>
+                                            </div>
+                                            <div className="flex gap-3">
+                                                <Button
+                                                    onClick={() => setShowPremiumPopup(true)}
+                                                    className="bg-blue-600 hover:bg-blue-200 hover:text-black hover:border hover:border-blue-600"
+                                                >
+                                                    Accept
+                                                </Button>
+                                                <Button
+                                                    onClick={() => setShowPremiumPopup(true)}
+                                                    className="bg-red-600 hover:bg-red-200 hover:text-black hover:border hover:border-red-600"
+                                                >
+                                                    Reject
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </div>
                                 ) : (
                                     <p>No worker assigned.</p>
@@ -469,6 +536,77 @@ export default function MyGigs() {
                     </div>
                 )}
             </div>
+
+            {/* Premium Upgrade Popup */}
+            {showPremiumPopup && (
+                <div
+                    className="fixed inset-0 z-[999] flex items-center justify-center bg-white/30 backdrop-blur-sm"
+                    onClick={() => setShowPremiumPopup(false)}
+                >
+                    <div
+                        className="bg-white p-8 rounded-2xl shadow-2xl w-[90%] max-w-md relative"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setShowPremiumPopup(false)}
+                            className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl"
+                        >
+                            ×
+                        </button>
+
+                        {/* Premium Badge */}
+                        <div className="flex justify-center">
+                            <div className="bg-blue-400 text-black font-bold px-4 py-1 rounded-full shadow">
+                                PREMIUM REQUIRED
+                            </div>
+                        </div>
+
+                        <h2 className="text-2xl font-bold text-center mt-5">
+                            Upgrade to Premium
+                        </h2>
+
+                        <p className="text-gray-600 text-center mt-2">
+                            Add more GigDaddy workers and unlock full multi-worker support.
+                            Manage bigger tasks and boost your productivity.
+                        </p>
+
+                        {/* Features */}
+                        <div className="mt-6 space-y-2">
+                            <p className="flex items-center gap-2">
+                                <i className="ri-check-line text-green-600 text-xl"></i>
+                                Assign multiple GigDaddies per gig
+                            </p>
+                            <p className="flex items-center gap-2">
+                                <i className="ri-check-line text-green-600 text-xl"></i>
+                                Priority search ranking
+                            </p>
+                            <p className="flex items-center gap-2">
+                                <i className="ri-check-line text-green-600 text-xl"></i>
+                                Faster worker matching
+                            </p>
+                        </div>
+
+                        {/* Buttons */}
+                        <div className="mt-8 flex gap-3">
+                            <Button
+                                className="flex-1 bg-blue-600 hover:bg-blue-200 text-white hover:text-black font-semibold"
+                            >
+                                Upgrade Now
+                            </Button>
+
+                            <Button
+                                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700"
+                                onClick={() => setShowPremiumPopup(false)}
+                            >
+                                Maybe Later
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
 
         </main>
     )
