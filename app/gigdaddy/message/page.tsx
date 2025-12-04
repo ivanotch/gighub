@@ -5,7 +5,7 @@ import {
   Home,
   Briefcase,
   FileText,
-  CreditCard,
+  PhilippinePeso,
   MessageSquare,
   User,
   Settings,
@@ -49,7 +49,7 @@ function EmployeeMessage() {
   ]);
   
   const [newMessage, setNewMessage] = useState("");
-  const [selectedChat, setSelectedChat] = useState(0);
+  const [selectedChat, setSelectedChat] = useState<number | null>(0); // Changed to number | null
   const [searchTerm, setSearchTerm] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +61,7 @@ function EmployeeMessage() {
       time: "10:36 AM",
       unread: 1,
       avatar: "MS",
-      job: "Lawn Care - Mandaluyong",
+      Location: "Mandaluyong",
       status: "active"
     },
     {
@@ -71,54 +71,24 @@ function EmployeeMessage() {
       time: "Yesterday",
       unread: 0,
       avatar: "JS",
-      job: "House Painting - Pasig",
+      Location: "Pasig",
       status: "active"
     },
     {
       id: 2,
-      name: "Anna Reyes",
-      lastMessage: "Payment sent! Thank you for the great work.",
-      time: "Nov 14",
-      unread: 0,
-      avatar: "AR",
-      job: "House Cleaning - Taguig",
-      status: "inactive"
-    },
-    {
-      id: 3,
-      name: "Robert Garcia",
-      lastMessage: "Do you have experience with furniture assembly?",
-      time: "Nov 13",
-      unread: 0,
-      avatar: "RG",
-      job: "Furniture Assembly - Makati",
-      status: "active"
-    },
-    {
-      id: 4,
-      name: "Lisa Chen",
-      lastMessage: "See you tomorrow at 2 PM!",
-      time: "Nov 12",
-      unread: 0,
-      avatar: "LC",
-      job: "Office Cleaning - BGC",
-      status: "active"
-    },
-    {
-      id: 5,
       name: "Support Team",
       lastMessage: "Your payment has been processed.",
       time: "Nov 11",
       unread: 0,
       avatar: "ST",
-      job: "Gigdaddy Support",
+      Location: "Gigdaddy Support",
       status: "system"
     }
   ];
 
   const filteredConversations = conversations.filter(conv => 
     conv.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    conv.job.toLowerCase().includes(searchTerm.toLowerCase())
+    conv.Location.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleSendMessage = () => {
@@ -151,6 +121,9 @@ function EmployeeMessage() {
     return timeString;
   };
 
+  // Get current conversation data
+  const currentConversation = selectedChat !== null ? conversations.find(conv => conv.id === selectedChat) : null;
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       <Head>
@@ -181,7 +154,7 @@ function EmployeeMessage() {
             <ul className="space-y-1">
               <li>
                 <button
-                  onClick={() => router.push("/gigdaddy/dashboard")}
+                  onClick={() => router.push("/gigdaddy")}
                   className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
                 >
                   <Home className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
@@ -194,24 +167,15 @@ function EmployeeMessage() {
                   className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
                 >
                   <Briefcase className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
-                  <span>My Jobs</span>
+                  <span>Browse Jobs</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => router.push("/gigdaddy/applications")}
+                  onClick={() => router.push("/gigdaddy/analytics")}
                   className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
                 >
-                  <FileText className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
-                  <span>Applications</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => router.push("/gigdaddy/earnings")}
-                  className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
-                >
-                  <CreditCard className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
+                  <PhilippinePeso className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
                   <span>Earnings</span>
                 </button>
               </li>
@@ -254,11 +218,11 @@ function EmployeeMessage() {
         <div className="p-4 border-t border-primary-100 bg-white">
           <div className="flex items-center space-x-3 p-3 bg-linear-to-r from-primary-50 to-blue-50 rounded-lg border border-primary-100">
             <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
-              <span className="text-white font-semibold text-sm">JD</span>
+              <span className="text-white font-semibold text-sm">JU</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-gray-900 truncate">
-                Juan Dela Cruz
+                Jay-ar Untalan
               </p>
               <p className="text-xs text-primary-600 font-medium">Online</p>
             </div>
@@ -336,7 +300,7 @@ function EmployeeMessage() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-semibold text-gray-900">{conversation.name}</h3>
-                        <p className="text-xs text-gray-500 truncate">{conversation.job}</p>
+                        <p className="text-xs text-gray-500 truncate">{conversation.Location}</p>
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="text-xs text-gray-500">{conversation.time}</span>
@@ -363,7 +327,7 @@ function EmployeeMessage() {
 
           {/* Chat Area */}
           <div className={`${selectedChat === null ? 'hidden md:flex' : 'flex'} flex-1 flex-col`}>
-            {selectedChat !== null ? (
+            {selectedChat !== null && currentConversation ? (
               <>
                 {/* Chat Header */}
                 <div className="flex items-center justify-between p-4 border-b bg-white">
@@ -376,16 +340,16 @@ function EmployeeMessage() {
                     </button>
                     <div className="flex items-center">
                       <div className="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center text-white font-semibold mr-3">
-                        {conversations[selectedChat].avatar}
+                        {currentConversation.avatar}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900">{conversations[selectedChat].name}</h3>
+                        <h3 className="font-semibold text-gray-900">{currentConversation.name}</h3>
                         <div className="flex items-center gap-2">
                           <div className={`w-2 h-2 rounded-full ${
-                            conversations[selectedChat].status === "active" ? "bg-green-500" : "bg-gray-400"
+                            currentConversation.status === "active" ? "bg-green-500" : "bg-gray-400"
                           }`}></div>
                           <span className="text-xs text-gray-500">
-                            {conversations[selectedChat].status === "active" ? "Online" : "Offline"} • {conversations[selectedChat].job}
+                            {currentConversation.status === "active" ? "Online" : "Offline"} • {currentConversation.Location}
                           </span>
                         </div>
                       </div>
@@ -393,12 +357,6 @@ function EmployeeMessage() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <button className="p-2 hover:bg-gray-100 rounded-lg">
-                      <Phone className="w-5 h-5 text-gray-600" />
-                    </button>
-                    <button className="p-2 hover:bg-gray-100 rounded-lg">
-                      <Video className="w-5 h-5 text-gray-600" />
-                    </button>
                     <button className="p-2 hover:bg-gray-100 rounded-lg">
                       <Info className="w-5 h-5 text-gray-600" />
                     </button>
@@ -416,7 +374,7 @@ function EmployeeMessage() {
                         key={message.id}
                         className={`flex ${message.sender === "me" ? "justify-end" : "justify-start"}`}
                       >
-                        <div className={`max-w-xs md:max-w-md lg:max-w-lg rounded-2xl px-4 py-2 ${
+                        <div className={`max-w-xs md:max-w-md lg:max-w-lg rounded-2xl px-4 py of-2 ${
                           message.sender === "me"
                             ? "bg-primary-600 text-white rounded-br-none"
                             : "bg-white border border-gray-200 rounded-bl-none"
@@ -507,7 +465,10 @@ function EmployeeMessage() {
                   Select a conversation from the list to start messaging. 
                   Communicate with clients, discuss job details, and stay connected.
                 </p>
-                <button className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2">
+                <button 
+                  onClick={() => setSelectedChat(0)}
+                  className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
+                >
                   <Plus className="w-5 h-5" />
                   Start New Conversation
                 </button>
@@ -521,7 +482,7 @@ function EmployeeMessage() {
         <div className="flex justify-around py-3 text-gray-600">
           <button
             className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/dashboard")}
+            onClick={() => router.push("/gigdaddy")}
           >
             <Home className="w-6 h-6" />
             <span className="text-xs mt-1">Home</span>
@@ -535,9 +496,9 @@ function EmployeeMessage() {
           </button>
           <button
             className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/earnings")}
+            onClick={() => router.push("/gigdaddy/analytics")}
           >
-            <CreditCard className="w-6 h-6" />
+            <PhilippinePeso className="w-6 h-6" />
             <span className="text-xs mt-1">Earnings</span>
           </button>
           <button

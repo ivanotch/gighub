@@ -5,12 +5,11 @@ import {
   Home,
   Briefcase,
   FileText,
-  CreditCard,
+  PhilippinePeso,
   MessageSquare,
   User,
   Settings,
   TrendingUp,
-  DollarSign,
   Calendar,
   Clock,
   BarChart3,
@@ -152,7 +151,7 @@ function EmployeeAnalytics() {
             <ul className="space-y-1">
               <li>
                 <button
-                  onClick={() => router.push("/gigdaddy/dashboard")}
+                  onClick={() => router.push("/gigdaddy")}
                   className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
                 >
                   <Home className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
@@ -165,27 +164,18 @@ function EmployeeAnalytics() {
                   className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
                 >
                   <Briefcase className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
-                  <span>My Jobs</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => router.push("/gigdaddy/applications")}
-                  className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
-                >
-                  <FileText className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
-                  <span>Applications</span>
+                  <span>Browse Jobs</span>
                 </button>
               </li>
               <li>
                 <button className="flex items-center px-4 py-3 text-primary-700 bg-primary-50 rounded-lg border border-primary-200 shadow-sm w-full text-left">
-                  <CreditCard className="w-5 h-5 mr-3" />
+                  <PhilippinePeso className="w-5 h-5 mr-3" />
                   <span className="font-semibold">Earnings</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => router.push("/gigdaddy/messages")}
+                  onClick={() => router.push("/gigdaddy/message")}
                   className="flex items-center px-4 py-3 text-gray-600 hover:bg-white hover:text-primary-600 hover:shadow-sm rounded-lg transition-all duration-200 group w-full text-left"
                 >
                   <MessageSquare className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
@@ -225,11 +215,11 @@ function EmployeeAnalytics() {
         <div className="p-4 border-t border-primary-100 bg-white">
           <div className="flex items-center space-x-3 p-3 bg-linear-to-r from-primary-50 to-blue-50 rounded-lg border border-primary-100">
             <div className="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
-              <span className="text-white font-semibold text-sm">JD</span>
+              <span className="text-white font-semibold text-sm">JU</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-gray-900 truncate">
-                Juan Dela Cruz
+                Jay-ar Untalan
               </p>
               <p className="text-xs text-primary-600 font-medium">
                 Balance: {earningsData.currentBalance}
@@ -273,7 +263,7 @@ function EmployeeAnalytics() {
                   onClick={handleWithdraw}
                   className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
                 >
-                  <DollarSign className="w-4 h-4" />
+                  <PhilippinePeso className="w-4 h-4" />
                   Withdraw Funds
                 </button>
               </div>
@@ -461,7 +451,7 @@ function EmployeeAnalytics() {
                             transaction.type === "credit" ? "bg-green-100" : "bg-blue-100"
                           }`}>
                             {transaction.type === "credit" ? (
-                              <DollarSign className="w-5 h-5 text-green-600" />
+                              <PhilippinePeso className="w-5 h-5 text-green-600" />
                             ) : (
                               <Wallet className="w-5 h-5 text-blue-600" />
                             )}
@@ -561,7 +551,7 @@ function EmployeeAnalytics() {
         <div className="flex justify-around py-3 text-gray-600">
           <button
             className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/dashboard")}
+            onClick={() => router.push("/gigdaddy")}
           >
             <Home className="w-6 h-6" />
             <span className="text-xs mt-1">Home</span>
@@ -575,9 +565,9 @@ function EmployeeAnalytics() {
           </button>
           <button
             className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/earnings")}
+            onClick={() => router.push("/gigdaddy/analytics")}
           >
-            <CreditCard className="w-6 h-6" />
+            <PhilippinePeso className="w-6 h-6" />
             <span className="text-xs mt-1">Earnings</span>
           </button>
           <button
@@ -589,7 +579,7 @@ function EmployeeAnalytics() {
           </button>
           <button
             className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/messages")}
+            onClick={() => router.push("/gigdaddy/message")}
           >
             <MessageSquare className="w-6 h-6" />
             <span className="text-xs mt-1">Chat</span>
