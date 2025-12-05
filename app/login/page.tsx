@@ -39,8 +39,7 @@ export default function LoginPage() {
 				</div>
 			</nav>
 
-			<div>
-				<div className="w-[60%] mx-auto flex flex-col items-center mt-[6rem] gap-2">
+				<div className="w-[90%] mx-auto flex flex-col  items-center mt-[6rem] gap-2">
 					<header className={`${rocaTwo.className} text-[2rem] font-bold text-primary-900`}>
 						Welcome back!
 					</header>
@@ -66,7 +65,7 @@ export default function LoginPage() {
 						/>
 						{error && <div className="text-red-500 text-sm mb-2">{error}</div>}
 						<Button type="submit" className="w-full bg-primary-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-colors duration-200">Login</Button>
-                        		{/* Social Login Buttons */}
+                    {/* Social Login Buttons */}
 					<div className="flex justify-center gap-4 w-full mb-2">
 						{/* Apple Button */}
 						<div className="flex items-center gap-3 border border-gray-400 rounded-full px-8 py-2 cursor-pointer hover:bg-gray-50 transition" onClick={() => alert('Apple sign-in not implemented')}>
@@ -85,7 +84,6 @@ export default function LoginPage() {
 						<Link href="/registration" className="text-primary-600 font-medium hover:underline">Sign up</Link>
 					</div>
 				</div>
-			</div>
 		</main>
 	);
 }
