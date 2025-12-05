@@ -21,9 +21,29 @@ import {
     CircleUser,
     Bell,
 } from "lucide-react"
+import { useState, useEffect, useRef } from 'react'
 
 export default function Nav() {
     const router = useRouter();
+    const [openNotif, setOpenNotif] = useState(false)
+    const [openProfile, setOpenProfile] = useState(false)
+
+    const notifRef = useRef<HTMLDivElement>(null)
+    const profileRef = useRef<HTMLDivElement>(null)
+
+    // Close when clicking outside
+    useEffect(() => {
+        function handleClickOutside(e: any) {
+            if (notifRef.current && !notifRef.current.contains(e.target)) {
+                setOpenNotif(false)
+            }
+            if (profileRef.current && !profileRef.current.contains(e.target)) {
+                setOpenProfile(false)
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => document.removeEventListener("mousedown", handleClickOutside)
+    }, [])
 
     return (
         <nav className="bg-white sticky top-0 z-50">
@@ -32,66 +52,23 @@ export default function Nav() {
                     {/* left Side */}
                     <div className="flex gap-8">
                         <div className="shrink-0 flex items-center">
-                            <Link href="/">
+                            <Link href="/gigbosses">
                                 <Image src="/gigdaddy-logo.png" alt="GigDaddy Logo" height={150} width={150} />
                             </Link>
                         </div>
 
-                        <div className="flex items-center gap-4">
-                            <Select>
-                                <SelectTrigger
-                                    className="w-[100px] border-0 shadow-none px-0 text-black data-[placeholder]:text-black data-[placeholder]:opacity-100"
-                                >
-                                    <SelectValue placeholder="Post a gig" />
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                    <SelectGroup>
-                                        <SelectLabel>Post a gig</SelectLabel>
-                                        <SelectItem value="apple" onClick={() => router.push('/gigbosses/postgig')}>Post a gig</SelectItem>
-                                        <SelectItem value="blueberry" onClick={() => router.push('/gigbosses/search')}>Search for a GigDaddy</SelectItem>
-                                        <SelectItem value="grapes">Gigdaddy you've hired</SelectItem>
-                                        <SelectItem value="pineapple">Gigdaddy you've saved</SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-
-                            <Select>
-                                <SelectTrigger
-                                    className="w-[100px] border-0 shadow-none px-0 text-black data-[placeholder]:text-black data-[placeholder]:opacity-100"
-                                >
-                                    <SelectValue placeholder="Manage gig" />
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                    <SelectGroup>
-                                        <SelectLabel>Manage gig</SelectLabel>
-                                        <SelectItem value="blueberry">Work Diaries</SelectItem>
-                                        <SelectItem value="grapes">Time by gig worker</SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                            <Select>
-                                <SelectTrigger
-                                    className="w-[100px] border-0 shadow-none px-0 text-black data-[placeholder]:text-black data-[placeholder]:opacity-100"
-                                >
-                                    <SelectValue placeholder="Reports" />
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                    <SelectGroup>
-                                        <SelectLabel>Reports</SelectLabel>
-                                        <SelectItem value="apple">Weekly financial summary</SelectItem>
-                                        <SelectItem value="banana">Transaction History</SelectItem>
-                                        <SelectItem value="blueberry">Spending by activity</SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                            <div className="text-[0.9rem]">Messages</div>
+                        <div className="flex items-center gap-6">
+                            <button onClick={() => router.push('/gigbosses')} className="underline-hover">Home</button>
+                            <button onClick={() => router.push('/gigbosses/browse')} className="underline-hover">Manage Gig</button>
+                            <button className="underline-hover">Manage Earnings</button>
+                            <button className="underline-hover">Profile</button>
+                            <button className="underline-hover">Messages</button>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-5">
+                    <div className="flex items-center gap-5 relative">
+
+                        {/* Search */}
                         <InputGroup>
                             <InputGroupInput placeholder="Search..." />
                             <InputGroupAddon>
@@ -99,8 +76,68 @@ export default function Nav() {
                             </InputGroupAddon>
                             <InputGroupAddon align="inline-end">12 results</InputGroupAddon>
                         </InputGroup>
-                        <div><Bell /></div>
-                        <div><CircleUser /></div>
+
+                        {/* Notification Dropdown */}
+                        <div className="relative" ref={notifRef}>
+                            <button
+                                onClick={() => {
+                                    setOpenNotif(!openNotif)
+                                    setOpenProfile(false)
+                                }}
+                                className="p-2 hover:bg-gray-100 rounded-full transition"
+                            >
+                                <Bell />
+                            </button>
+
+                            {openNotif && (
+                                <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-xl p-4 border animate-fade-in">
+                                    <p className="text-sm font-semibold mb-2">Notifications</p>
+
+                                    <div className="flex flex-col gap-3">
+                                        <div className="p-2 bg-gray-50 rounded-lg border">
+                                            <p className="text-xs">Your gig <span className="font-semibold">"Logo Design"</span> received a new order!</p>
+                                            <p className="text-[0.7rem] text-gray-500 mt-1">5 minutes ago</p>
+                                        </div>
+
+                                        <div className="p-2 bg-gray-50 rounded-lg border">
+                                            <p className="text-xs">A buyer sent you a message.</p>
+                                            <p className="text-[0.7rem] text-gray-500 mt-1">1 hour ago</p>
+                                        </div>
+                                    </div>
+
+                                    <button className="text-xs text-blue-600 mt-3 hover:underline">View All</button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Profile Dropdown */}
+                        <div className="relative" ref={profileRef}>
+                            <button
+                                onClick={() => {
+                                    setOpenProfile(!openProfile)
+                                    setOpenNotif(false)
+                                }}
+                                className="p-2 hover:bg-gray-100 rounded-full transition"
+                            >
+                                <CircleUser />
+                            </button>
+
+                            {openProfile && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl p-3 border animate-fade-in">
+                                    <div className="flex flex-col text-sm">
+
+                                        <button className="text-left py-2 px-2 rounded hover:bg-gray-100">Manage Profile</button>
+                                        <button className="text-left py-2 px-2 rounded hover:bg-gray-100">Settings</button>
+                                        <button className="text-left py-2 px-2 rounded hover:bg-gray-100">Dashboard</button>
+                                        <button className="text-left py-2 px-2 rounded hover:bg-gray-100">My Gigs</button>
+
+                                        <div className="border-t my-2"></div>
+
+                                        <button className="text-left py-2 px-2 text-red-600 hover:bg-red-50 rounded">Logout</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

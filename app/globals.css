@@ -104,3 +104,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .underline-hover {
+    padding: 0.5rem;
+    @apply relative text-[0.9rem] cursor-pointer;
+  }
+
+  .underline-hover::after {
+    content: "";
+    @apply absolute left-0 bottom-0 h-[2px] w-0 bg-black transition-all duration-300;
+  }
+
+  .underline-hover:hover::after {
+    @apply w-full;
+  }
+}
