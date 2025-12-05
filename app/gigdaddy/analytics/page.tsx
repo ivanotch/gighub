@@ -249,8 +249,8 @@ function EmployeeAnalytics() {
             <div className="absolute inset-0 z-40 bg-white/50 backdrop-blur-sm pointer-events-none"></div>
             
             {/* Warning Modal */}
-            <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
-              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all">
+            <div className="absolute inset-0 z-50 flex items-start justify-center p-4">
+              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all border-[2] border-blue-400">
                 {/* Warning Icon */}
                 <div className="flex justify-center mb-6">
                   <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center">
