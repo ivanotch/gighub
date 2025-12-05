@@ -17,7 +17,7 @@ import {
     Axe,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, UserRoundSearch , ArrowRight } from "lucide-react";
 import {
     Avatar,
     AvatarFallback,
@@ -80,14 +80,20 @@ export default function Bosses() {
     return (
         <main>
             <Nav />
-            
+
             <div className="mt-3">
                 <div className="flex items-center justify-between px-25">
                     <header className="text-[1.5rem] font-[500]">Welcome, Ivanotch</header>
-                    <Button onClick={() => router.push('/gigbosses/postgig')} className="bg-primary-600 text-white w-[150px] h-[45px] text-[1.1rem] gap-2" variant="outline">
-                        <BadgePlus />
-                        Post a gig
-                    </Button>
+                    <div className="flex items-center gap-3">
+                        <Button onClick={() => router.push('/gigbosses/postgig')} className="bg-primary-600 text-white w-[150px] h-[40px] text-[1.1rem] gap-2" variant="outline">
+                            <BadgePlus />
+                            Post a gig
+                        </Button>
+                        <Button onClick={() => router.push('/gigbosses/search')} className="bg-primary-600 text-white w-[160px] h-[40px] text-[1.1rem] gap-2" variant="outline">
+                            <UserRoundSearch />
+                            Find gigdaddy
+                        </Button>
+                    </div>
                 </div>
             </div>
 
@@ -321,7 +327,7 @@ export default function Bosses() {
                                             <p className="font-[500]">{box.jobs}</p>
                                             <p className="font-[500] text-[0.8rem] text-slate-700">Jobs</p>
                                         </div>
-                                        
+
                                     </div>
 
                                     <div className="flex flex-col gap-3 h-full">

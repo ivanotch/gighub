@@ -1,6 +1,6 @@
 'use client'
 import { Input } from "@/components/ui/input"
-import { LucideSearch, HeartPlus } from "lucide-react"
+import { LucideSearch, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Toggle } from "@/components/ui/toggle"
 import {
@@ -98,6 +98,12 @@ export default function MainContent({ filters }: { filters: Filters }) {
     const [searchText, setSearchText] = useState("");
     const [showAvailableOnly, setShowAvailableOnly] = useState(false);
 
+    const [selectedWorker, setSelectedWorker] = useState<any | null>(null);
+    const [openSheet, setOpenSheet] = useState(false);
+
+    const [favorites, setFavorites] = useState<{ [key: number]: boolean }>({})
+
+
     const filteredWorkers = workers.filter(worker => {
         const matchesSearch =
             worker.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -120,7 +126,7 @@ export default function MainContent({ filters }: { filters: Filters }) {
             worker.title.toLowerCase().includes(filters.category.toLowerCase());
 
         const matchesAvailability =
-            !showAvailableOnly || worker.availability === "available";  
+            !showAvailableOnly || worker.availability === "available";
 
         return matchesSearch && matchesStatus && matchesLocation && matchesCategory && matchesAvailability;
     });
@@ -150,64 +156,98 @@ export default function MainContent({ filters }: { filters: Filters }) {
             </div>
             <div>
                 {
-                    filteredWorkers.map((worker) => (
-                        <div key={worker.id} className="border-b-1 px-5 py-8 hover:bg-gray-200 rounded-sm">
-                            <div className="flex justify-between">
-                                <div className="flex items-start gap-3">
-                                    <div className="relative">
-                                        <Avatar className="w-16 h-16">
-                                            <AvatarImage className="" src="https://github.com/shadcn.png" alt="@shadcn" />
-                                            <AvatarFallback>CN</AvatarFallback>
-                                        </Avatar>
-                                        {worker.status !== "none" ? (
-                                            worker.status === "most experienced" ? (
-                                                <i className="absolute bottom-[-1rem] right-[-0.7rem] ri-arrow-up-double-line text-pink-700 text-[1.8rem]"></i>
-                                            ) : (
-                                                worker.status === "highest success" ? (
-                                                    <i className="absolute bottom-[-1rem] right-[-0.7rem] ri-bookmark-3-line text-blue-600 text-[1.8rem]"></i>
-                                                ) : (
-                                                    worker.status === "top rated" ? (
-                                                        <i className="absolute bottom-[-1rem] right-[-0.7rem] ri-sparkling-fill text-yellow-500 text-[1.8rem]"></i>
-                                                    ) : (null)
-                                                )
-                                            )
+                    filteredWorkers.map((worker) => {
+                        const isFav = favorites[worker.id] || false;
+                        return (
+                            <div
+                                key={worker.id}
+                                onClick={(e) => {
+                                    // Prevent sheet from opening when clicking Invite button
+                                    const isInviteButton = (e.target as HTMLElement).closest(".invite-btn");
+                                    if (isInviteButton) return;
 
-                                        ) : (null)}
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <div className="flex gap-2 items-center">
-                                            <span className="text-[1.1rem] leading-none">{worker.name}</span>
-                                            {worker.availability === "available" ? (
-                                                <span className="bg-violet-200 text-violet-800 rounded-full px-2 text-[0.80rem]"><i className="ri-flashlight-line"></i> Available</span>
+                                    setSelectedWorker(worker);
+                                    setOpenSheet(true);
+                                }}
+                                className="border-b-1 px-5 py-8 hover:bg-gray-200 rounded-sm cursor-pointer"
+                            >
+                                <div className="flex justify-between">
+                                    <div className="flex items-start gap-3">
+                                        <div className="relative">
+                                            <Avatar className="w-16 h-16">
+                                                <AvatarImage className="" src="https://github.com/shadcn.png" alt="@shadcn" />
+                                                <AvatarFallback>CN</AvatarFallback>
+                                            </Avatar>
+                                            {worker.status !== "none" ? (
+                                                worker.status === "most experienced" ? (
+                                                    <i className="absolute bottom-[-1rem] right-[-0.7rem] ri-arrow-up-double-line text-pink-700 text-[1.8rem]"></i>
+                                                ) : (
+                                                    worker.status === "highest success" ? (
+                                                        <i className="absolute bottom-[-1rem] right-[-0.7rem] ri-bookmark-3-line text-blue-600 text-[1.8rem]"></i>
+                                                    ) : (
+                                                        worker.status === "top rated" ? (
+                                                            <i className="absolute bottom-[-1rem] right-[-0.7rem] ri-sparkling-fill text-yellow-500 text-[1.8rem]"></i>
+                                                        ) : (null)
+                                                    )
+                                                )
+
                                             ) : (null)}
                                         </div>
-                                        <span className="text-[1.3rem] font-semibold leading-6">{worker.title}</span>
-                                        <span className="text-[0.9rem] leading-none">{worker.location}</span>
+                                        <div className="flex flex-col">
+                                            <div className="flex gap-2 items-center">
+                                                <span className="text-[1.1rem] leading-none">{worker.name}</span>
+                                                {worker.availability === "available" ? (
+                                                    <span className="bg-violet-200 text-violet-800 rounded-full px-2 text-[0.80rem]"><i className="ri-flashlight-line"></i> Available</span>
+                                                ) : (null)}
+                                            </div>
+                                            <span className="text-[1.3rem] font-semibold leading-6">{worker.title}</span>
+                                            <span className="text-[0.9rem] leading-none">{worker.location}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-5">
+                                        {/* Heart Toggle */}
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setFavorites((prev) => ({
+                                                    ...prev,
+                                                    [worker.id]: !prev[worker.id],
+                                                }))
+                                            }
+                                            }
+                                            className="p-2 rounded-full transition"
+                                        >
+                                            <Heart
+                                                className={`w-6 h-6 transition-all duration-200 ${isFav ? "fill-pink-500 stroke-pink-500" : "stroke-gray-600"
+                                                    }`}
+                                            />
+                                        </button>
+
+                                        <Button
+                                            className="bg-blue-600 hover:bg-blue-500 invite-btn"
+                                            onClick={() => setOpenInvite(true)}
+                                        >
+                                            Invite to gig
+                                        </Button>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-5">
-                                    <HeartPlus />
-                                    <Button onClick={() => setOpenInvite(true)} className="bg-blue-600 hover:bg-blue-500">
-                                        Invite to gig
-                                    </Button>
+                                <div className="flex gap-6 py-3">
+                                    <span className="text-[1rem] font-[500] text-gray-500">{worker.jobSuccess} Gig Success</span>
+                                    <span className="text-[1rem] font-[500] text-gray-500">{worker.jobCount} Accomplished Gig</span>
+                                </div>
+                                <div className="flex gap-3 mb-3">
+                                    {worker.tags.map((tag, index) => (
+                                        <span className="bg-slate-200 rounded-full px-2 text-[0.89rem]" key={index}>{tag}</span>
+                                    ))}
+                                </div>
+                                <div className="">
+                                    {worker.description}
                                 </div>
                             </div>
-
-                            <div className="flex gap-6 py-3">
-                                <span className="text-[1rem] font-[500] text-gray-500">{worker.jobSuccess} Gig Success</span>
-                                <span className="text-[1rem] font-[500] text-gray-500">{worker.jobCount} Accomplished Gig</span>
-                            </div>
-                            <div className="flex gap-3 mb-3">
-                                {worker.tags.map((tag, index) => (
-                                    <span className="bg-slate-200 rounded-full px-2 text-[0.89rem]" key={index}>{tag}</span>
-                                ))}
-                            </div>
-                            <div className="">
-                                {worker.description}
-                            </div>
-                        </div>
-                    ))
+                        )
+                    })
                 }
             </div>
             {openInvite && (
@@ -251,6 +291,107 @@ export default function MainContent({ filters }: { filters: Filters }) {
                     </div>
                 </div>
             )}
+            {openSheet && selectedWorker && (
+                <div className="fixed inset-0 z-50 flex">
+
+                    {/* Dark overlay */}
+                    <div
+                        className="w-[25%] bg-black/40"
+                        onClick={() => setOpenSheet(false)}
+                    />
+
+                    {/* Sheet panel */}
+                    <div className="w-[75%] bg-white h-full shadow-xl animate-slide-left overflow-y-auto">
+
+                        {/* Header */}
+                        <div className="p-6 border-b flex justify-between items-center">
+                            <h2 className="text-2xl font-bold">{selectedWorker.name}</h2>
+                            <button onClick={() => setOpenSheet(false)}>
+                                <i className="ri-close-large-line text-2xl"></i>
+                            </button>
+                        </div>
+
+                        {/* Worker Info */}
+                        <div className="p-6 flex gap-4">
+                            <Avatar className="w-20 h-20">
+                                <AvatarImage src="https://github.com/shadcn.png" />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+
+                            <div className="flex flex-col gap-1">
+                                <span className="text-lg font-semibold">{selectedWorker.title}</span>
+                                <span className="text-gray-600">{selectedWorker.location}</span>
+
+                                <div className="flex gap-4 mt-3">
+                                    <span className="text-gray-500">{selectedWorker.jobSuccess} Gig Success</span>
+                                    <span className="text-gray-500">{selectedWorker.jobCount} Completed Gigs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="px-6">
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-2">
+                                {selectedWorker.tags.map((tag: any, i: number) => (
+                                    <span
+                                        key={i}
+                                        className="bg-gray-100 px-3 py-1 rounded-full text-sm"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Description */}
+                            <p className="mt-4 text-gray-700">{selectedWorker.description}</p>
+                        </div>
+
+                        {/* Sample Gig Section */}
+                        <div className="mt-10 border-t p-6">
+                            <h3 className="text-xl font-bold mb-4">Previous Gig</h3>
+
+                            <div className="bg-gray-50 border p-5 rounded-xl shadow-sm">
+                                <h4 className="text-lg font-semibold">E-Commerce Packing</h4>
+                                <p className="text-gray-600">Category: Short Fulfillment Task</p>
+
+                                <div className="grid grid-cols-2 gap-4 mt-5">
+                                    <div>
+                                        <span className="text-gray-500">Payment Type</span>
+                                        <p className="font-semibold">Per Item</p>
+                                    </div>
+
+                                    <div>
+                                        <span className="text-gray-500">Items</span>
+                                        <p className="font-semibold">150 items</p>
+                                    </div>
+
+                                    <div>
+                                        <span className="text-gray-500">Total</span>
+                                        <p className="font-semibold">₱3,000</p>
+                                    </div>
+
+                                    <div>
+                                        <span className="text-gray-500">Status</span>
+                                        <p className="font-semibold">Upcoming</p>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    {["Packing", "Sorting", "Quality Check"].map((tag, i) => (
+                                        <span
+                                            key={i}
+                                            className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     )
 }

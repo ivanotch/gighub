@@ -421,7 +421,7 @@ export default function MyGigs() {
                                     </div>
                                 </div>
                                 {
-                                    selectedGig.type === "instant" ? (
+                                    selectedGig.gigStatus === "ongoing" ? (
                                         <div className="w-[50%] h-[400px]">
                                             <iframe
                                                 src="https://www.google.com/maps?q=Makati+City,+Philippines&output=embed"
@@ -449,15 +449,20 @@ export default function MyGigs() {
                                         </span>
                                     ))}
                                 </div>
-                                {selectedGig.type === "instant" ? (
-                                    <div>
+                                {selectedGig.gigStatus === "ongoing" ? (
+                                    <div className="flex gap-2 items-center">
+                                        <Button
+                                            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg"
+                                        >
+                                            Mark as Completed
+                                        </Button>
                                         <Button
                                             className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg"
                                         >
                                             Cancel Gig
                                         </Button>
                                     </div>
-                                ): (null)}
+                                ) : (null)}
                             </div>
                         </div>
 
@@ -511,20 +516,24 @@ export default function MyGigs() {
                                                     Job Success: {worker.jobSuccess}
                                                 </p>
                                             </div>
-                                            <div className="flex gap-3">
-                                                <Button
-                                                    onClick={() => setShowPremiumPopup(true)}
-                                                    className="bg-blue-600 hover:bg-blue-200 hover:text-black hover:border hover:border-blue-600"
-                                                >
-                                                    Accept
-                                                </Button>
-                                                <Button
-                                                    onClick={() => setShowPremiumPopup(true)}
-                                                    className="bg-red-600 hover:bg-red-200 hover:text-black hover:border hover:border-red-600"
-                                                >
-                                                    Reject
-                                                </Button>
-                                            </div>
+                                            {
+                                                selectedGig.type === "scheduled" && (
+                                                    <div className="flex gap-3">
+                                                        <Button
+                                                            onClick={() => setShowPremiumPopup(true)}
+                                                            className="bg-blue-600 hover:bg-blue-200 hover:text-black hover:border hover:border-blue-600"
+                                                        >
+                                                            Accept
+                                                        </Button>
+                                                        <Button
+                                                            onClick={() => setShowPremiumPopup(true)}
+                                                            className="bg-red-600 hover:bg-red-200 hover:text-black hover:border hover:border-red-600"
+                                                        >
+                                                            Reject
+                                                        </Button>
+                                                    </div>
+                                                )
+                                            }
                                         </div>
                                     </div>
                                 ) : (
