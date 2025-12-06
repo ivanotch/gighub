@@ -41,6 +41,18 @@
   .ring-primary-900 { --tw-ring-color: var(--color-primary-900); }
   .ring-primary-950 { --tw-ring-color: var(--color-primary-950); }
 
+  .accent-primary-50 { accent-color: var(--color-primary-50); }
+  .accent-primary-100 { accent-color: var(--color-primary-100); }
+  .accent-primary-200 { accent-color: var(--color-primary-200); }
+  .accent-primary-300 { accent-color: var(--color-primary-300); }
+  .accent-primary-400 { accent-color: var(--color-primary-400); }
+  .accent-primary-500 { accent-color: var(--color-primary-500); }
+  .accent-primary-600 { accent-color: var(--color-primary-600); }
+  .accent-primary-700 { accent-color: var(--color-primary-700); }
+  .accent-primary-800 { accent-color: var(--color-primary-800); }
+  .accent-primary-900 { accent-color: var(--color-primary-900); }
+  .accent-primary-950 { accent-color: var(--color-primary-950); }
+
 }
 
 :root {

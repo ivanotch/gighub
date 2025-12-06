@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import {
   Home,
   Briefcase,
-  FileText,
   MessageSquare,
   User,
   Settings,
@@ -13,26 +12,16 @@ import {
   MapPin,
   Calendar,
   Clock,
-  Users,
   Star,
-  CheckCircle,
   Eye,
   Bookmark,
-  Share2,
   TrendingUp,
-  Award,
   Tag,
   ChevronRight,
   Plus,
-  Download,
-  BarChart3,
   PhilippinePeso,
   Package,
   Sparkles,
-  Droplets,
-  Shirt,
-  UtensilsCrossed,
-  Wind
 } from "lucide-react";
 import Head from "next/head";
 
@@ -53,7 +42,6 @@ function EmployeeMyJobs() {
     { id: "restocking", label: "Restocking" },
     { id: "order", label: "Order Processing" },
     { id: "cleaning", label: "Cleaning" },
-    { id: "construction", label: "Construction" }
   ];
 
   const locations = [
@@ -64,22 +52,15 @@ function EmployeeMyJobs() {
     { id: "pasig", label: "Pasig City" },
     { id: "quezon", label: "Quezon City" },
     { id: "manila", label: "Manila" },
-    { id: "paranaque", label: "Parañaque City" }
+    { id: "paranaque", label: "Parañaque City" },
   ];
 
   const salaryTypes = [
     { id: "all", label: "All Pay Types" },
     { id: "hourly", label: "Per Hour" },
-    { id: "perpack", label: "Per Pack/Item" }
+    { id: "perpack", label: "Per Pack/Item" },
   ];
 
-  const cleaningSubservices = [
-    "Power Wash",
-    "Deep Cleaning",
-    "Dish Washer",
-    "Laundry",
-    "Cleaning Assistant"
-  ];
 
   const availableJobs = [
     {
@@ -91,8 +72,13 @@ function EmployeeMyJobs() {
       salaryType: "perpack",
       type: "Full Day",
       postedDate: "2 days ago",
-      description: "Process online orders, prepare shipments, and coordinate with delivery teams for e-commerce fulfillment.",
-      skills: ["Order Processing", "E-commerce", "Data Entry", "Attention to Detail", "Organization"],
+      description:
+        "Process online orders, prepare shipments, and ensure accurate packaging and labeling.",
+      skills: [
+        "Labeling",
+        "Packaging",
+        "Order Processing",
+      ],
       distance: "5.2 km",
       ecommerce: true,
       category: "order",
@@ -106,69 +92,84 @@ function EmployeeMyJobs() {
       salaryType: "hourly",
       type: "Full Day",
       postedDate: "4 hours ago",
-      description: "Help manage inventory, track stock levels, and assist with stock counts.",
-      skills: ["Inventory Management", "Data Entry", "Organization", "Math Skills", "Stock Control"],
+      description:
+        "Help manage inventory, track stock levels, and assist with stock counts.",
+      skills: [
+        "Inventory Management",
+      ],
       distance: "3.5 km",
-      ecommerce: false,
+      ecommerce: true,
       category: "inventory",
     },
     {
       id: 3,
-      title: "Commercial Power Wash Technician",
-      company: "Sparkle Clean Services",
+      title: "Power Wash Technician",
+      company: "",
       location: "Mandaluyong City",
       salary: "₱90/hour",
       salaryType: "hourly",
       type: "Full Day",
       postedDate: "5 hours ago",
-      description: "Perform high-pressure washing for commercial buildings, sidewalks, and outdoor areas. Equipment provided.",
-      skills: ["Power Washing", "Equipment Operation", "Safety Procedures", "Physical Fitness", "Attention to Detail"],
+      description:
+        "Perform high-pressure washing for my Garage.",
+      skills: [
+        "Power Washing",
+        "Deep Cleaning",
+      ],
       distance: "1.5 km",
-      ecommerce: false,
+      cleaning: true, // depends if cleaning = true and so on in other categories
       category: "cleaning",
     },
     {
       id: 4,
-      title: "Cleaning Assistant",
-      company: "OfficeClean Maintenance",
+      title: "House cleaner",
+      company: "",
       location: "Quezon City",
       salary: "₱65/hour",
       salaryType: "hourly",
       type: "Night Shift",
       postedDate: "3 days ago",
-      description: "Assist with general cleaning duties in office buildings, including vacuuming, dusting, and trash removal.",
-      skills: ["General Cleaning", "Vacuuming", "Dusting", "Reliability", "Physical Ability"],
+      description:
+        "cleaning of house",
+      skills: [
+        "Deep Cleaning",
+        "Laundry",
+      ],
       distance: "5.8 km",
-      ecommerce: false,
+      cleaning: true,
       category: "cleaning",
     },
   ];
 
   const recommendedJobs = availableJobs.slice(0, 3);
 
-  const filteredJobs = availableJobs.filter(job => {
-    const matchesSearch = 
+  const filteredJobs = availableJobs.filter((job) => {
+    const matchesSearch =
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCategory = selectedCategory === "all" || 
-      job.category === selectedCategory;
-    
-    const matchesLocation = selectedLocation === "all" || 
+
+    const matchesCategory =
+      selectedCategory === "all" || job.category === selectedCategory;
+
+    const matchesLocation =
+      selectedLocation === "all" ||
       job.location.toLowerCase().includes(selectedLocation);
-    
-    const matchesSalaryType = selectedSalaryType === "all" ||
+
+    const matchesSalaryType =
+      selectedSalaryType === "all" ||
       (selectedSalaryType === "hourly" && job.salaryType === "hourly") ||
       (selectedSalaryType === "perpack" && job.salaryType === "perpack");
-    
-    return matchesSearch && matchesCategory && matchesLocation && matchesSalaryType;
+
+    return (
+      matchesSearch && matchesCategory && matchesLocation && matchesSalaryType
+    );
   });
 
   const toggleSavedJob = (jobId: number) => {
-    setSavedJobs(prev => 
-      prev.includes(jobId) 
-        ? prev.filter(id => id !== jobId)
+    setSavedJobs((prev) =>
+      prev.includes(jobId)
+        ? prev.filter((id) => id !== jobId)
         : [...prev, jobId]
     );
   };
@@ -179,10 +180,18 @@ function EmployeeMyJobs() {
   };
 
   // Count jobs by salary type
-  const hourlyJobsCount = availableJobs.filter(job => job.salaryType === "hourly").length;
-  const perPackJobsCount = availableJobs.filter(job => job.salaryType === "perpack").length;
-  const cleaningJobsCount = availableJobs.filter(job => job.category === "cleaning").length;
-  const ecommerceJobsCount = availableJobs.filter(job => job.ecommerce).length;
+  const hourlyJobsCount = availableJobs.filter(
+    (job) => job.salaryType === "hourly"
+  ).length;
+  const perPackJobsCount = availableJobs.filter(
+    (job) => job.salaryType === "perpack"
+  ).length;
+  const cleaningJobsCount = availableJobs.filter(
+    (job) => job.category === "cleaning"
+  ).length;
+  const ecommerceJobsCount = availableJobs.filter(
+    (job) => job.ecommerce
+  ).length;
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -290,6 +299,7 @@ function EmployeeMyJobs() {
             </div>
           </div>
         </div>
+
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -311,15 +321,83 @@ function EmployeeMyJobs() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Browse Jobs</h1>
-                <p className="text-gray-600">Find your next gig opportunity from thousands of available jobs</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  Browse Jobs
+                </h1>
+                <p className="text-gray-600">
+                  Find your next gig opportunity from thousands of available
+                  jobs
+                </p>
               </div>
-              
+
               <div className="flex items-center gap-3">
                 <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2">
                   <Plus className="w-5 h-5" />
                   Quick Apply
                 </button>
+              </div>
+            </div>
+
+            {/* Stats and Highlights */}
+            <div className="hidden md:grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+              <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {availableJobs.length}
+                    </p>
+                    <p className="text-sm text-gray-600">Jobs Available</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">New jobs added daily</p>
+              </div>
+
+              <div className="bg-green-50 border border-green-100 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {hourlyJobsCount}
+                    </p>
+                    <p className="text-sm text-gray-600">Hourly Jobs</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">Fixed hourly rates</p>
+              </div>
+
+              <div className="bg-purple-50 border border-purple-100 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <Package className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {perPackJobsCount}
+                    </p>
+                    <p className="text-sm text-gray-600">Per Pack Jobs</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">E-commerce packaging</p>
+              </div>
+
+              <div className="bg-cyan-50 border border-cyan-100 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-cyan-600" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {cleaningJobsCount}
+                    </p>
+                    <p className="text-sm text-gray-600">Cleaning Jobs</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">Hourly rates only</p>
               </div>
             </div>
 
@@ -338,7 +416,7 @@ function EmployeeMyJobs() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="relative">
                     <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -347,12 +425,14 @@ function EmployeeMyJobs() {
                       onChange={(e) => setSelectedCategory(e.target.value)}
                       className="pl-10 pr-8 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none min-w-[180px]"
                     >
-                      {categories.map(category => (
-                        <option key={category.id} value={category.id}>{category.label}</option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.label}
+                        </option>
                       ))}
                     </select>
                   </div>
-                  
+
                   <div className="relative">
                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <select
@@ -360,8 +440,10 @@ function EmployeeMyJobs() {
                       onChange={(e) => setSelectedLocation(e.target.value)}
                       className="pl-10 pr-8 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none min-w-[180px]"
                     >
-                      {locations.map(location => (
-                        <option key={location.id} value={location.id}>{location.label}</option>
+                      {locations.map((location) => (
+                        <option key={location.id} value={location.id}>
+                          {location.label}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -372,90 +454,14 @@ function EmployeeMyJobs() {
                       onChange={(e) => setSelectedSalaryType(e.target.value)}
                       className="pl-10 pr-8 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none min-w-[180px]"
                     >
-                      {salaryTypes.map(type => (
-                        <option key={type.id} value={type.id}>{type.label}</option>
+                      {salaryTypes.map((type) => (
+                        <option key={type.id} value={type.id}>
+                          {type.label}
+                        </option>
                       ))}
                     </select>
                   </div>
                 </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-2 mt-4">
-                <span className="text-sm text-gray-600">Popular searches:</span>
-                {["E-commerce", "Packaging", "Cleaning", "Mandaluyong", "₱70+/hour", "Per Pack", "Full Time"].map((tag, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      if (tag === "Per Pack") {
-                        setSelectedSalaryType("perpack");
-                      } else if (tag.includes("/hour")) {
-                        setSelectedSalaryType("hourly");
-                      } else if (tag === "Cleaning") {
-                        setSelectedCategory("cleaning");
-                      } else {
-                        setSearchTerm(tag);
-                      }
-                    }}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200"
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Stats and Highlights */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900">{availableJobs.length}</p>
-                    <p className="text-sm text-gray-600">Jobs Available</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">New jobs added daily</p>
-              </div>
-              
-              <div className="bg-green-50 border border-green-100 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900">{hourlyJobsCount}</p>
-                    <p className="text-sm text-gray-600">Hourly Jobs</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">Fixed hourly rates</p>
-              </div>
-              
-              <div className="bg-purple-50 border border-purple-100 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Package className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900">{perPackJobsCount}</p>
-                    <p className="text-sm text-gray-600">Per Pack Jobs</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">E-commerce packaging</p>
-              </div>
-              
-              <div className="bg-cyan-50 border border-cyan-100 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-cyan-600" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900">{cleaningJobsCount}</p>
-                    <p className="text-sm text-gray-600">Cleaning Jobs</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">Hourly rates only</p>
               </div>
             </div>
 
@@ -480,18 +486,23 @@ function EmployeeMyJobs() {
 
                 <div className="space-y-4">
                   {filteredJobs.map((job) => (
-                    <div key={job.id} className="bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow">
+                    <div
+                      key={job.id}
+                      className="bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow"
+                    >
                       <div className="p-6">
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
-                              <h3 className="text-lg font-semibold text-gray-900">{job.title}</h3>
+                              <h3 className="text-lg font-semibold text-gray-900">
+                                {job.title}
+                              </h3>
                               {job.ecommerce && (
                                 <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
                                   E-commerce
                                 </span>
                               )}
-                              {job.category === "cleaning" && (
+                              {job.cleaning && (
                                 <span className="px-2 py-1 bg-cyan-100 text-cyan-800 text-xs font-medium rounded-full">
                                   Cleaning
                                 </span>
@@ -508,19 +519,23 @@ function EmployeeMyJobs() {
                                 {job.postedDate}
                               </span>
                             </div>
-                            
-                            <p className="text-gray-600 mb-4">{job.description}</p>
-                            
+
+                            <p className="text-gray-600 mb-4">
+                              {job.description}
+                            </p>
+
                             {/* Highlighted Skills Section */}
                             <div className="mb-4">
                               <div className="flex items-center gap-2 mb-2">
                                 <Tag className="w-4 h-4 text-primary-600" />
-                                <h4 className="text-sm font-semibold text-gray-700">Required Skills:</h4>
+                                <h4 className="text-sm font-semibold text-gray-700">
+                                  Required Skills:
+                                </h4>
                               </div>
                               <div className="flex flex-wrap gap-2">
                                 {job.skills.map((skill, index) => (
-                                  <span 
-                                    key={index} 
+                                  <span
+                                    key={index}
                                     className="px-3 py-1.5 bg-gradient-to-r from-primary-100 to-primary-50 text-primary-800 rounded-lg text-sm font-medium border border-primary-200 shadow-sm hover:shadow transition-shadow"
                                   >
                                     {skill}
@@ -528,30 +543,43 @@ function EmployeeMyJobs() {
                                 ))}
                               </div>
                             </div>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="flex items-center gap-2">
                                 <div>
-                                  <p className="text-sm text-gray-500">Salary</p>
+                                  <p className="text-sm text-gray-500">
+                                    Salary
+                                  </p>
                                   <p className="font-semibold text-gray-900">
-                                    {job.salaryType === "perpack" && job.ecommerce ? job.salaryPerPack : job.salary}
+                                    {job.salaryType === "perpack" &&
+                                    job.ecommerce
+                                      ? job.salaryPerPack
+                                      : job.salary}
                                   </p>
                                   <p className="text-xs text-gray-500">
-                                    {job.salaryType === "perpack" ? "Per Pack/Item" : "Per Hour"}
-                                    {job.salaryType === "perpack" && job.ecommerce && ` (E-commerce)`}
+                                    {job.salaryType === "perpack"
+                                      ? "Per Pack/Item"
+                                      : "Per Hour"}
+                                    {job.salaryType === "perpack" &&
+                                      job.ecommerce &&
+                                      ` (E-commerce)`}
                                   </p>
                                 </div>
                               </div>
                               <div className="flex items-center gap-2">
                                 <Clock className="w-4 h-4 text-blue-600" />
                                 <div>
-                                  <p className="text-sm text-gray-500">Shift Type</p>
-                                  <p className="font-semibold text-gray-900">{job.type}</p>
+                                  <p className="text-sm text-gray-500">
+                                    Shift Type
+                                  </p>
+                                  <p className="font-semibold text-gray-900">
+                                    {job.type}
+                                  </p>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="flex flex-col gap-2 ml-4">
                             <button
                               onClick={() => toggleSavedJob(job.id)}
@@ -561,11 +589,17 @@ function EmployeeMyJobs() {
                                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                               }`}
                             >
-                              <Bookmark className={`w-5 h-5 ${savedJobs.includes(job.id) ? "fill-current" : ""}`} />
+                              <Bookmark
+                                className={`w-5 h-5 ${
+                                  savedJobs.includes(job.id)
+                                    ? "fill-current"
+                                    : ""
+                                }`}
+                              />
                             </button>
                           </div>
                         </div>
-                        
+
                         <div className="flex justify-between items-center pt-4 border-t">
                           <button className="px-4 py-2 text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2">
                             <Eye className="w-4 h-4" />
@@ -594,8 +628,12 @@ function EmployeeMyJobs() {
                     <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Search className="w-8 h-8 text-gray-400" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">No jobs found</h3>
-                    <p className="text-gray-600 mb-6">Try adjusting your search criteria or filters</p>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      No jobs found
+                    </h3>
+                    <p className="text-gray-600 mb-6">
+                      Try adjusting your search criteria or filters
+                    </p>
                     <button
                       onClick={() => {
                         setSearchTerm("");
@@ -612,35 +650,49 @@ function EmployeeMyJobs() {
               </div>
 
               {/* Sidebar */}
-              <div>
                 {/* Recommended Jobs */}
-                <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+                <div className="hidden lg:block bg-white rounded-xl shadow-sm border p-6 mb-6 h-[500px] ">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                     <Star className="w-5 h-5 text-yellow-500" />
                     Recommended for You
                   </h3>
                   <div className="space-y-4">
                     {recommendedJobs.map((job) => (
-                      <div key={job.id} className="p-3 border border-gray-200 rounded-lg hover:border-primary-300 cursor-pointer">
+                      <div
+                        key={job.id}
+                        className="p-3 border border-gray-200 rounded-lg hover:border-primary-300 cursor-pointer"
+                      >
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
                             <Briefcase className="w-5 h-5 text-primary-600" />
                           </div>
                           <div>
-                            <p className="font-medium text-gray-900">{job.title}</p>
-                            <p className="text-sm text-gray-500">{job.company}</p>
+                            <p className="font-medium text-gray-900">
+                              {job.title}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {job.company}
+                            </p>
                             <div className="flex items-center gap-2 mt-1">
                               <span className="text-xs font-semibold text-primary-600">
-                                {job.salaryType === "perpack" && job.ecommerce ? job.salaryPerPack : job.salary}
+                                {job.salaryType === "perpack" && job.ecommerce
+                                  ? job.salaryPerPack
+                                  : job.salary}
                               </span>
-                              <span className="text-xs text-gray-500">{job.distance} away</span>
+                              <span className="text-xs text-gray-500">
+                                {job.distance} away
+                              </span>
                             </div>
                             <div className="flex flex-wrap gap-1 mt-1">
                               {job.ecommerce && (
-                                <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full">E-commerce</span>
+                                <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full">
+                                  E-commerce
+                                </span>
                               )}
                               {job.category === "cleaning" && (
-                                <span className="text-xs px-2 py-0.5 bg-cyan-100 text-cyan-800 rounded-full">Cleaning</span>
+                                <span className="text-xs px-2 py-0.5 bg-cyan-100 text-cyan-800 rounded-full">
+                                  Cleaning
+                                </span>
                               )}
                             </div>
                           </div>
@@ -650,81 +702,13 @@ function EmployeeMyJobs() {
                   </div>
                 </div>
 
-                {/* Salary Type Info */}
-                <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Types</h3>
-                  <div className="space-y-4">
-                    <div className="p-3 bg-green-50 border border-green-100 rounded-lg">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Clock className="w-4 h-4 text-green-600" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-900">Hourly Jobs</p>
-                          <p className="text-sm text-gray-600">Fixed rate per hour worked</p>
-                          <p className="text-xs text-green-700 mt-1">Most common for services</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="p-3 bg-purple-50 border border-purple-100 rounded-lg">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Package className="w-4 h-4 text-purple-600" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-900">Per Pack/Item Jobs</p>
-                          <p className="text-sm text-gray-600">Payment per item packed or processed</p>
-                          <p className="text-xs text-purple-700 mt-1">Common for e-commerce</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Cleaning Subservices */}
-                <div className="bg-cyan-50 border border-cyan-100 rounded-xl p-6 mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-cyan-600" />
-                    Cleaning Services
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-3">
-                    These jobs pay hourly rates. Choose from various cleaning specialties:
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {cleaningSubservices.map((service, index) => (
-                      <div key={index} className="px-3 py-2 bg-white border border-cyan-100 rounded-lg text-center">
-                        <span className="text-xs font-medium text-gray-700">{service}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2 mt-4">
-                    <Sparkles className="w-4 h-4 text-cyan-600" />
-                    <span className="text-sm text-cyan-700 font-medium">
-                      {cleaningJobsCount} cleaning jobs available
-                    </span>
-                  </div>
-                </div>
-
-                {/* E-commerce Jobs */}
-                <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">E-commerce Jobs</h3>
-                  <p className="text-sm text-gray-600 mb-3">
-                    These jobs often offer per-pack payment options. Great for maximizing earnings based on productivity!
-                  </p>
-                  <div className="flex items-center gap-2 mt-4">
-                    <Package className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm text-blue-700 font-medium">
-                      {ecommerceJobsCount} e-commerce jobs available
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
-          </div>
+
         </main>
       </div>
 
+                    {/* Mobile Tab */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md">
         <div className="flex justify-around py-3 text-gray-600">
           <button

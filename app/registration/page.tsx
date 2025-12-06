@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { UserLock, UserStar } from "lucide-react";
+import { Star, BriefcaseBusiness } from "lucide-react";
 import { useState } from "react";
+import { rocaTwo } from "../fonts";
 import { useRouter } from "next/navigation";
+
 
 export default function Registration() {
     const [role, setRole] = useState<"gigboss" | "gigdaddy" | null>(null);
@@ -35,47 +37,43 @@ export default function Registration() {
 
             <div>
                 <div className="w-[60%] mx-auto flex flex-col items-center mt-[6rem] gap-2">
-                    <header className="text-[2rem] mb-[1rem]">
-                        Join as a client or freelancer
+                    <header className={`text-[3rem] mb-[1rem] ${rocaTwo.className}`}>
+                       What are you looking for?
                     </header>
 
                     <div className="flex gap-5 flex-wrap">
                         {/* Card 1 - GigBoss */}
+                         <div
+                            className="border border-gray-400 rounded-lg p-6 flex-1 min-w-[300px] shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
+                            onClick={() => setRole("gigdaddy")}
+                        >
+                            <div className="flex justify-between items-center mb-4">
+                                <BriefcaseBusiness className="w-8 h-8" />
+                                <input
+                                    type="checkbox"
+                                    checked={role === "gigdaddy"}
+                                    readOnly
+                                    className="w-6 h-6 accent-primary-500 cursor-pointer"
+                                />
+                            </div>
+                            <p className="text-[1.25rem]">I'm looking for a gig</p>
+                        </div>
+
+                        {/* Card 2 - GigBoss */}
                         <div
                             className="border border-gray-400 rounded-lg p-6 flex-1 min-w-[300px] shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
                             onClick={() => setRole("gigboss")}
                         >
                             <div className="flex justify-between items-center mb-4">
-                                <UserStar className="w-8 h-8" />
+                                <Star className="w-8 h-8" />
                                 <input
                                     type="checkbox"
                                     checked={role === "gigboss"}
                                     readOnly
-                                    className="w-6 h-6 accent-blue-500"
+                                    className="w-6 h-6 accent-primary-500 cursor-pointer"
                                 />
                             </div>
-
-                            <p className="text-[1.25rem] text-black">I'm a GigBoss,</p>
-                            <p className="text-[1.25rem] text-black">hiring for a task</p>
-                        </div>
-
-                        {/* Card 2 - GigDaddy */}
-                        <div
-                            className="border border-gray-400 rounded-lg p-6 flex-1 min-w-[300px] shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
-                            onClick={() => setRole("gigdaddy")}
-                        >
-                            <div className="flex justify-between items-center mb-4">
-                                <UserLock className="w-8 h-8" />
-                                <input
-                                    type="checkbox"
-                                    checked={role === "gigdaddy"}
-                                    readOnly
-                                    className="w-6 h-6 accent-primary-500"
-                                />
-                            </div>
-
-                            <p className="text-[1.25rem]">I'm a GigDaddy,</p>
-                            <p className="text-[1.25rem]">looking for a gig</p>
+                            <p className="text-[1.25rem] text-black">I'm hiring for a task</p>
                         </div>
                     </div>
 

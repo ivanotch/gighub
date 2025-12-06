@@ -308,8 +308,8 @@ function FaceVerification() {
             </div>
           </div>
 
-          <div className="w-full max-w-2xl mb-8">
-            <div className="relative aspect-video bg-gray-900 rounded-xl overflow-hidden">
+          <div className="w-full max-w-2xl mb-8 ">
+            <div className="relative aspect-video bg-gray-900 rounded-xl overflow-hidden h-96 w-80 sm:w-full mx-auto">
               {verificationStep === 'ready' || verificationStep === 'capturing' ? (
                 <>
                   <video
