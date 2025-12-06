@@ -62,7 +62,7 @@ export default function Nav() {
                             <button onClick={() => router.push('/gigbosses/browse')} className="underline-hover">Manage Gig</button>
                             <button className="underline-hover">Manage Earnings</button>
                             <button className="underline-hover">Profile</button>
-                            <button className="underline-hover">Messages</button>
+                            <button onClick={() => router.push('/gigbosses/messages')} className="underline-hover">Messages</button>
                         </div>
                     </div>
 
