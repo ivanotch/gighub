@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { 
+import {
   Home,
   Briefcase,
   FileText,
@@ -28,7 +28,7 @@ import {
   ChevronRight,
   ChevronLeft,
   Shield,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 import Head from "next/head";
 
@@ -36,13 +36,13 @@ function EmployeeAnalytics() {
   const router = useRouter();
   const [timeRange, setTimeRange] = useState("month");
   const [activeTab, setActiveTab] = useState("overview");
-  const [isVerified, setIsVerified] = useState(false); // State to control blur/verification
+  const [isVerified, setIsVerified] = useState(false);
 
   const earningsData = {
     currentBalance: "₱12,500.00",
     totalEarned: "₱45,800.00",
     pending: "₱3,200.00",
-    withdrawn: "₱30,100.00"
+    withdrawn: "₱30,100.00",
   };
 
   const monthlyEarnings = [
@@ -57,37 +57,125 @@ function EmployeeAnalytics() {
     { month: "Sep", earnings: 14200 },
     { month: "Oct", earnings: 15800 },
     { month: "Nov", earnings: 12500 },
-    { month: "Dec", earnings: 0 }
+    { month: "Dec", earnings: 0 },
   ];
 
   const recentTransactions = [
-    { id: 1, job: "Office Cleaning", date: "Nov 15, 2023", amount: "₱750", status: "completed", type: "credit" },
-    { id: 2, job: "Lawn Maintenance", date: "Nov 14, 2023", amount: "₱500", status: "completed", type: "credit" },
-    { id: 3, job: "Furniture Assembly", date: "Nov 12, 2023", amount: "₱600", status: "completed", type: "credit" },
-    { id: 4, job: "Garden Setup", date: "Nov 10, 2023", amount: "₱1,200", status: "pending", type: "credit" },
-    { id: 5, job: "House Painting", date: "Nov 8, 2023", amount: "₱2,500", status: "pending", type: "credit" },
-    { id: 6, job: "Withdrawal", date: "Nov 5, 2023", amount: "₱5,000", status: "completed", type: "debit" },
-    { id: 7, job: "Car Wash Service", date: "Nov 3, 2023", amount: "₱450", status: "completed", type: "credit" }
+    {
+      id: 1,
+      job: "Office Cleaning",
+      date: "Nov 15, 2023",
+      amount: "₱750",
+      status: "completed",
+      type: "credit",
+    },
+    {
+      id: 2,
+      job: "Lawn Maintenance",
+      date: "Nov 14, 2023",
+      amount: "₱500",
+      status: "completed",
+      type: "credit",
+    },
+    {
+      id: 3,
+      job: "Furniture Assembly",
+      date: "Nov 12, 2023",
+      amount: "₱600",
+      status: "completed",
+      type: "credit",
+    },
+    {
+      id: 4,
+      job: "Garden Setup",
+      date: "Nov 10, 2023",
+      amount: "₱1,200",
+      status: "pending",
+      type: "credit",
+    },
+    {
+      id: 5,
+      job: "House Painting",
+      date: "Nov 8, 2023",
+      amount: "₱2,500",
+      status: "pending",
+      type: "credit",
+    },
+    {
+      id: 6,
+      job: "Withdrawal",
+      date: "Nov 5, 2023",
+      amount: "₱5,000",
+      status: "completed",
+      type: "debit",
+    },
+    {
+      id: 7,
+      job: "Car Wash Service",
+      date: "Nov 3, 2023",
+      amount: "₱450",
+      status: "completed",
+      type: "credit",
+    },
   ];
 
   const jobCategories = [
     { category: "Cleaning", earnings: "₱18,500", percentage: 40, jobs: 24 },
     { category: "Gardening", earnings: "₱12,300", percentage: 27, jobs: 15 },
     { category: "Construction", earnings: "₱8,000", percentage: 18, jobs: 10 },
-    { category: "Other", earnings: "₱7,000", percentage: 15, jobs: 8 }
+    { category: "Other", earnings: "₱7,000", percentage: 15, jobs: 8 },
   ];
 
   const stats = [
-    { label: "Avg. Hourly Rate", value: "₱250/hr", change: "+12%", trend: "up", icon: TrendingUp },
-    { label: "Jobs Completed", value: "45", change: "+8%", trend: "up", icon: CheckCircle },
-    { label: "Active Jobs", value: "3", change: "0%", trend: "neutral", icon: ClockIcon },
-    { label: "Success Rate", value: "98%", change: "+2%", trend: "up", icon: Target }
+    {
+      label: "Avg. Hourly Rate",
+      value: "₱250/hr",
+      change: "+12%",
+      trend: "up",
+      icon: TrendingUp,
+    },
+    {
+      label: "Jobs Completed",
+      value: "45",
+      change: "+8%",
+      trend: "up",
+      icon: CheckCircle,
+    },
+    {
+      label: "Active Jobs",
+      value: "3",
+      change: "0%",
+      trend: "neutral",
+      icon: ClockIcon,
+    },
+    {
+      label: "Success Rate",
+      value: "98%",
+      change: "+2%",
+      trend: "up",
+      icon: Target,
+    },
   ];
 
   const goals = [
-    { title: "Monthly Target", target: "₱15,000", current: "₱12,500", progress: 83 },
-    { title: "Jobs Target", target: "50 jobs", current: "45 jobs", progress: 90 },
-    { title: "Rating Goal", target: "4.8 stars", current: "4.7 stars", progress: 98 }
+    {
+      title: "Monthly Target",
+      target: "₱15,000",
+      current: "₱12,500",
+      progress: 83,
+    },
+    {
+      title: "Jobs Target",
+      target: "50 jobs",
+      current: "45 jobs",
+      progress: 90,
+    },
+    {
+      title: "Rating Goal",
+      target: "4.8 stars",
+      current: "4.7 stars",
+      progress: 98,
+    },
   ];
 
   const handleWithdraw = () => {
@@ -142,7 +230,7 @@ function EmployeeAnalytics() {
         />
       </Head>
 
-      {/* Left Navigation - NOT blurred */}
+      {/* Left Navigation */}
       <div className="w-64 bg-linear-to-b from-primary-50 to-white shadow-xl border-r border-gray-200 flex-col sticky top-0 h-screen hidden md:flex">
         <div className="p-6 border-b border-primary-100 bg-white">
           <div className="flex items-center space-x-3">
@@ -247,7 +335,7 @@ function EmployeeAnalytics() {
         {!isVerified && (
           <>
             <div className="absolute inset-0 z-40 bg-white/50 backdrop-blur-sm pointer-events-none"></div>
-            
+
             {/* Warning Modal */}
             <div className="absolute inset-0 z-50 flex items-start justify-center p-4">
               <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all border-[2] border-blue-400">
@@ -264,7 +352,8 @@ function EmployeeAnalytics() {
                     Verification Required
                   </h2>
                   <p className="text-gray-600">
-                    You need to complete the document verification first to access all dashboard features.
+                    You need to complete the document verification first to
+                    access all dashboard features.
                   </p>
                 </div>
 
@@ -291,16 +380,17 @@ function EmployeeAnalytics() {
                     <Shield className="w-5 h-5" />
                     Be Fully Verified
                   </button>
-                  
+
                   <button
                     onClick={handleRemoveBlur}
                     className="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors duration-300 text-sm"
                   >
                     Test Mode: Remove Blur (Development Only)
                   </button>
-                  
+
                   <p className="text-xs text-gray-500 text-center mt-4">
-                    Note: Full verification is required to access earnings analytics and features.
+                    Note: Full verification is required to access earnings
+                    analytics and features.
                   </p>
                 </div>
               </div>
@@ -327,10 +417,14 @@ function EmployeeAnalytics() {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Earnings Analytics</h1>
-                <p className="text-gray-600">Track your earnings, set goals, and manage payments</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  Earnings Analytics
+                </h1>
+                <p className="text-gray-600">
+                  Track your earnings, set goals, and manage payments
+                </p>
               </div>
-              
+
               <div className="flex items-center gap-3">
                 <button
                   onClick={handleExport}
@@ -353,23 +447,37 @@ function EmployeeAnalytics() {
               <div className="lg:col-span-2">
                 <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-                    <h2 className="text-lg font-semibold text-gray-900">Earnings Overview</h2>
+                    <h2 className="text-lg font-semibold text-gray-900">
+                      Earnings Overview
+                    </h2>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setTimeRange("week")}
-                        className={`px-3 py-1 rounded-lg text-sm ${timeRange === "week" ? "bg-primary-100 text-primary-700" : "text-gray-600 hover:bg-gray-100"}`}
+                        className={`px-3 py-1 rounded-lg text-sm ${
+                          timeRange === "week"
+                            ? "bg-primary-100 text-primary-700"
+                            : "text-gray-600 hover:bg-gray-100"
+                        }`}
                       >
                         Week
                       </button>
                       <button
                         onClick={() => setTimeRange("month")}
-                        className={`px-3 py-1 rounded-lg text-sm ${timeRange === "month" ? "bg-primary-100 text-primary-700" : "text-gray-600 hover:bg-gray-100"}`}
+                        className={`px-3 py-1 rounded-lg text-sm ${
+                          timeRange === "month"
+                            ? "bg-primary-100 text-primary-700"
+                            : "text-gray-600 hover:bg-gray-100"
+                        }`}
                       >
                         Month
                       </button>
                       <button
                         onClick={() => setTimeRange("year")}
-                        className={`px-3 py-1 rounded-lg text-sm ${timeRange === "year" ? "bg-primary-100 text-primary-700" : "text-gray-600 hover:bg-gray-100"}`}
+                        className={`px-3 py-1 rounded-lg text-sm ${
+                          timeRange === "year"
+                            ? "bg-primary-100 text-primary-700"
+                            : "text-gray-600 hover:bg-gray-100"
+                        }`}
                       >
                         Year
                       </button>
@@ -379,12 +487,25 @@ function EmployeeAnalytics() {
                   <div className="mb-6">
                     <div className="flex items-end justify-between h-64">
                       {monthlyEarnings.map((monthData, index) => (
-                        <div key={index} className="flex flex-col items-center flex-1">
-                          <div className="text-xs text-gray-500 mb-2">{monthData.month}</div>
+                        <div
+                          key={index}
+                          className="flex flex-col items-center flex-1"
+                        >
+                          <div className="text-xs text-gray-500 mb-2">
+                            {monthData.month}
+                          </div>
                           <div className="relative w-8 flex justify-center">
-                            <div 
-                              className={`w-8 rounded-t-lg ${monthData.earnings > 0 ? "bg-primary-500 hover:bg-primary-600" : "bg-gray-200"}`}
-                              style={{ height: `${(monthData.earnings / 16000) * 100}%` }}
+                            <div
+                              className={`w-8 rounded-t-lg ${
+                                monthData.earnings > 0
+                                  ? "bg-primary-500 hover:bg-primary-600"
+                                  : "bg-gray-200"
+                              }`}
+                              style={{
+                                height: `${
+                                  (monthData.earnings / 16000) * 100
+                                }%`,
+                              }}
                               title={`₱${monthData.earnings.toLocaleString()}`}
                             ></div>
                           </div>
@@ -395,20 +516,30 @@ function EmployeeAnalytics() {
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
-                      <p className="text-sm text-gray-600 mb-1">Current Balance</p>
-                      <p className="text-2xl font-bold text-gray-900">{earningsData.currentBalance}</p>
+                      <p className="text-sm text-gray-600 mb-1">
+                        Current Balance
+                      </p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {earningsData.currentBalance}
+                      </p>
                     </div>
                     <div className="bg-green-50 border border-green-100 rounded-lg p-4">
                       <p className="text-sm text-gray-600 mb-1">Total Earned</p>
-                      <p className="text-2xl font-bold text-gray-900">{earningsData.totalEarned}</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {earningsData.totalEarned}
+                      </p>
                     </div>
                     <div className="bg-yellow-50 border border-yellow-100 rounded-lg p-4">
                       <p className="text-sm text-gray-600 mb-1">Pending</p>
-                      <p className="text-2xl font-bold text-gray-900">{earningsData.pending}</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {earningsData.pending}
+                      </p>
                     </div>
                     <div className="bg-purple-50 border border-purple-100 rounded-lg p-4">
                       <p className="text-sm text-gray-600 mb-1">Withdrawn</p>
-                      <p className="text-2xl font-bold text-gray-900">{earningsData.withdrawn}</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {earningsData.withdrawn}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -422,24 +553,35 @@ function EmployeeAnalytics() {
                       </h3>
                       <Filter className="w-5 h-5 text-gray-400" />
                     </div>
-                    
+
                     <div className="space-y-4">
                       {jobCategories.map((category, index) => (
-                        <div key={index} className="flex items-center justify-between">
+                        <div
+                          key={index}
+                          className="flex items-center justify-between"
+                        >
                           <div className="flex-1">
                             <div className="flex justify-between mb-1">
-                              <span className="font-medium text-gray-900">{category.category}</span>
-                              <span className="text-gray-600">{category.earnings}</span>
+                              <span className="font-medium text-gray-900">
+                                {category.category}
+                              </span>
+                              <span className="text-gray-600">
+                                {category.earnings}
+                              </span>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2">
-                              <div 
+                              <div
                                 className="bg-primary-600 h-2 rounded-full"
                                 style={{ width: `${category.percentage}%` }}
                               ></div>
                             </div>
                             <div className="flex justify-between mt-1">
-                              <span className="text-xs text-gray-500">{category.jobs} jobs</span>
-                              <span className="text-xs text-gray-500">{category.percentage}%</span>
+                              <span className="text-xs text-gray-500">
+                                {category.jobs} jobs
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {category.percentage}%
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -455,16 +597,20 @@ function EmployeeAnalytics() {
                       </h3>
                       <Award className="w-5 h-5 text-yellow-500" />
                     </div>
-                    
+
                     <div className="space-y-6">
                       {goals.map((goal, index) => (
                         <div key={index}>
                           <div className="flex justify-between mb-2">
-                            <span className="font-medium text-gray-900">{goal.title}</span>
-                            <span className="text-primary-600 font-semibold">{goal.progress}%</span>
+                            <span className="font-medium text-gray-900">
+                              {goal.title}
+                            </span>
+                            <span className="text-primary-600 font-semibold">
+                              {goal.progress}%
+                            </span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2.5">
-                            <div 
+                            <div
                               className="bg-primary-600 h-2.5 rounded-full"
                               style={{ width: `${goal.progress}%` }}
                             ></div>
@@ -486,24 +632,43 @@ function EmployeeAnalytics() {
                     <BarChart3 className="w-5 h-5" />
                     Performance Stats
                   </h3>
-                  
+
                   <div className="space-y-4">
                     {stats.map((stat, index) => {
                       const Icon = stat.icon;
                       return (
-                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                        >
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center border">
                               <Icon className="w-5 h-5 text-primary-600" />
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">{stat.value}</p>
-                              <p className="text-sm text-gray-500">{stat.label}</p>
+                              <p className="font-medium text-gray-900">
+                                {stat.value}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                {stat.label}
+                              </p>
                             </div>
                           </div>
-                          <div className={`flex items-center gap-1 ${stat.trend === "up" ? "text-green-600" : stat.trend === "down" ? "text-red-600" : "text-gray-600"}`}>
-                            {stat.trend === "up" && <ArrowUp className="w-4 h-4" />}
-                            {stat.trend === "down" && <ArrowDown className="w-4 h-4" />}
+                          <div
+                            className={`flex items-center gap-1 ${
+                              stat.trend === "up"
+                                ? "text-green-600"
+                                : stat.trend === "down"
+                                ? "text-red-600"
+                                : "text-gray-600"
+                            }`}
+                          >
+                            {stat.trend === "up" && (
+                              <ArrowUp className="w-4 h-4" />
+                            )}
+                            {stat.trend === "down" && (
+                              <ArrowDown className="w-4 h-4" />
+                            )}
                             <span className="font-medium">{stat.change}</span>
                           </div>
                         </div>
@@ -522,14 +687,21 @@ function EmployeeAnalytics() {
                       View All
                     </button>
                   </div>
-                  
+
                   <div className="space-y-4">
                     {recentTransactions.map((transaction) => (
-                      <div key={transaction.id} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                      <div
+                        key={transaction.id}
+                        className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg"
+                      >
                         <div className="flex items-center gap-3">
-                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                            transaction.type === "credit" ? "bg-green-100" : "bg-blue-100"
-                          }`}>
+                          <div
+                            className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                              transaction.type === "credit"
+                                ? "bg-green-100"
+                                : "bg-blue-100"
+                            }`}
+                          >
                             {transaction.type === "credit" ? (
                               <PhilippinePeso className="w-5 h-5 text-green-600" />
                             ) : (
@@ -537,24 +709,37 @@ function EmployeeAnalytics() {
                             )}
                           </div>
                           <div>
-                            <p className="font-medium text-gray-900">{transaction.job}</p>
-                            <p className="text-sm text-gray-500">{transaction.date}</p>
+                            <p className="font-medium text-gray-900">
+                              {transaction.job}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {transaction.date}
+                            </p>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className={`font-semibold ${
-                            transaction.type === "credit" ? "text-green-600" : "text-blue-600"
-                          }`}>
-                            {transaction.type === "credit" ? "+" : "-"}{transaction.amount}
+                          <span
+                            className={`font-semibold ${
+                              transaction.type === "credit"
+                                ? "text-green-600"
+                                : "text-blue-600"
+                            }`}
+                          >
+                            {transaction.type === "credit" ? "+" : "-"}
+                            {transaction.amount}
                           </span>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(transaction.status)}`}>
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                              transaction.status
+                            )}`}
+                          >
                             {transaction.status}
                           </span>
                         </div>
                       </div>
                     ))}
                   </div>
-                  
+
                   <button className="w-full mt-6 py-3 text-center text-primary-600 hover:text-primary-700 font-medium border border-primary-200 rounded-lg hover:bg-primary-50 transition-colors">
                     Load More Transactions
                   </button>
@@ -563,12 +748,16 @@ function EmployeeAnalytics() {
             </div>
 
             <div className="bg-white rounded-xl shadow-sm border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">Earnings Tips & Insights</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-6">
+                Earnings Tips & Insights
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
                   <div className="flex items-center gap-3 mb-3">
                     <TrendingUp className="w-6 h-6 text-blue-600" />
-                    <h4 className="font-semibold text-gray-900">Increase Your Earnings</h4>
+                    <h4 className="font-semibold text-gray-900">
+                      Increase Your Earnings
+                    </h4>
                   </div>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex items-start gap-2">
@@ -585,20 +774,26 @@ function EmployeeAnalytics() {
                     </li>
                   </ul>
                 </div>
-                
+
                 <div className="p-4 bg-green-50 rounded-lg border border-green-100">
                   <div className="flex items-center gap-3 mb-3">
                     <ClockIcon className="w-6 h-6 text-green-600" />
-                    <h4 className="font-semibold text-gray-900">Payment Schedule</h4>
+                    <h4 className="font-semibold text-gray-900">
+                      Payment Schedule
+                    </h4>
                   </div>
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Completed jobs:</span>
-                      <span className="font-medium">Paid within 24-48 hours</span>
+                      <span className="font-medium">
+                        Paid within 24-48 hours
+                      </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Withdrawals:</span>
-                      <span className="font-medium">Processed in 1-3 business days</span>
+                      <span className="font-medium">
+                        Processed in 1-3 business days
+                      </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Next payout:</span>
@@ -606,17 +801,26 @@ function EmployeeAnalytics() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="p-4 bg-purple-50 rounded-lg border border-purple-100">
                   <div className="flex items-center gap-3 mb-3">
                     <Target className="w-6 h-6 text-purple-600" />
-                    <h4 className="font-semibold text-gray-900">Top Categories</h4>
+                    <h4 className="font-semibold text-gray-900">
+                      Top Categories
+                    </h4>
                   </div>
                   <div className="space-y-2">
                     {jobCategories.slice(0, 3).map((category, index) => (
-                      <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{category.category}</span>
-                        <span className="font-semibold text-gray-900">{category.earnings}</span>
+                      <div
+                        key={index}
+                        className="flex justify-between items-center"
+                      >
+                        <span className="text-sm text-gray-600">
+                          {category.category}
+                        </span>
+                        <span className="font-semibold text-gray-900">
+                          {category.earnings}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -641,7 +845,7 @@ function EmployeeAnalytics() {
               onClick={() => router.push("/gigdaddy/myjobs")}
             >
               <Briefcase className="w-6 h-6" />
-              <span className="text-xs mt-1">Jobs</span>
+              <span className="text-xs mt-1">Browse Jobs</span>
             </button>
             <button
               className="flex flex-col items-center text-sm text-primary-600"
@@ -652,17 +856,17 @@ function EmployeeAnalytics() {
             </button>
             <button
               className="flex flex-col items-center text-sm"
+              onClick={() => router.push("/gigdaddy/message")}
+            >
+              <MessageSquare className="w-6 h-6" />
+              <span className="text-xs mt-1">Messages</span>
+            </button>
+            <button
+              className="flex flex-col items-center text-sm"
               onClick={() => router.push("/gigdaddy/profile")}
             >
               <User className="w-6 h-6" />
               <span className="text-xs mt-1">Profile</span>
-            </button>
-            <button
-              className="flex flex-col items-center text-sm"
-              onClick={() => router.push("/gigdaddy/message")}
-            >
-              <MessageSquare className="w-6 h-6" />
-              <span className="text-xs mt-1">Chat</span>
             </button>
           </div>
         </div>

@@ -150,7 +150,6 @@ function CategorySelection() {
             )}
           </button>
 
-          {/* Dropdown Menu */}
           {showProfileDropdown && (
             <>
               {/* Backdrop */}
@@ -159,7 +158,6 @@ function CategorySelection() {
                 onClick={() => setShowProfileDropdown(false)}
               />
               
-              {/* Dropdown Content */}
               <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
                 <div className="p-4 border-b border-gray-100">
                   <div className="flex items-center space-x-3">

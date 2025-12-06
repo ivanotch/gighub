@@ -2,15 +2,15 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Head from "next/head";
-import { 
-  Home, 
-  Briefcase, 
-  PhilippinePeso, 
-  MessageSquare, 
-  User, 
-  Settings, 
-  Shield, 
-  AlertCircle, 
+import {
+  Home,
+  Briefcase,
+  PhilippinePeso,
+  MessageSquare,
+  User,
+  Settings,
+  Shield,
+  AlertCircle,
   CheckCircle,
   Zap,
   Search,
@@ -21,7 +21,7 @@ import {
   Star,
   Award,
   Calendar,
-  MapPin
+  MapPin,
 } from "lucide-react";
 
 function EmployeeDashboard() {
@@ -29,7 +29,7 @@ function EmployeeDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [salaryRange, setSalaryRange] = useState("All");
-  const [isVerified, setIsVerified] = useState(false); // State to control blur/verification
+  const [isVerified, setIsVerified] = useState(false); 
 
   const user = {
     name: "Jay-ar Untalan",
@@ -54,7 +54,7 @@ function EmployeeDashboard() {
       color: "bg-primary-600",
       iconColor: "text-white",
       onClick: () => router.push("/gigdaddy/myjobs"),
-      description: "Apply to recommended jobs instantly"
+      description: "Apply to recommended jobs instantly",
     },
     {
       id: 2,
@@ -63,7 +63,7 @@ function EmployeeDashboard() {
       color: "bg-primary-600",
       iconColor: "text-white",
       onClick: () => router.push("/gigdaddy/myjobs"),
-      description: "Explore all available opportunities"
+      description: "Explore all available opportunities",
     },
     {
       id: 3,
@@ -72,7 +72,7 @@ function EmployeeDashboard() {
       color: "bg-primary-600",
       iconColor: "text-white",
       onClick: () => router.push("/gigdaddy/applications"),
-      description: "Track your job applications"
+      description: "Track your job applications",
     },
     {
       id: 4,
@@ -81,31 +81,107 @@ function EmployeeDashboard() {
       color: "bg-primary-600",
       iconColor: "text-white",
       onClick: () => router.push("/gigdaddy/analytics"),
-      description: "View your earnings & analytics"
-    }
+      description: "View your earnings & analytics",
+    },
   ];
 
   // Stats data
   const stats = [
-    { label: "Jobs Applied", value: "12", change: "+2", icon: Briefcase, color: "text-blue-600", bgColor: "bg-blue-100" },
-    { label: "Interviews", value: "3", change: "+1", icon: Calendar, color: "text-green-600", bgColor: "bg-green-100" },
-    { label: "Profile Views", value: "48", change: "+12", icon: Eye, color: "text-purple-600", bgColor: "bg-purple-100" },
-    { label: "Success Rate", value: "85%", change: "+5%", icon: TrendingUp, color: "text-orange-600", bgColor: "bg-orange-100" },
+    {
+      label: "Jobs Applied",
+      value: "12",
+      change: "+2",
+      icon: Briefcase,
+      color: "text-blue-600",
+      bgColor: "bg-blue-100",
+    },
+    {
+      label: "Interviews",
+      value: "3",
+      change: "+1",
+      icon: Calendar,
+      color: "text-green-600",
+      bgColor: "bg-green-100",
+    },
+    {
+      label: "Profile Views",
+      value: "48",
+      change: "+12",
+      icon: Eye,
+      color: "text-purple-600",
+      bgColor: "bg-purple-100",
+    },
+    {
+      label: "Success Rate",
+      value: "85%",
+      change: "+5%",
+      icon: TrendingUp,
+      color: "text-orange-600",
+      bgColor: "bg-orange-100",
+    },
   ];
 
   // Recent activities
   const recentActivities = [
-    { id: 1, action: "Applied for Warehouse Packer", company: "Logistics Inc.", time: "2 hours ago", status: "Pending" },
-    { id: 2, action: "Profile viewed by", company: "Retail Masters", time: "5 hours ago", status: "Viewed" },
-    { id: 3, action: "Interview scheduled with", company: "E-commerce Hub", time: "1 day ago", status: "Scheduled" },
-    { id: 4, action: "Job offer received from", company: "Sparkle Clean", time: "2 days ago", status: "Offer" },
+    {
+      id: 1,
+      action: "Applied for Warehouse Packer",
+      company: "Logistics Inc.",
+      time: "2 hours ago",
+      status: "Pending",
+    },
+    {
+      id: 2,
+      action: "Profile viewed by",
+      company: "Retail Masters",
+      time: "5 hours ago",
+      status: "Viewed",
+    },
+    {
+      id: 3,
+      action: "Interview scheduled with",
+      company: "E-commerce Hub",
+      time: "1 day ago",
+      status: "Scheduled",
+    },
+    {
+      id: 4,
+      action: "Job offer received from",
+      company: "Sparkle Clean",
+      time: "2 days ago",
+      status: "Offer",
+    },
   ];
 
   // Featured jobs
   const featuredJobs = [
-    { id: 1, title: "Warehouse Assistant", company: "Quick Logistics", salary: "₱650/day", location: "Mandaluyong", type: "Full Day", urgent: true },
-    { id: 2, title: "Cleaning Specialist", company: "CleanPro Services", salary: "₱85/hour", location: "Makati", type: "Flexible", urgent: false },
-    { id: 3, title: "Delivery Helper", company: "Express Delivery PH", salary: "₱700/day", location: "Taguig", type: "Full Day", urgent: true },
+    {
+      id: 1,
+      title: "Warehouse Assistant",
+      company: "Quick Logistics",
+      salary: "₱650/day",
+      location: "Mandaluyong",
+      type: "Full Day",
+      urgent: true,
+    },
+    {
+      id: 2,
+      title: "Cleaning Specialist",
+      company: "CleanPro Services",
+      salary: "₱85/hour",
+      location: "Makati",
+      type: "Flexible",
+      urgent: false,
+    },
+    {
+      id: 3,
+      title: "Delivery Helper",
+      company: "Express Delivery PH",
+      salary: "₱700/day",
+      location: "Taguig",
+      type: "Full Day",
+      urgent: true,
+    },
   ];
 
   return (
@@ -117,7 +193,7 @@ function EmployeeDashboard() {
         />
       </Head>
 
-      {/* Left Navigation - NOT blurred */}
+      {/* Left Navigation */}
       <div className="w-64 bg-linear-to-b from-primary-50 to-white shadow-xl border-r border-gray-200 flex-col sticky top-0 h-screen hidden md:flex">
         <div className="p-6 border-b border-primary-100 bg-white">
           <div className="flex items-center space-x-3">
@@ -235,9 +311,7 @@ function EmployeeDashboard() {
         {/* Warning Modal Overlay - Only shows when not verified */}
         {!isVerified && (
           <>
-            {/* Blur Overlay - Only on main content */}
             <div className="absolute inset-0 z-40 bg-white/50 backdrop-blur-sm pointer-events-none"></div>
-            
             {/* Warning Modal */}
             <div className="absolute inset-0 z-50 flex items-start justify-center p-4">
               <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all border-[2] border-blue-400">
@@ -254,7 +328,8 @@ function EmployeeDashboard() {
                     Verification Required
                   </h2>
                   <p className="text-gray-600">
-                    You need to complete the document verification first to access all dashboard features.
+                    You need to complete the document verification first to
+                    access all dashboard features.
                   </p>
                 </div>
 
@@ -281,16 +356,17 @@ function EmployeeDashboard() {
                     <Shield className="w-5 h-5" />
                     Be Fully Verified
                   </button>
-                  
+
                   <button
                     onClick={handleRemoveBlur}
                     className="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors duration-300 text-sm"
                   >
                     Test Mode: Remove Blur (Development Only)
                   </button>
-                  
+
                   <p className="text-xs text-gray-500 text-center mt-4">
-                    Note: Full verification is required to apply for jobs and access all features.
+                    Note: Full verification is required to apply for jobs and
+                    access all features.
                   </p>
                 </div>
               </div>
@@ -298,7 +374,7 @@ function EmployeeDashboard() {
           </>
         )}
 
-        {/* Mobile Header - NOT blurred */}
+        {/* Mobile Header */}
         <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b">
           <div className="flex items-center gap-2">
             <img
@@ -309,15 +385,17 @@ function EmployeeDashboard() {
           </div>
           <button className="w-9 h-9 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
             <span className="text-white font-semibold text-sm">
-              {user.name.split(" ").map((n) => n[0]).join("")}
+              {user.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
             </span>
           </button>
         </div>
 
-        {/* Main Dashboard Content - Inside the blur area */}
+        {/* Main Dashboard Content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
           <div className="max-w-6xl mx-auto">
-
             {/* Welcome Container */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 md:p-8 mb-8">
               <div className="flex flex-col md:flex-row items-center justify-between">
@@ -326,7 +404,8 @@ function EmployeeDashboard() {
                     Welcome back, {user.name.split(" ")[0]}! 👋
                   </h1>
                   <p className="text-gray-600 mb-4">
-                    Ready to find your next gig? Check out the latest opportunities and manage your applications.
+                    Ready to find your next gig? Check out the latest
+                    opportunities and manage your applications.
                   </p>
                   <div className="flex items-center text-sm text-gray-500">
                     <Clock className="w-4 h-4 mr-1" />
@@ -335,8 +414,12 @@ function EmployeeDashboard() {
                 </div>
                 <div className="bg-white p-4 rounded-xl shadow-sm border">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-primary-600">{user.balance}</div>
-                    <div className="text-sm text-gray-600">Available Balance</div>
+                    <div className="text-2xl font-bold text-primary-600">
+                      {user.balance}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Available Balance
+                    </div>
                     <button className="mt-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm hover:bg-primary-700 transition-colors">
                       Withdraw
                     </button>
@@ -345,151 +428,27 @@ function EmployeeDashboard() {
               </div>
             </div>
 
-            {/* Quick Actions - 4 Circle Buttons */}
+            {/* Quick Actions */}
             <div className="mb-10">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                Quick Actions
+              </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {quickActions.map((action) => (
-                  <button
-                    key={action.id}
-                    onClick={action.onClick}
-                  >
-                    <div className={`w-16 h-16 ${action.color} rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-105 transition-transform`}>
+                  <button key={action.id} onClick={action.onClick}>
+                    <div
+                      className={`w-16 h-16 ${action.color} rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-105 transition-transform`}
+                    >
                       <action.icon className={`w-8 h-8 ${action.iconColor}`} />
                     </div>
-                    <p className="font-semibold text-gray-900 mb-1">{action.name}</p>
-                    <p className="text-xs text-gray-500">{action.description}</p>
+                    <p className="font-semibold text-gray-900 mb-1">
+                      {action.name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {action.description}
+                    </p>
                   </button>
                 ))}
-              </div>
-            </div>
-
-            {/* Dashboard Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="bg-white rounded-xl p-6 border hover:shadow-sm transition-shadow">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 ${stat.bgColor} rounded-lg flex items-center justify-center`}>
-                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
-                    </div>
-                    <span className="text-green-600 text-sm font-medium">{stat.change}</span>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                    <p className="text-sm text-gray-600">{stat.label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Featured Jobs & Recent Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Featured Jobs */}
-              <div className="bg-white rounded-xl border p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-lg font-semibold text-gray-900">Featured Jobs</h2>
-                  <button 
-                    onClick={() => router.push("/gigdaddy/myjobs")}
-                    className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-                  >
-                    View All
-                  </button>
-                </div>
-                <div className="space-y-4">
-                  {featuredJobs.map((job) => (
-                    <div key={job.id} className="p-4 border border-gray-200 rounded-lg hover:border-primary-300 transition-colors">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{job.title}</h3>
-                          <p className="text-sm text-gray-600">{job.company}</p>
-                        </div>
-                        {job.urgent && (
-                          <span className="px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded-full">
-                            Urgent
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {job.location}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <PhilippinePeso className="w-4 h-4" />
-                          {job.salary}
-                        </span>
-                      </div>
-                      <button className="mt-3 w-full py-2 border border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors text-sm font-medium">
-                        Apply Now
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Recent Activity */}
-              <div className="bg-white rounded-xl border p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
-                  <button className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                    See All
-                  </button>
-                </div>
-                <div className="space-y-4">
-                  {recentActivities.map((activity) => (
-                    <div key={activity.id} className="flex items-start gap-3 p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        activity.status === 'Pending' ? 'bg-yellow-100' :
-                        activity.status === 'Viewed' ? 'bg-blue-100' :
-                        activity.status === 'Scheduled' ? 'bg-purple-100' :
-                        'bg-green-100'
-                      }`}>
-                        {activity.status === 'Pending' && <Clock className="w-5 h-5 text-yellow-600" />}
-                        {activity.status === 'Viewed' && <Eye className="w-5 h-5 text-blue-600" />}
-                        {activity.status === 'Scheduled' && <Calendar className="w-5 h-5 text-purple-600" />}
-                        {activity.status === 'Offer' && <Award className="w-5 h-5 text-green-600" />}
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-900">
-                          {activity.action} <span className="text-primary-600">{activity.company}</span>
-                        </p>
-                        <div className="flex justify-between items-center mt-1">
-                          <span className="text-xs text-gray-500">{activity.time}</span>
-                          <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                            activity.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
-                            activity.status === 'Viewed' ? 'bg-blue-100 text-blue-800' :
-                            activity.status === 'Scheduled' ? 'bg-purple-100 text-purple-800' :
-                            'bg-green-100 text-green-800'
-                          }`}>
-                            {activity.status}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Tips & Recommendations */}
-            <div className="mt-8 bg-gradient-to-r from-primary-50 to-blue-50 border border-primary-100 rounded-xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <Star className="w-6 h-6 text-primary-600" />
-                <h2 className="text-lg font-semibold text-gray-900">Tips to Get More Jobs</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white p-4 rounded-lg border">
-                  <h3 className="font-semibold text-gray-900 mb-2">Complete Your Profile</h3>
-                  <p className="text-sm text-gray-600">Add skills, experience, and certifications to stand out.</p>
-                </div>
-                <div className="bg-white p-4 rounded-lg border">
-                  <h3 className="font-semibold text-gray-900 mb-2">Apply Early</h3>
-                  <p className="text-sm text-gray-600">New jobs get many applications quickly. Be among the first.</p>
-                </div>
-                <div className="bg-white p-4 rounded-lg border">
-                  <h3 className="font-semibold text-gray-900 mb-2">Follow Up</h3>
-                  <p className="text-sm text-gray-600">Send polite follow-up messages after applying.</p>
-                </div>
               </div>
             </div>
           </div>
@@ -512,13 +471,7 @@ function EmployeeDashboard() {
               <Briefcase className="w-6 h-6" />
               <span className="text-xs mt-1">Browse Jobs</span>
             </button>
-            <button
-              className="flex flex-col items-center text-sm"
-              onClick={() => router.push("/gigdaddy/profile")}
-            >
-              <User className="w-6 h-6" />
-              <span className="text-xs mt-1">Profile</span>
-            </button>
+
             <button
               className="flex flex-col items-center text-sm"
               onClick={() => router.push("/gigdaddy/analytics")}
@@ -533,6 +486,13 @@ function EmployeeDashboard() {
               <MessageSquare className="w-6 h-6" />
               <span className="text-xs mt-1">Messages</span>
             </button>
+            <button
+              className="flex flex-col items-center text-sm"
+              onClick={() => router.push("/gigdaddy/profile")}
+            >
+              <User className="w-6 h-6" />
+              <span className="text-xs mt-1">Profile</span>
+            </button>
           </div>
         </div>
       </div>
@@ -542,9 +502,24 @@ function EmployeeDashboard() {
 
 // Helper component for Eye icon since it's used in stats
 const Eye = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+    />
   </svg>
 );
 

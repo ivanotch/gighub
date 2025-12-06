@@ -727,13 +727,6 @@ function EmployeeMyJobs() {
           </button>
           <button
             className="flex flex-col items-center text-sm"
-            onClick={() => router.push("/gigdaddy/profile")}
-          >
-            <User className="w-6 h-6" />
-            <span className="text-xs mt-1">Profile</span>
-          </button>
-          <button
-            className="flex flex-col items-center text-sm"
             onClick={() => router.push("/gigdaddy/analytics")}
           >
             <PhilippinePeso className="w-6 h-6" />
@@ -745,6 +738,13 @@ function EmployeeMyJobs() {
           >
             <MessageSquare className="w-6 h-6" />
             <span className="text-xs mt-1">Messages</span>
+          </button>
+                    <button
+            className="flex flex-col items-center text-sm"
+            onClick={() => router.push("/gigdaddy/profile")}
+          >
+            <User className="w-6 h-6" />
+            <span className="text-xs mt-1">Profile</span>
           </button>
         </div>
       </div>

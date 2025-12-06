@@ -47,14 +47,24 @@ function EmployeeMessage() {
     { id: 3, sender: "client", text: "Saturday morning, around 9 AM. It's a medium-sized yard.", time: "10:35 AM", read: true },
     { id: 4, sender: "me", text: "Perfect! I can do that. Can you share the address?", time: "10:36 AM", read: true },
     { id: 5, sender: "client", text: "123 Garden Street, Mandaluyong. How much do you charge?", time: "10:40 AM", read: true },
-    { id: 6, sender: "me", text: "For medium yards, it's ₱500. Does that work for you?", time: "10:42 AM", read: false }
+    { id: 6, sender: "me", text: "For medium yards, it's ₱500. Does that work for you?", time: "10:42 AM", read: false },
+    { id: 7, sender: "client", text: "That sounds reasonable. Can you also trim the hedges?", time: "10:45 AM", read: true },
+    { id: 8, sender: "me", text: "Yes, I can trim the hedges for an additional ₱200.", time: "10:46 AM", read: true },
+    { id: 9, sender: "client", text: "Okay, let's do both. So total ₱700?", time: "10:50 AM", read: true },
+    { id: 10, sender: "me", text: "Correct! ₱700 total. Should I bring my own tools?", time: "10:52 AM", read: false },
+    { id: 11, sender: "client", text: "Yes, please bring your own tools. We have a water source available.", time: "10:55 AM", read: true },
+    { id: 12, sender: "me", text: "Perfect. I'll be there Saturday at 9 AM.", time: "10:56 AM", read: false },
+    { id: 13, sender: "client", text: "Great! Looking forward to it. I'll send you the exact gate code on Friday.", time: "11:00 AM", read: true },
+    { id: 14, sender: "me", text: "Sounds good. Thank you!", time: "11:02 AM", read: false },
   ]);
   
   const [newMessage, setNewMessage] = useState("");
   const [selectedChat, setSelectedChat] = useState<number | null>(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isVerified, setIsVerified] = useState(false); // State to control blur/verification
+  const [isVerified, setIsVerified] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const conversationListRef = useRef<HTMLDivElement>(null);
 
   const conversations = [
     {
@@ -86,7 +96,7 @@ function EmployeeMessage() {
       avatar: "ST",
       Location: "Gigdaddy Support",
       status: "system"
-    }
+    },
   ];
 
   const filteredConversations = conversations.filter(conv => 
@@ -121,19 +131,19 @@ function EmployeeMessage() {
   };
 
   const handleRemoveBlur = () => {
-    // For testing purposes only - will be removed when backend is connected
     setIsVerified(true);
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   const formatTime = (timeString: string) => {
     return timeString;
   };
 
-  // Get current conversation data
   const currentConversation = selectedChat !== null ? conversations.find(conv => conv.id === selectedChat) : null;
 
   return (
@@ -244,23 +254,18 @@ function EmployeeMessage() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col overflow-hidden relative ">
+      <div className="flex-1 flex flex-col h-screen relative">
         {!isVerified && (
           <>
-            <div className="absolute inset-0 z-40 bg-white/50 backdrop-blur-sm pointer-events-none border-2 border-red"></div>
-            
-            {/* Warning Modal */}
-            <div className="absolute inset-0 z-50 flex items-center justify-center p-4 ">
-              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all border-[2] border-blue-400">
-                {/* Warning Icon */}
+            <div className="absolute inset-0 z-40 bg-white/50 backdrop-blur-sm pointer-events-none"></div>
+            <div className="absolute inset-0 z-50 flex items-start justify-center p-4">
+              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 border-2 border-blue-400">
                 <div className="flex justify-center mb-6">
                   <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center">
                     <AlertCircle className="w-10 h-10 text-yellow-600" />
                   </div>
                 </div>
-
-                {/* Warning Text */}
-                <div className="text-center mb-6 ">
+                <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">
                     Verification Required
                   </h2>
@@ -268,8 +273,6 @@ function EmployeeMessage() {
                     You need to complete the document verification first to access messaging features.
                   </p>
                 </div>
-
-                {/* Stats/Info */}
                 <div className="bg-gray-50 rounded-lg p-4 mb-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
@@ -282,8 +285,6 @@ function EmployeeMessage() {
                     </div>
                   </div>
                 </div>
-
-                {/* Action Buttons */}
                 <div className="space-y-3">
                   <button
                     onClick={handleBeFullyVerified}
@@ -292,14 +293,12 @@ function EmployeeMessage() {
                     <Shield className="w-5 h-5" />
                     Be Fully Verified
                   </button>
-                  
                   <button
                     onClick={handleRemoveBlur}
                     className="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors duration-300 text-sm"
                   >
                     Test Mode: Remove Blur (Development Only)
                   </button>
-                  
                   <p className="text-xs text-gray-500 text-center mt-4">
                     Note: Full verification is required to send and receive messages with clients.
                   </p>
@@ -309,7 +308,7 @@ function EmployeeMessage() {
           </>
         )}
 
-        {/* Mobile Header - NOT blurred */}
+        {/* Mobile Header */}
         <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b">
           <div className="flex items-center gap-2">
             <img
@@ -323,11 +322,11 @@ function EmployeeMessage() {
           </button>
         </div>
 
-        {/* Main Messages Content - Inside the blur area */}
-        <main className="flex-1 overflow-hidden flex">
-          {/* Conversation List - Hidden on mobile when chat is open */}
-          <div className={`${selectedChat !== null ? 'hidden md:flex' : 'flex'} w-full md:w-96 flex-col border-r border-gray-200 bg-white`}>
-            <div className="p-4 border-b">
+        {/* Main Messages Content */}
+        <div className="flex-1 flex overflow-hidden">
+          {/* Conversation List */}
+          <div className={`${selectedChat !== null ? 'hidden md:flex' : 'flex'} w-full md:w-96 flex-col h-full bg-white border-r border-gray-200`}>
+            <div className="flex-shrink-0 p-4 border-b">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-gray-900">Messages</h2>
                 <div className="flex items-center gap-2">
@@ -339,7 +338,6 @@ function EmployeeMessage() {
                   </button>
                 </div>
               </div>
-
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
@@ -352,7 +350,11 @@ function EmployeeMessage() {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto">
+
+            <div 
+              ref={conversationListRef}
+              className="flex-1 overflow-y-auto"
+            >
               {filteredConversations.map((conversation) => (
                 <div
                   key={conversation.id}
@@ -375,7 +377,6 @@ function EmployeeMessage() {
                       <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                     )}
                   </div>
-
                   <div className="ml-3 flex-1 min-w-0">
                     <div className="flex justify-between items-start">
                       <div>
@@ -397,20 +398,17 @@ function EmployeeMessage() {
               ))}
             </div>
 
-            <div className="p-4 border-t">
-              <button className="w-full py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center justify-center gap-2">
-                <Plus className="w-5 h-5" />
-                New Message
-              </button>
+            <div className="flex-shrink-0 p-4 border-t hidden md:block">
+              {/* Little Padding to make the UX*/}
             </div>
           </div>
 
           {/* Chat Area */}
-          <div className={`${selectedChat === null ? 'hidden md:flex' : 'flex'} flex-1 flex-col`}>
+          <div className={`${selectedChat === null ? 'hidden md:flex' : 'flex'} flex-1 flex-col h-full`}>
             {selectedChat !== null && currentConversation ? (
               <>
                 {/* Chat Header */}
-                <div className="flex items-center justify-between p-4 border-b bg-white">
+                <div className="flex-shrink-0 flex items-center justify-between p-4 border-b bg-white">
                   <div className="flex items-center">
                     <button
                       onClick={() => setSelectedChat(null)}
@@ -435,7 +433,6 @@ function EmployeeMessage() {
                       </div>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-2">
                     <button className="p-2 hover:bg-gray-100 rounded-lg">
                       <Info className="w-5 h-5 text-gray-600" />
@@ -447,14 +444,17 @@ function EmployeeMessage() {
                 </div>
 
                 {/* Messages Area */}
-                <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
-                  <div className="space-y-4">
+                <div 
+                  ref={messagesContainerRef}
+                  className="flex-1 overflow-y-auto bg-gray-50"
+                >
+                  <div className="p-4 space-y-4">
                     {messages.map((message) => (
                       <div
                         key={message.id}
                         className={`flex ${message.sender === "me" ? "justify-end" : "justify-start"}`}
                       >
-                        <div className={`max-w-xs md:max-w-md lg:max-w-lg rounded-2xl px-4 py of-2 ${
+                        <div className={`max-w-xs md:max-w-md lg:max-w-lg rounded-2xl px-4 py-2 ${
                           message.sender === "me"
                             ? "bg-primary-600 text-white rounded-br-none"
                             : "bg-white border border-gray-200 rounded-bl-none"
@@ -481,8 +481,8 @@ function EmployeeMessage() {
                   </div>
                 </div>
 
-                {/* Message Input */}
-                <div className="p-4 border-t bg-white">
+                {/* Message Input Area */}
+                <div className="flex-shrink-0 p-4 border-t bg-white">
                   <div className="flex items-center gap-2">
                     <button className="p-2 hover:bg-gray-100 rounded-lg">
                       <Paperclip className="w-5 h-5 text-gray-600" />
@@ -490,7 +490,6 @@ function EmployeeMessage() {
                     <button className="p-2 hover:bg-gray-100 rounded-lg">
                       <Image className="w-5 h-5 text-gray-600" />
                     </button>
-                    
                     <div className="flex-1 relative">
                       <input
                         type="text"
@@ -509,7 +508,6 @@ function EmployeeMessage() {
                         </button>
                       </div>
                     </div>
-
                     <button
                       onClick={handleSendMessage}
                       disabled={!newMessage.trim()}
@@ -521,17 +519,6 @@ function EmployeeMessage() {
                     >
                       <Send className="w-5 h-5" />
                     </button>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
-                    <div className="flex items-center gap-4">
-                      <button className="hover:text-primary-600">Add payment details</button>
-                      <button className="hover:text-primary-600">Share location</button>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-3 h-3" />
-                      <span>Encrypted • Messages are secure</span>
-                    </div>
                   </div>
                 </div>
               </>
@@ -555,10 +542,10 @@ function EmployeeMessage() {
               </div>
             )}
           </div>
-        </main>
+        </div>
 
-        {/* Mobile Bottom Navigation - NOT blurred */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white border-t shadow-md">
+        {/* Mobile Bottom Navigation */}
+        <div className="md:hidden flex-shrink-0 z-[60] bg-white border-t shadow-md">
           <div className="flex justify-around py-3 text-gray-600">
             <button
               className="flex flex-col items-center text-sm"
@@ -572,7 +559,7 @@ function EmployeeMessage() {
               onClick={() => router.push("/gigdaddy/myjobs")}
             >
               <Briefcase className="w-6 h-6" />
-              <span className="text-xs mt-1">Jobs</span>
+              <span className="text-xs mt-1">Browse Jobs</span>
             </button>
             <button
               className="flex flex-col items-center text-sm"

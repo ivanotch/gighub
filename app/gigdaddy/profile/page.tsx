@@ -19,25 +19,27 @@ import {
   Plus,
   ChevronRight,
   PhilippinePeso,
+  ChevronDown,
 } from "lucide-react";
 import Head from "next/head";
 
 function EmployeeProfile() {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+  const [showSkillsDropdown, setShowSkillsDropdown] = useState(false);
   const [profileData, setProfileData] = useState({
     name: "Jay-ar Untalan",
-    email: "Untalanjayarb22@gmail.com",
+    email: "jayaruntalanb22@gmail.com",
     phone: "+63 912 345 6789",
     location: "Mandaluyong City, Philippines",
     bio: "Good at manual labor tasks including packaging, labeling, inventory management, shipping, restocking, and order processing. Reliable and efficient worker with a strong work ethic.",
     skills: [
       "Packaging",
       "Labeling",
-      "Inventory Management",
-      "Restocking",
       "Order Processing",
     ],
+    categoryService: ["E-Commerece"],
     rating: 4.7,
     totalReviews: 128,
     completedJobs: 45,
@@ -48,6 +50,25 @@ function EmployeeProfile() {
   });
 
   const [editForm, setEditForm] = useState(profileData);
+
+  // Available category options
+  const categoryOptions = ["Cleaning", "E-Commerce"];
+  
+  // Available skills options
+  const skillOptions = [
+        "Power Wash",
+        "Deep Cleaning",
+        "Dish Washer",
+        "Laundry",
+        "Cleaning Assistant",
+        "Packaging",
+        "Labeling",
+        "Inventory Management",
+        "Shipping/Dropping off",
+        "Restocking",
+        "Order Processing"
+
+  ];
 
   const reviews = [
     {
@@ -102,7 +123,7 @@ function EmployeeProfile() {
       icon: Briefcase,
     },
     { label: "Total Earnings", value: "₱45,800", icon: PhilippinePeso },
-    { label: "Not Fully Verified", value: "66%", icon: Check },
+    { label: "Not Fully Verified", value: "0%", icon: Check },
   ];
 
   const handleEditToggle = () => {
@@ -116,20 +137,174 @@ function EmployeeProfile() {
     setEditForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSkillAdd = (skill: string) => {
-    if (skill.trim() && !editForm.skills.includes(skill.trim())) {
+  // Handle adding a category
+  const handleCategoryAdd = (category: string) => {
+    if (!editForm.categoryService.includes(category)) {
       setEditForm((prev) => ({
         ...prev,
-        skills: [...prev.skills, skill.trim()],
+        categoryService: [...prev.categoryService, category],
       }));
     }
+    setShowCategoryDropdown(false);
   };
 
-  const handleSkillRemove = (index: number) => {
+  // Handle removing a category
+  const handleCategoryRemove = (category: string) => {
     setEditForm((prev) => ({
       ...prev,
-      skills: prev.skills.filter((_, i) => i !== index),
+      categoryService: prev.categoryService.filter((c) => c !== category),
     }));
+  };
+
+  // Handle adding a skill
+  const handleSkillAdd = (skill: string) => {
+    if (!editForm.skills.includes(skill)) {
+      setEditForm((prev) => ({
+        ...prev,
+        skills: [...prev.skills, skill],
+      }));
+    }
+    setShowSkillsDropdown(false);
+  };
+
+  // Handle removing a skill
+  const handleSkillRemove = (skill: string) => {
+    setEditForm((prev) => ({
+      ...prev,
+      skills: prev.skills.filter((s) => s !== skill),
+    }));
+  };
+
+  // Render category badges (for both edit and view modes)
+  const renderCategoryBadges = (categories: string[], isEditing: boolean = false) => {
+    return (
+      <div className="flex flex-wrap gap-2 mb-4">
+        {categories.map((category, index) => (
+          <div
+            key={index}
+            className={`flex items-center gap-1 ${
+              isEditing 
+                ? "bg-blue-50 text-blue-700 border border-blue-200"
+                : "bg-blue-100 text-blue-800"
+            } px-3 py-1.5 rounded-full`}
+          >
+            {category}
+            {isEditing && (
+              <button
+                onClick={() => handleCategoryRemove(category)}
+                className="text-blue-500 hover:text-blue-700 ml-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  // Render skill badges (for both edit and view modes)
+  const renderSkillBadges = (skills: string[], isEditing: boolean = false) => {
+    return (
+      <div className="flex flex-wrap gap-2 mb-4">
+        {skills.map((skill, index) => (
+          <div
+            key={index}
+            className={`flex items-center gap-1 ${
+              isEditing 
+                ? "bg-primary-50 text-primary-700 border border-primary-200"
+                : "bg-primary-50 text-primary-700"
+            } px-3 py-1.5 rounded-full`}
+          >
+            {skill}
+            {isEditing && (
+              <button
+                onClick={() => handleSkillRemove(skill)}
+                className="text-primary-500 hover:text-primary-700 ml-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  // Render category dropdown for editing
+  const renderCategoryDropdown = () => {
+    const availableCategories = categoryOptions.filter(
+      (category) => !editForm.categoryService.includes(category)
+    );
+
+    if (availableCategories.length === 0) return null;
+
+    return (
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
+          className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+        >
+          <Plus className="w-4 h-4" />
+          Add Category
+          <ChevronDown className="w-4 h-4" />
+        </button>
+        
+        {showCategoryDropdown && (
+          <div className="absolute z-10 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+            {availableCategories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => handleCategoryAdd(category)}
+                className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700"
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // Render skills dropdown for editing
+  const renderSkillsDropdown = () => {
+    const availableSkills = skillOptions.filter(
+      (skill) => !editForm.skills.includes(skill)
+    );
+
+    if (availableSkills.length === 0) return null;
+
+    return (
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setShowSkillsDropdown(!showSkillsDropdown)}
+          className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+        >
+          <Plus className="w-4 h-4" />
+          Add Skill
+          <ChevronDown className="w-4 h-4" />
+        </button>
+        
+        {showSkillsDropdown && (
+          <div className="absolute z-10 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+            {availableSkills.map((skill) => (
+              <button
+                key={skill}
+                type="button"
+                onClick={() => handleSkillAdd(skill)}
+                className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700"
+              >
+                {skill}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   };
 
   const renderStars = (rating: number) => {
@@ -366,6 +541,18 @@ function EmployeeProfile() {
                               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                             />
                           </div>
+                          
+                          {/* Category Service Section */}
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Category Service
+                            </label>
+                            {renderCategoryBadges(editForm.categoryService, true)}
+                            <div className="flex gap-2">
+                              {renderCategoryDropdown()}
+                            </div>
+                          </div>
+                          
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                               Bio
@@ -379,52 +566,15 @@ function EmployeeProfile() {
                               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                             />
                           </div>
+                          
+                          {/* Skills Section */}
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
                               Skills
                             </label>
-                            <div className="flex flex-wrap gap-2 mb-2">
-                              {editForm.skills.map((skill, index) => (
-                                <div
-                                  key={index}
-                                  className="flex items-center gap-1 bg-primary-50 text-primary-700 px-3 py-1 rounded-full"
-                                >
-                                  {skill}
-                                  <button
-                                    onClick={() => handleSkillRemove(index)}
-                                    className="text-primary-500 hover:text-primary-700"
-                                  >
-                                    <X className="w-4 h-4" />
-                                  </button>
-                                </div>
-                              ))}
-                            </div>
+                            {renderSkillBadges(editForm.skills, true)}
                             <div className="flex gap-2">
-                              <input
-                                type="text"
-                                placeholder="Add a skill"
-                                onKeyPress={(e) => {
-                                  if (e.key === "Enter") {
-                                    handleSkillAdd(
-                                      (e.target as HTMLInputElement).value
-                                    );
-                                    (e.target as HTMLInputElement).value = "";
-                                  }
-                                }}
-                                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                              />
-                              <button
-                                onClick={(e) => {
-                                  const input = (e.target as HTMLElement)
-                                    .previousSibling as HTMLInputElement;
-                                  handleSkillAdd(input.value);
-                                  input.value = "";
-                                }}
-                                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
-                              >
-                                <Plus className="w-4 h-4" />
-                                Add
-                              </button>
+                              {renderSkillsDropdown()}
                             </div>
                           </div>
                         </div>
@@ -439,6 +589,14 @@ function EmployeeProfile() {
                               ({profileData.totalReviews} reviews)
                             </span>
                           </div>
+                          
+                          {/* Display (View Mode) */}
+                          {profileData.categoryService.length > 0 && (
+                            <div className="mb-4">
+                              {renderCategoryBadges(profileData.categoryService)}
+                            </div>
+                          )}
+                          
                           <div className="mb-4">
                             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                               <Check className="w-4 h-4 mr-1" />
@@ -448,16 +606,16 @@ function EmployeeProfile() {
                           <p className="text-gray-600 mb-4">
                             {profileData.bio}
                           </p>
-                          <div className="flex flex-wrap gap-2">
-                            {profileData.skills.map((skill, index) => (
-                              <span
-                                key={index}
-                                className="bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-sm"
-                              >
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
+                          
+                          {/* Skills Display (View Mode) */}
+                          {profileData.skills.length > 0 && (
+                            <div className="mb-4">
+                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Skills
+                              </label>
+                              {renderSkillBadges(profileData.skills)}
+                            </div>
+                          )}
                         </>
                       )}
                     </div>
@@ -692,13 +850,6 @@ function EmployeeProfile() {
             <span className="text-xs mt-1">Browse Jobs</span>
           </button>
           <button
-            className="flex flex-col items-center text-sm text-primary-600"
-            onClick={() => router.push("/gigdaddy/profile")}
-          >
-            <User className="w-6 h-6" />
-            <span className="text-xs mt-1">Profile</span>
-          </button>
-          <button
             className="flex flex-col items-center text-sm"
             onClick={() => router.push("/gigdaddy/analytics")}
           >
@@ -711,6 +862,13 @@ function EmployeeProfile() {
           >
             <MessageSquare className="w-6 h-6" />
             <span className="text-xs mt-1">Messages</span>
+          </button>
+          <button
+            className="flex flex-col items-center text-sm text-primary-600"
+            onClick={() => router.push("/gigdaddy/profile")}
+          >
+            <User className="w-6 h-6" />
+            <span className="text-xs mt-1">Profile</span>
           </button>
         </div>
       </div>
