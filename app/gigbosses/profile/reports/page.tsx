@@ -1,5 +1,6 @@
-import Nav from "@/components/gigbosspage/Nav"
-import SideOptions from "@/components/gigbosspage/profile/SideOptions"
+import Nav from "@/components/gigbosspage/Nav";
+import SideOptions from "@/components/gigbosspage/profile/SideOptions";
+import ReportsContent from "@/components/gigbosspage/profile/reports/ReportsContent";
 
 export default function Reports() {
     return (
@@ -7,9 +8,7 @@ export default function Reports() {
             <Nav />
             <div className="flex mt-[2rem]">
                 <SideOptions />
-                <div>
-                    Reports
-                </div>
+                <ReportsContent />
             </div>
         </main>
     )

@@ -1,5 +1,6 @@
-import Nav from "@/components/gigbosspage/Nav"
-import SideOptions from "@/components/gigbosspage/profile/SideOptions"
+import Nav from "@/components/gigbosspage/Nav";
+import SideOptions from "@/components/gigbosspage/profile/SideOptions";
+import SecurityContent from "@/components/gigbosspage/profile/security/SecurityContent";
 
 export default function Security() {
     return (
@@ -7,9 +8,7 @@ export default function Security() {
             <Nav />
             <div className="flex mt-[2rem]">
                 <SideOptions />
-                <div>
-                    Security
-                </div>
+                <SecurityContent />
             </div>
         </main>
     )

@@ -1,5 +1,6 @@
-import Nav from "@/components/gigbosspage/Nav"
-import SideOptions from "@/components/gigbosspage/profile/SideOptions"
+import Nav from "@/components/gigbosspage/Nav";
+import SideOptions from "@/components/gigbosspage/profile/SideOptions";
+import TaxContent from "@/components/gigbosspage/profile/tax/TaxContent";
 
 export default function Tax() {
     return (
@@ -7,9 +8,7 @@ export default function Tax() {
             <Nav />
             <div className="flex mt-[2rem]">
                 <SideOptions />
-                <div>
-                    Tax
-                </div>
+                <TaxContent />
             </div>
         </main>
     )
