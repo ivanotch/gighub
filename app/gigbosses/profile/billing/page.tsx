@@ -6,7 +6,7 @@ export default function Billing() {
     return (
         <main>
             <Nav />
-            <div className="flex mt-[2rem]">
+            <div className="flex mt-[7rem]">
                 <SideOptions />
                 <BillingContent />
             </div>

@@ -6,7 +6,7 @@ export default function SideOptions() {
     const pathname = usePathname();
 
     const items = [
-        { label: "Profile", path: "/gigbosses/profile" },
+        { label: "Profile", path: "/gigbosses/profile"},
         { label: "Billing & Payment", path: "/gigbosses/profile/billing" },
         { label: "Password & Security", path: "/gigbosses/profile/security" },
         { label: "Membership", path: "/gigbosses/profile/membership" },

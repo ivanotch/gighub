@@ -46,7 +46,7 @@ export default function Nav() {
     }, [])
 
     return (
-        <nav className="bg-white fixed top-0 md:top-0 z-50 w-full">
+        <nav className="bg-white fixed overflow-hidden top-0 md:top-0 z-50 w-full">
             <div className="">
                 <div className="flex items-center justify-between md:justify-between w-full h-16 md:h-20 px-4 md:px-10">
                     {/* left Side */}

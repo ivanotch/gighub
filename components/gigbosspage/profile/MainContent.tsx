@@ -71,7 +71,7 @@ export default function MainContent() {
     };
 
     return (
-        <main className="w-full lg:w-[75%] px-4 mr-10">
+        <main className="w-full lg:w-[75%] px-4 mt-[2rem] mr-10">
             <div className="flex flex-col mb-6">
                 <header className="text-[1.6rem] font-semibold">My Profile</header>
                 <span className="text-gray-600">This is a gigboss account</span>
@@ -239,10 +239,6 @@ export default function MainContent() {
                             Website
                         </div>
 
-                        <div>
-                            Dropdown option 
-                            {/* E-commerce/cleaning */}
-                        </div>
 
 
 

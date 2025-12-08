@@ -40,7 +40,7 @@ export default function BillingContent() {
 
     return (
         <main className="w-full lg:w-[75%] px-4 mr-10">
-            <div className="pt-[4rem] md:pt-[6rem]"> {/* Added this wrapper because jhon ivan Babbida, don't know how*/}
+            <div className="pt-[4rem] md:pt-[2rem]"> {/* Added this wrapper because jhon ivan Babbida, don't know how*/}
             <div className="flex flex-col mb-6">
                 <header className="text-[1.6rem] font-semibold">Billing & Payment</header>
                 <span className="text-gray-600">Manage your payment methods and transaction history</span>
