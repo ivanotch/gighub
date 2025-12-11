@@ -602,6 +602,13 @@ export default function GigPost() {
                         <div className="w-[50%] pt-[5rem] pl-8 pr-40">
                             <header className="text-[1rem] font-[500] mb-2">Describe what you need</header>
                             <Textarea className="h-30" placeholder="Type your description here." />
+
+                            <div className="mt-6">
+                                <header className="font-semibold">Example: </header>
+                                <p className="text-gray-700">
+                                    Your task is to pack and label 40 items accurately and neatly. Please handle only the materials prepared for you, avoid entering rooms or using items not related to the job, and strictly no smoking inside the house. I expect you to work carefully, keep the area clean, and complete the task with attention to detail and professionalism
+                                </p>
+                            </div>
                         </div>
 
                     </div>
@@ -718,7 +725,7 @@ export default function GigPost() {
                         {progress === 100 ? (
                             postingType === "instant" ? (
                                 <Button
-                                    onClick={() => router.push('/gigbosses/')}
+                                    onClick={() => router.push('/gigbosses/browse/my-gigs/gig')}
                                     className="bg-blue-600 hover:bg-blue-300 hover:text-black"
                                     size="lg"
                                 >

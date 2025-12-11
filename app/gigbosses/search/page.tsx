@@ -16,7 +16,7 @@ export default function SearchWorker() {
         status: [],
         location: "",
         category: ""
-    });
+    }); 
 
     return (
         <main>

@@ -358,11 +358,11 @@ export default function MyGigs() {
             {/* Right Sheet */}
             <div
                 className={`
-    fixed top-0 right-0 h-screen bg-white shadow-2xl border-l z-50
-    transition-transform duration-300
-    ${selectedGig ? "translate-x-0" : "translate-x-full"}
-    w-[70%] flex flex-col
-  `}
+                    fixed top-0 right-0 h-screen bg-white shadow-2xl border-l z-50
+                    transition-transform duration-300
+                    ${selectedGig ? "translate-x-0" : "translate-x-full"}
+                    w-[70%] flex flex-col
+                `}
             >
                 {/* Sheet Header */}
                 <div className="flex items-center justify-between p-5 border-b flex-shrink-0">
