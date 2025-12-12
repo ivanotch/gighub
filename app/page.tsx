@@ -52,26 +52,9 @@ function LandingPage() {
 
   // Categories with exact subservices you provided
   const categories = [
+
     {
       id: 1,
-      name: "Cleaning Services",
-      description: "Professional cleaning for homes and businesses",
-      icon: BrushCleaning,
-      subServices: [
-        { id: 1, title: "Power Wash", description: "High-pressure exterior cleaning", icon: Droplets },
-        { id: 2, title: "Deep Cleaning", description: "Intensive comprehensive cleaning", icon: Sparkles },
-        { id: 3, title: "Dish Washer", description: "Commercial dish washing", icon: Shirt },
-        { id: 4, title: "Laundry", description: "Clothing and linen cleaning", icon: Shirt },
-        { id: 5, title: "Cleaning Assistant", description: "General cleaning support", icon: Users },
-      ],
-      stats: {
-        availableJobs: 245,
-        rating: 4.8,
-        quickHire: true
-      }
-    },
-    {
-      id: 2,
       name: "E-commerce",
       description: "Online retail and fulfillment operations",
       icon: ShoppingBag,
@@ -86,6 +69,24 @@ function LandingPage() {
       stats: {
         availableJobs: 189,
         rating: 4.6,
+        quickHire: true
+      }
+    },
+        {
+      id: 2,
+      name: "Cleaning Services",
+      description: "Professional cleaning for homes and businesses",
+      icon: BrushCleaning,
+      subServices: [
+        { id: 1, title: "Power Wash", description: "High-pressure exterior cleaning", icon: Droplets },
+        { id: 2, title: "Deep Cleaning", description: "Intensive comprehensive cleaning", icon: Sparkles },
+        { id: 3, title: "Dish Washer", description: "Commercial dish washing", icon: Shirt },
+        { id: 4, title: "Laundry", description: "Clothing and linen cleaning", icon: Shirt },
+        { id: 5, title: "Cleaning Assistant", description: "General cleaning support", icon: Users },
+      ],
+      stats: {
+        availableJobs: 123,
+        rating: 4.8,
         quickHire: true
       }
     }
