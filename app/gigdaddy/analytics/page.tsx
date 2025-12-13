@@ -29,6 +29,10 @@ import {
   ChevronLeft,
   Shield,
   AlertCircle,
+  Package,
+  Tag,
+  Layers,
+  ShoppingCart,
 } from "lucide-react";
 import Head from "next/head";
 
@@ -39,142 +43,139 @@ function EmployeeAnalytics() {
   const [isVerified, setIsVerified] = useState(false);
 
   const earningsData = {
-    currentBalance: "₱12,500.00",
-    totalEarned: "₱45,800.00",
-    pending: "₱3,200.00",
-    withdrawn: "₱30,100.00",
+    currentBalance: "₱2,850.00",
+    totalEarned: "₱5,400.00",
+    pending: "₱750.00",
+    withdrawn: "₱1,800.00",
   };
 
   const monthlyEarnings = [
-    { month: "Jan", earnings: 8500 },
-    { month: "Feb", earnings: 9200 },
-    { month: "Mar", earnings: 7800 },
-    { month: "Apr", earnings: 10500 },
-    { month: "May", earnings: 12000 },
-    { month: "Jun", earnings: 9800 },
-    { month: "Jul", earnings: 11200 },
-    { month: "Aug", earnings: 13500 },
-    { month: "Sep", earnings: 14200 },
-    { month: "Oct", earnings: 15800 },
-    { month: "Nov", earnings: 12500 },
-    { month: "Dec", earnings: 0 },
+    { month: "Jan", earnings: 0 },
+    { month: "Feb", earnings: 0 },
+    { month: "Mar", earnings: 0 },
+    { month: "Apr", earnings: 0 },
+    { month: "May", earnings: 0 },
+    { month: "Jun", earnings: 0 },
+    { month: "Jul", earnings: 0 },
+    { month: "Aug", earnings: 0 },
+    { month: "Sep", earnings: 0 },
+    { month: "Oct", earnings: 1200 },
+    { month: "Nov", earnings: 2850 },
+    { month: "Dec", earnings: 1350 },
   ];
 
   const recentTransactions = [
     {
       id: 1,
-      job: "Office Cleaning",
-      date: "Nov 15, 2023",
-      amount: "₱750",
-      status: "completed",
-      type: "credit",
-    },
-    {
-      id: 2,
-      job: "Lawn Maintenance",
-      date: "Nov 14, 2023",
-      amount: "₱500",
-      status: "completed",
-      type: "credit",
-    },
-    {
-      id: 3,
-      job: "Furniture Assembly",
-      date: "Nov 12, 2023",
-      amount: "₱600",
-      status: "completed",
-      type: "credit",
-    },
-    {
-      id: 4,
-      job: "Garden Setup",
-      date: "Nov 10, 2023",
-      amount: "₱1,200",
-      status: "pending",
-      type: "credit",
-    },
-    {
-      id: 5,
-      job: "House Painting",
-      date: "Nov 8, 2023",
-      amount: "₱2,500",
-      status: "pending",
-      type: "credit",
-    },
-    {
-      id: 6,
-      job: "Withdrawal",
-      date: "Nov 5, 2023",
-      amount: "₱5,000",
-      status: "completed",
-      type: "debit",
-    },
-    {
-      id: 7,
-      job: "Car Wash Service",
-      date: "Nov 3, 2023",
+      job: "Packing Service",
+      date: "Dec 5, 2025",
       amount: "₱450",
       status: "completed",
       type: "credit",
+      icon: Package,
+    },
+    {
+      id: 2,
+      job: "Labeling Service",
+      date: "Dec 3, 2025",
+      amount: "₱600",
+      status: "completed",
+      type: "credit",
+      icon: Tag,
+    },
+    {
+      id: 3,
+      job: "Inventory Management",
+      date: "Nov 28, 2025",
+      amount: "₱350",
+      status: "completed",
+      type: "credit",
+      icon: Layers,
+    },
+    {
+      id: 4,
+      job: "Packing Service",
+      date: "Nov 25, 2025",
+      amount: "₱400",
+      status: "pending",
+      type: "credit",
+      icon: Package,
+    },
+    {
+      id: 5,
+      job: "Packing Service",
+      date: "Nov 20, 2025",
+      amount: "₱550",
+      status: "completed",
+      type: "credit",
+      icon: Package,
     },
   ];
 
   const jobCategories = [
-    { category: "Cleaning", earnings: "₱18,500", percentage: 40, jobs: 24 },
-    { category: "Gardening", earnings: "₱12,300", percentage: 27, jobs: 15 },
-    { category: "Construction", earnings: "₱8,000", percentage: 18, jobs: 10 },
-    { category: "Other", earnings: "₱7,000", percentage: 15, jobs: 8 },
+    { 
+      category: "E-Commerce", 
+      earnings: "₱3,600", 
+      percentage: 67, 
+      jobs: 8,
+      icon: ShoppingCart,
+      description: "Packing, labeling & inventory"
+    },
   ];
 
   const stats = [
     {
       label: "Avg. Hourly Rate",
-      value: "₱250/hr",
+      value: "₱220/hr",
       change: "+12%",
       trend: "up",
       icon: TrendingUp,
     },
     {
       label: "Jobs Completed",
-      value: "45",
-      change: "+8%",
+      value: "12",
+      change: "+33%",
       trend: "up",
       icon: CheckCircle,
     },
     {
       label: "Active Jobs",
-      value: "3",
-      change: "0%",
+      value: "1",
+      change: "+0%",
       trend: "neutral",
       icon: ClockIcon,
     },
     {
-      label: "Success Rate",
-      value: "98%",
-      change: "+2%",
+      label: "Client Rating",
+      value: "4.7/5",
+      change: "+0.2",
       trend: "up",
       icon: Target,
     },
   ];
 
+  // Updated goals for 2025
   const goals = [
     {
       title: "Monthly Target",
-      target: "₱15,000",
-      current: "₱12,500",
-      progress: 83,
+      target: "₱8,000",
+      current: "₱2,850",
+      progress: 36,
+      icon: PhilippinePeso,
     },
     {
-      title: "Jobs Target",
-      target: "50 jobs",
-      current: "45 jobs",
-      progress: 90,
+      title: "E-Commerce Jobs",
+      target: "15 jobs",
+      current: "8 jobs",
+      progress: 53,
+      icon: ShoppingCart,
     },
     {
-      title: "Rating Goal",
-      target: "4.8 stars",
-      current: "4.7 stars",
-      progress: 98,
+      title: "Repeat Clients",
+      target: "5 clients",
+      current: "2 clients",
+      progress: 40,
+      icon: User,
     },
   ];
 
@@ -219,6 +220,14 @@ function EmployeeAnalytics() {
       default:
         return "text-gray-700 bg-gray-50 border-gray-200";
     }
+  };
+
+  const getTransactionIcon = (type: string, jobTitle?: string) => {
+    // Default icons based on job type
+    if (jobTitle?.includes("Packing")) return Package;
+    if (jobTitle?.includes("Labeling")) return Tag;
+    if (jobTitle?.includes("Inventory")) return Layers;
+    return type === "credit" ? PhilippinePeso : Wallet;
   };
 
   return (
@@ -423,16 +432,12 @@ function EmployeeAnalytics() {
                 <p className="text-gray-600">
                   Track your earnings, set goals, and manage payments
                 </p>
+                <p className="text-sm text-gray-500 mt-1">
+                  You've completed 12 e-commerce jobs so far. Keep it up!
+                </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <button
-                  onClick={handleExport}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-2"
-                >
-                  <Download className="w-4 h-4" />
-                  Export
-                </button>
                 <button
                   onClick={handleWithdraw}
                   className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
@@ -448,7 +453,7 @@ function EmployeeAnalytics() {
                 <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                     <h2 className="text-lg font-semibold text-gray-900">
-                      Earnings Overview
+                      2025 Earnings Overview
                     </h2>
                     <div className="flex items-center gap-2">
                       <button
@@ -503,7 +508,7 @@ function EmployeeAnalytics() {
                               }`}
                               style={{
                                 height: `${
-                                  (monthData.earnings / 16000) * 100
+                                  (monthData.earnings / 3000) * 100
                                 }%`,
                               }}
                               title={`₱${monthData.earnings.toLocaleString()}`}
@@ -511,6 +516,9 @@ function EmployeeAnalytics() {
                           </div>
                         </div>
                       ))}
+                    </div>
+                    <div className="text-center text-sm text-gray-500 mt-4">
+                      Started earning in October 2025
                     </div>
                   </div>
 
@@ -522,11 +530,17 @@ function EmployeeAnalytics() {
                       <p className="text-2xl font-bold text-gray-900">
                         {earningsData.currentBalance}
                       </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Available to withdraw
+                      </p>
                     </div>
                     <div className="bg-green-50 border border-green-100 rounded-lg p-4">
                       <p className="text-sm text-gray-600 mb-1">Total Earned</p>
                       <p className="text-2xl font-bold text-gray-900">
                         {earningsData.totalEarned}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Since October 2025
                       </p>
                     </div>
                     <div className="bg-yellow-50 border border-yellow-100 rounded-lg p-4">
@@ -534,11 +548,17 @@ function EmployeeAnalytics() {
                       <p className="text-2xl font-bold text-gray-900">
                         {earningsData.pending}
                       </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        1 packing job pending
+                      </p>
                     </div>
                     <div className="bg-purple-50 border border-purple-100 rounded-lg p-4">
                       <p className="text-sm text-gray-600 mb-1">Withdrawn</p>
                       <p className="text-2xl font-bold text-gray-900">
                         {earningsData.withdrawn}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        1 withdrawal
                       </p>
                     </div>
                   </div>
@@ -549,43 +569,51 @@ function EmployeeAnalytics() {
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <PieChart className="w-5 h-5" />
-                        Earnings by Category
+                        Earnings by Service Type
                       </h3>
                       <Filter className="w-5 h-5 text-gray-400" />
                     </div>
 
-                    <div className="space-y-4">
-                      {jobCategories.map((category, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-between"
-                        >
-                          <div className="flex-1">
-                            <div className="flex justify-between mb-1">
-                              <span className="font-medium text-gray-900">
-                                {category.category}
-                              </span>
-                              <span className="text-gray-600">
-                                {category.earnings}
-                              </span>
-                            </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2">
-                              <div
-                                className="bg-primary-600 h-2 rounded-full"
-                                style={{ width: `${category.percentage}%` }}
-                              ></div>
-                            </div>
-                            <div className="flex justify-between mt-1">
-                              <span className="text-xs text-gray-500">
-                                {category.jobs} jobs
-                              </span>
-                              <span className="text-xs text-gray-500">
-                                {category.percentage}%
-                              </span>
+                    <div className="space-y-6">
+                      {jobCategories.map((category, index) => {
+                        const Icon = category.icon;
+                        return (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between"
+                          >
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                  <Icon className="w-5 h-5 text-blue-600" />
+                                </div>
+                                <div>
+                                  <span className="font-medium text-gray-900">
+                                    {category.category}
+                                  </span>
+                                  <p className="text-xs text-gray-500">
+                                    {category.description}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div
+                                  className="bg-primary-600 h-2 rounded-full"
+                                  style={{ width: `${category.percentage}%` }}
+                                ></div>
+                              </div>
+                              <div className="flex justify-between mt-2">
+                                <span className="text-sm text-gray-600">
+                                  {category.jobs} {category.jobs === 1 ? 'job' : 'jobs'}
+                                </span>
+                                <span className="text-sm font-semibold text-gray-900">
+                                  {category.earnings}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -593,34 +621,48 @@ function EmployeeAnalytics() {
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <Target className="w-5 h-5" />
-                        Goals & Targets
+                        2025 Goals & Targets
                       </h3>
                       <Award className="w-5 h-5 text-yellow-500" />
                     </div>
 
                     <div className="space-y-6">
-                      {goals.map((goal, index) => (
-                        <div key={index}>
-                          <div className="flex justify-between mb-2">
-                            <span className="font-medium text-gray-900">
-                              {goal.title}
-                            </span>
-                            <span className="text-primary-600 font-semibold">
-                              {goal.progress}%
-                            </span>
+                      {goals.map((goal, index) => {
+                        const Icon = goal.icon;
+                        return (
+                          <div key={index}>
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center gap-2">
+                                <Icon className="w-5 h-5 text-primary-600" />
+                                <span className="font-medium text-gray-900">
+                                  {goal.title}
+                                </span>
+                              </div>
+                              <span className={`font-semibold ${
+                                goal.progress >= 80 ? 'text-green-600' : 
+                                goal.progress >= 50 ? 'text-yellow-600' : 
+                                'text-red-600'
+                              }`}>
+                                {goal.progress}%
+                              </span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                              <div
+                                className={`h-2.5 rounded-full ${
+                                  goal.progress >= 80 ? 'bg-green-600' : 
+                                  goal.progress >= 50 ? 'bg-yellow-500' : 
+                                  'bg-red-500'
+                                }`}
+                                style={{ width: `${goal.progress}%` }}
+                              ></div>
+                            </div>
+                            <div className="flex justify-between mt-2 text-sm text-gray-600">
+                              <span>{goal.current}</span>
+                              <span>Target: {goal.target}</span>
+                            </div>
                           </div>
-                          <div className="w-full bg-gray-200 rounded-full h-2.5">
-                            <div
-                              className="bg-primary-600 h-2.5 rounded-full"
-                              style={{ width: `${goal.progress}%` }}
-                            ></div>
-                          </div>
-                          <div className="flex justify-between mt-2 text-sm text-gray-600">
-                            <span>{goal.current}</span>
-                            <span>Target: {goal.target}</span>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -683,147 +725,63 @@ function EmployeeAnalytics() {
                       <Calendar className="w-5 h-5" />
                       Recent Transactions
                     </h3>
-                    <button className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                      View All
-                    </button>
+                    <span className="text-sm text-gray-500">2025</span>
                   </div>
 
                   <div className="space-y-4">
-                    {recentTransactions.map((transaction) => (
-                      <div
-                        key={transaction.id}
-                        className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div
-                            className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                              transaction.type === "credit"
-                                ? "bg-green-100"
-                                : "bg-blue-100"
-                            }`}
-                          >
-                            {transaction.type === "credit" ? (
-                              <PhilippinePeso className="w-5 h-5 text-green-600" />
-                            ) : (
-                              <Wallet className="w-5 h-5 text-blue-600" />
-                            )}
+                    {recentTransactions.map((transaction) => {
+                      const Icon = getTransactionIcon(transaction.type, transaction.job);
+                      return (
+                        <div
+                          key={transaction.id}
+                          className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                                transaction.status === "completed"
+                                  ? "bg-green-100"
+                                  : "bg-yellow-100"
+                              }`}
+                            >
+                              <Icon className="w-5 h-5 text-green-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900">
+                                {transaction.job}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                {transaction.date}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-medium text-gray-900">
-                              {transaction.job}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {transaction.date}
-                            </p>
+                          <div className="flex items-center gap-3">
+                            <span
+                              className={`font-semibold ${
+                                transaction.type === "credit"
+                                  ? "text-green-600"
+                                  : "text-blue-600"
+                              }`}
+                            >
+                              {transaction.type === "credit" ? "+" : "-"}
+                              {transaction.amount}
+                            </span>
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                                transaction.status
+                              )}`}
+                            >
+                              {transaction.status}
+                            </span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3">
-                          <span
-                            className={`font-semibold ${
-                              transaction.type === "credit"
-                                ? "text-green-600"
-                                : "text-blue-600"
-                            }`}
-                          >
-                            {transaction.type === "credit" ? "+" : "-"}
-                            {transaction.amount}
-                          </span>
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
-                              transaction.status
-                            )}`}
-                          >
-                            {transaction.status}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   <button className="w-full mt-6 py-3 text-center text-primary-600 hover:text-primary-700 font-medium border border-primary-200 rounded-lg hover:bg-primary-50 transition-colors">
-                    Load More Transactions
+                    View All Transactions
                   </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">
-                Earnings Tips & Insights
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
-                  <div className="flex items-center gap-3 mb-3">
-                    <TrendingUp className="w-6 h-6 text-blue-600" />
-                    <h4 className="font-semibold text-gray-900">
-                      Increase Your Earnings
-                    </h4>
-                  </div>
-                  <ul className="space-y-2 text-sm text-gray-600">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      Complete your profile with certifications
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      Maintain high ratings for premium jobs
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      Apply for higher-paying categories
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="p-4 bg-green-50 rounded-lg border border-green-100">
-                  <div className="flex items-center gap-3 mb-3">
-                    <ClockIcon className="w-6 h-6 text-green-600" />
-                    <h4 className="font-semibold text-gray-900">
-                      Payment Schedule
-                    </h4>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Completed jobs:</span>
-                      <span className="font-medium">
-                        Paid within 24-48 hours
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Withdrawals:</span>
-                      <span className="font-medium">
-                        Processed in 1-3 business days
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Next payout:</span>
-                      <span className="font-medium">Nov 18, 2023</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-4 bg-purple-50 rounded-lg border border-purple-100">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Target className="w-6 h-6 text-purple-600" />
-                    <h4 className="font-semibold text-gray-900">
-                      Top Categories
-                    </h4>
-                  </div>
-                  <div className="space-y-2">
-                    {jobCategories.slice(0, 3).map((category, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center"
-                      >
-                        <span className="text-sm text-gray-600">
-                          {category.category}
-                        </span>
-                        <span className="font-semibold text-gray-900">
-                          {category.earnings}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>

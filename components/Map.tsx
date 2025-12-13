@@ -353,11 +353,22 @@ export default function Map() {
     };
 
     // Accept gig function
-    const acceptGig = () => {
-        alert("Gig accepted! You're now booked for the packing of 50 shopee orders.");
-        // Here you would typically navigate to a confirmation page or update state
-        router.push("/gigdaddy/myjobs")
+const acceptGig = () => {
+    const gigData = {
+        id: Date.now().toString(),
+        title: "Pack and label 50 orders",
+        description: "Shopee Packing of 50 orders",
+        duration: "2 hours",
+        payRate: "₱65/hr",
+        location: gigLocation,
+        acceptedAt: new Date().toISOString(),
+        status: "active"
     };
+    localStorage.setItem('currentGig', JSON.stringify(gigData));
+    
+    // Navigate to myCurrentJob page
+    router.push('/gigdaddy/myCurrentJob');
+};
 
     // ===== JSX =====
     return (

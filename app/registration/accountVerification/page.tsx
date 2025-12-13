@@ -32,8 +32,8 @@ function AccountVerification() {
   })
     const [showProfileDropdown, setShowProfileDropdown] = useState(false)
   const [userData, setUserData] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: "Jay-ar Untalan",
+    email: "jayaruntalanb22@gmail.com",
     avatarUrl: null as string | null 
   })
 

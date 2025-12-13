@@ -34,7 +34,23 @@ import {
   Clock,
   Zap,
   Home,
-  Building
+  Building,
+  Palette,
+  Code,
+  Camera,
+  PenTool,
+  Monitor,
+  Video,
+  Utensils,
+  ChefHat,
+  Pizza,
+  Cake,
+  Coffee,
+  Wine,
+  Calendar,
+  ClipboardCheck,
+  Layout,
+  Settings,
 } from "lucide-react";
 
 function LandingPage() {
@@ -52,7 +68,24 @@ function LandingPage() {
 
   // Categories with exact subservices you provided
   const categories = [
-
+    {
+      id: 2,
+      name: "House Chores",
+      description: "Professional cleaning for homes and businesses",
+      icon: BrushCleaning,
+      subServices: [
+        { id: 1, title: "Power Wash", description: "High-pressure exterior cleaning", icon: Droplets },
+        { id: 2, title: "Deep Cleaning", description: "Intensive comprehensive cleaning", icon: Sparkles },
+        { id: 3, title: "Dish Washer", description: "Commercial dish washing", icon: Shirt },
+        { id: 4, title: "Laundry", description: "Clothing and linen cleaning", icon: Shirt },
+        { id: 5, title: "Cleaning Assistant", description: "General cleaning support", icon: Users },
+      ],
+      stats: {
+        availableJobs: 123,
+        rating: 4.8,
+        quickHire: true
+      }
+    },
     {
       id: 1,
       name: "E-commerce",
@@ -72,24 +105,25 @@ function LandingPage() {
         quickHire: true
       }
     },
-        {
-      id: 2,
-      name: "Cleaning Services",
-      description: "Professional cleaning for homes and businesses",
-      icon: BrushCleaning,
-      subServices: [
-        { id: 1, title: "Power Wash", description: "High-pressure exterior cleaning", icon: Droplets },
-        { id: 2, title: "Deep Cleaning", description: "Intensive comprehensive cleaning", icon: Sparkles },
-        { id: 3, title: "Dish Washer", description: "Commercial dish washing", icon: Shirt },
-        { id: 4, title: "Laundry", description: "Clothing and linen cleaning", icon: Shirt },
-        { id: 5, title: "Cleaning Assistant", description: "General cleaning support", icon: Users },
-      ],
-      stats: {
-        availableJobs: 123,
-        rating: 4.8,
-        quickHire: true
-      }
-    }
+{
+  id: 3,
+  name: "Catering Service",
+  description: "Professional food service and event catering",
+  icon: ChefHat,
+  subServices: [
+    { id: 1, title: "Cleanup Crew", description: "Event coordination and logistics", icon: Sparkles },
+    { id: 2, title: "Table Setting", description: "Table arrangement and decoration", icon: Layout },
+    { id: 3, title: "Equipment Setup", description: "Rental equipment installation", icon: Settings },
+    { id: 4, title: "Staff Management", description: "Team coordination and supervision", icon: Users },
+    { id: 5, title: "Inventory Control", description: "Supply tracking and management", icon: ClipboardCheck },
+    { id: 6, title: "Venue Coordination", description: "Site management and liaison", icon: MapPin },
+  ],
+  stats: {
+    availableJobs: 145,
+    rating: 4.7,
+    quickHire: true
+  }
+}
   ];
 
   const navLinks = [
@@ -173,11 +207,11 @@ function LandingPage() {
                 Your Next Great <span className="text-primary-600">Gig Opportunity</span> is Here.
               </h1>
               <p className="text-xl text-primary-950 max-w-2xl font-light">
-                Connecting you directly to high-paying, flexible, and full-time Gigs in Cleaning & E-commerce. Start your application today!
+                Connecting you directly to high-paying, flexible, and full-time Gigs in E-commerce, Catering Service, & House Chores Services. Start your application today!
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                <Button onClick={handleApplyClick} className="bg-primary-100 hover:bg-primary-700 hover:text-white text-white font-bold text-xl px-10 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5">
+                <Button onClick={handleApplyClick} className="bg-primary-600 hover:bg-primary-700 hover:text-white text-white font-bold text-xl px-10 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5">
                   Apply Now
                 </Button>
               </div>
@@ -230,24 +264,38 @@ function LandingPage() {
             </div>
           </div>
 
-          {/* Category Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          {/* Category Cards Grid  */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 ">
             {categories.map((category) => {
               const IconComponent = category.icon;
+              const isEcommerce = category.id === 1;
+              
               return (
                 <div
                   key={category.id}
                   onClick={() => handleCategoryClick(category)}
-                  className="relative p-8 rounded-2xl border-2 transition-all duration-300 min-h-[380px] flex flex-col cursor-pointer bg-white hover:border-primary-300 hover:shadow-xl group"
+                  className={`relative p-8 rounded-2xl border-2 transition-all duration-300 min-h-[380px] flex flex-col cursor-pointer ${
+                    isEcommerce 
+                      ? 'bg-gradient-to-br from-primary-50 to-white border-primary-300 shadow-xl transform lg:scale-105 border-2 border-[#0e1943]' 
+                      : 'bg-white hover:border-primary-300 hover:shadow-xl'
+                  } group`}
                 >
+
+
                   {/* Category Header */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center gap-4">
-                      <div className="flex-shrink-0 w-20 h-20 rounded-xl flex items-center justify-center bg-primary-100 group-hover:bg-primary-200 transition-colors">
-                        <IconComponent className="w-10 h-10 text-primary-600" />
+                  <div className="flex items-start justify-between mb-6 ">
+                    <div className="flex items-center gap-4 ">
+                      <div className={`flex-shrink-0 w-20 h-20 rounded-xl flex items-center justify-center  ${
+                        isEcommerce ? 'bg-primary-200' : 'bg-primary-100'
+                      } group-hover:bg-primary-200 transition-colors`}>
+                        <IconComponent className={`w-10 h-10 ${
+                          isEcommerce ? 'text-primary-700' : 'text-primary-600'
+                        }`} />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-gray-900">
+                        <h3 className={`text-2xl font-bold ${
+                          isEcommerce ? 'text-primary-800' : 'text-gray-900'
+                        }`}>
                           {category.name}
                         </h3>
                         <p className="text-gray-600 mt-1">
@@ -257,12 +305,16 @@ function LandingPage() {
                     </div>
                     
                     {/* Stats Badge */}
-                    <div className="flex flex-col items-end gap-2">
-                      <div className="bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-sm font-semibold">
+                    <div className="flex flex-col items-end gap-2 ">
+                      <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        isEcommerce ? 'bg-primary-100 text-primary-800' : 'bg-primary-50 text-primary-700'
+                      }`}>
                         {category.stats.availableJobs} jobs
                       </div>
                       {category.stats.quickHire && (
-                        <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs">
+                        <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs ${
+                          isEcommerce ? 'bg-green-100 text-green-800' : 'bg-green-50 text-green-700'
+                        }`}>
                           <Zap className="w-3 h-3" />
                           Quick Hire
                         </div>
@@ -272,18 +324,32 @@ function LandingPage() {
 
                   {/* Sub-services */}
                   <div className="mb-6">
-                    <h4 className="font-semibold text-gray-700 mb-4">Available Services:</h4>
+                    <h4 className={`font-semibold mb-4 ${
+                      isEcommerce ? 'text-primary-700' : 'text-gray-700'
+                    }`}>Available Services:</h4>
                     <div className="grid grid-cols-2 gap-3">
                       {category.subServices.map((service) => {
                         const ServiceIcon = service.icon;
                         return (
                           <div 
                             key={service.id}
-                            className="flex items-center gap-3 text-sm p-3 rounded-lg bg-gray-50 hover:bg-primary-50 transition-colors group/item"
+                            className={`flex items-center gap-3 text-sm p-3 rounded-lg transition-colors group/item ${
+                              isEcommerce 
+                                ? 'bg-primary-50 hover:bg-primary-100' 
+                                : 'bg-gray-50 hover:bg-primary-50'
+                            }`}
                           >
-                            <ServiceIcon className="w-4 h-4 text-gray-500 group-hover/item:text-primary-600 flex-shrink-0" />
+                            <ServiceIcon className={`w-4 h-4 flex-shrink-0 ${
+                              isEcommerce 
+                                ? 'text-primary-600 group-hover/item:text-primary-700' 
+                                : 'text-gray-500 group-hover/item:text-primary-600'
+                            }`} />
                             <div className="min-w-0">
-                              <span className="font-medium text-gray-700 group-hover/item:text-primary-600 transition-colors block truncate">
+                              <span className={`font-medium block truncate transition-colors ${
+                                isEcommerce 
+                                  ? 'text-primary-700 group-hover/item:text-primary-800' 
+                                  : 'text-gray-700 group-hover/item:text-primary-600'
+                              }`}>
                                 {service.title}
                               </span>
                               <p className="text-xs text-gray-500 truncate">{service.description}</p>
@@ -299,15 +365,23 @@ function LandingPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                          <Award className="w-4 h-4 text-yellow-500" />
+                          <Award className={`w-4 h-4 ${
+                            isEcommerce ? 'text-primary-600' : 'text-yellow-500'
+                          }`} />
                           <span className="text-sm font-medium text-gray-700">{category.stats.rating}/5</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-blue-500" />
+                          <Clock className={`w-4 h-4 ${
+                            isEcommerce ? 'text-primary-600' : 'text-blue-500'
+                          }`} />
                           <span className="text-sm font-medium text-gray-700">Flexible</span>
                         </div>
                       </div>
-                      <button className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+                      <button className={`inline-flex items-center font-semibold transition-colors ${
+                        isEcommerce 
+                          ? 'text-primary-700 hover:text-primary-800' 
+                          : 'text-primary-600 hover:text-primary-700'
+                      }`}>
                         View Details
                         <ChevronRight className="w-4 h-4 ml-1" />
                       </button>
@@ -318,21 +392,22 @@ function LandingPage() {
             })}
           </div>
 
-          {/* Additional Info Section */}
+          {/* Additional Info Section - Updated for all three categories */}
           <div className="mt-16 bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
             <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-foreground mb-4">Why Choose These Categories?</h3>
+              <h3 className="text-3xl font-bold text-foreground mb-4">Why Choose Our Categories?</h3>
               <p className="text-gray-600 max-w-2xl mx-auto">Our most reliable and high-demand sectors with consistent work opportunities</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Cleaning Services Benefits */}
+              <div className="space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="bg-blue-100 p-3 rounded-lg flex-shrink-0">
-                    <Shield className="w-6 h-6 text-blue-600" />
+                    <BrushCleaning className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg text-gray-900 mb-2">Cleaning Services Benefits</h4>
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">House Chores</h4>
                     <ul className="space-y-2 text-gray-600">
                       <li className="flex items-center gap-2">
                         <Check className="w-4 h-4 text-green-500" />
@@ -340,62 +415,70 @@ function LandingPage() {
                       </li>
                       <li className="flex items-center gap-2">
                         <Check className="w-4 h-4 text-green-500" />
-                        <span>Both residential and commercial work</span>
+                        <span>Residential & commercial work</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <Check className="w-4 h-4 text-green-500" />
-                        <span>Equipment and supplies provided</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-green-500" />
-                        <span>Flexible shift options</span>
+                        <span>Equipment provided</span>
                       </li>
                     </ul>
-                  </div>
-                </div>
-                
-                <div className="bg-primary-50 p-4 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Home className="w-5 h-5 text-primary-600" />
-                    <Building className="w-5 h-5 text-primary-600" />
-                    <span className="font-medium text-primary-700">Residential & Commercial Cleaning Available</span>
                   </div>
                 </div>
               </div>
               
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="bg-green-100 p-3 rounded-lg flex-shrink-0">
-                    <Briefcase className="w-6 h-6 text-green-600" />
+              {/* E-commerce Benefits - Highlighted */}
+              <div className="space-y-4 relative">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                  <div className="bg-primary-600 text-white px-4 py-1 rounded-full text-sm font-bold">
+                    Most Popular
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 border-2 border-primary-200 rounded-xl p-4 bg-primary-50">
+                  <div className="bg-primary-100 p-3 rounded-lg flex-shrink-0">
+                    <ShoppingBag className="w-6 h-6 text-primary-600" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg text-gray-900 mb-2">E-commerce Benefits</h4>
-                    <ul className="space-y-2 text-gray-600">
+                    <h4 className="font-bold text-lg text-primary-800 mb-2">E-commerce</h4>
+                    <ul className="space-y-2 text-gray-700">
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-green-500" />
-                        <span>Indoor work environment</span>
+                        <Check className="w-4 h-4 text-primary-600" />
+                        <span>Highest job availability</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-green-500" />
-                        <span>Consistent year-round demand</span>
+                        <Check className="w-4 h-4 text-primary-600" />
+                        <span>Year-round consistent work</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-green-500" />
-                        <span>Career advancement opportunities</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-green-500" />
-                        <span>Modern warehouse facilities</span>
+                        <Check className="w-4 h-4 text-primary-600" />
+                        <span>Career advancement paths</span>
                       </li>
                     </ul>
                   </div>
                 </div>
-                
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Package className="w-5 h-5 text-green-600" />
-                    <Truck className="w-5 h-5 text-green-600" />
-                    <span className="font-medium text-green-700">Full Logistics Training Provided</span>
+              </div>
+              
+              {/* Catering Service Benefits */}
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="bg-amber-100 p-3 rounded-lg flex-shrink-0">
+                    <ChefHat className="w-6 h-6 text-amber-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">Catering Service</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Flexible event schedules</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Learn culinary skills</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>Tips and bonuses</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -414,7 +497,7 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About Section - Updated text */}
       <section id="about" className="py-20 bg-primary-50">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -429,7 +512,7 @@ function LandingPage() {
                 Why Choose GigDaddy?
               </h2>
               <p className="text-lg text-foreground/80">
-                We specialize in connecting talented individuals with high-quality opportunities in our most in-demand sectors. Join thousands who've found their perfect gig through us.
+                We specialize in connecting talented individuals with high-quality opportunities in E-commerce, Catering Service, and Cleaning Services. Join thousands who've found their perfect gig through us.
               </p>
 
               <div className="space-y-5">
@@ -554,7 +637,7 @@ function LandingPage() {
             <div className="col-span-1 md:col-span-2 space-y-4">
               <h3 className="text-3xl font-bold text-primary-400">GigDaddy</h3>
               <p className="text-gray-400 max-w-md">
-                Connecting talented professionals with rewarding careers in Cleaning & E-commerce. Your future starts here.
+                Connecting talented professionals with rewarding careers in E-commerce, Catering Service, & Cleaning Services. Your future starts here.
               </p>
               <div className="flex space-x-6 pt-2">
                 <a href="#" className="text-gray-500 hover:text-primary-400 transition-colors">

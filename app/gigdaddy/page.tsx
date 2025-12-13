@@ -67,12 +67,12 @@ function EmployeeDashboard() {
     },
     {
       id: 3,
-      name: "My Applications",
+      name: "My Current Job",
       icon: FileText,
       color: "bg-primary-600",
       iconColor: "text-white",
-      onClick: () => router.push("/gigdaddy/applications"),
-      description: "Track your job applications",
+      onClick: () => router.push("/gigdaddy/myCurrentJob"),
+      description: "Track my current job",
     },
     {
       id: 4,

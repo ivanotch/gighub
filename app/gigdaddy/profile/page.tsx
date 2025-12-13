@@ -20,8 +20,10 @@ import {
   ChevronRight,
   PhilippinePeso,
   ChevronDown,
+  Trophy,
 } from "lucide-react";
 import Head from "next/head";
+import Achievement from "../../../components/gigdaddypage/Achievement";
 
 function EmployeeProfile() {
   const router = useRouter();
@@ -39,7 +41,25 @@ function EmployeeProfile() {
       "Labeling",
       "Order Processing",
     ],
-    categoryService: ["E-Commerece"],
+    categoryService: ["E-Commerce"],
+    achievements: [
+      {
+        id: 1,
+        title: "House Chores",
+        description: "Completed training in house chores area. Demonstrated proficiency in cleaning, organization, and maintenance tasks.",
+        imageUrl: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500&h=500&fit=crop",
+        unlocked: true,
+        dateUnlocked: "2024-01-15"
+      },
+      {
+        id: 2,
+        title: "Catering Service",
+        description: "Completed training in catering area. Certified in food preparation, serving, and event management.",
+        imageUrl: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=500&fit=crop",
+        unlocked: false,
+        dateUnlocked: null
+      }
+    ],
     rating: 4.7,
     totalReviews: 128,
     completedJobs: 45,
@@ -52,23 +72,53 @@ function EmployeeProfile() {
   const [editForm, setEditForm] = useState(profileData);
 
   // Available category options
-  const categoryOptions = ["Cleaning", "E-Commerce"];
+  const categoryOptions = ["House Chores", "Catering Service", "E-Commerce"];
   
   // Available skills options
   const skillOptions = [
-        "Power Wash",
-        "Deep Cleaning",
-        "Dish Washer",
-        "Laundry",
-        "Cleaning Assistant",
-        "Packaging",
-        "Labeling",
-        "Inventory Management",
-        "Shipping/Dropping off",
-        "Restocking",
-        "Order Processing"
-
+    // House Chores skills
+    "Power Wash",
+    "Deep Cleaning",
+    "Dish Washer",
+    "Laundry",
+    "Cleaning Assistant",
+    "Floor Cleaning",
+    "Window Cleaning",
+    "Organization",
+    
+    // Catering Service skills
+    "Food Preparation",
+    "Cooking",
+    "Serving",
+    "Event Setup",
+    "Table Setting",
+    "Bartending",
+    "Customer Service",
+    
+    // E-Commerce skills
+    "Packaging",
+    "Labeling",
+    "Inventory Management",
+    "Shipping/Dropping off",
+    "Restocking",
+    "Order Processing"
   ];
+
+  // Function to toggle achievement lock/unlock
+  const toggleAchievement = (id: number, unlocked: boolean) => {
+    setEditForm((prev) => ({
+      ...prev,
+      achievements: prev.achievements.map(achievement => 
+        achievement.id === id 
+          ? { 
+              ...achievement, 
+              unlocked,
+              dateUnlocked: unlocked ? new Date().toISOString().split('T')[0] : null
+            }
+          : achievement
+      ),
+    }));
+  };
 
   const reviews = [
     {
@@ -227,6 +277,48 @@ function EmployeeProfile() {
             )}
           </div>
         ))}
+      </div>
+    );
+  };
+
+  // Render achievements section
+  const renderAchievements = (achievements: any[], isEditing: boolean = false) => {
+    const unlockedCount = achievements.filter(a => a.unlocked).length;
+    const totalCount = achievements.length;
+
+    return (
+      <div className="mt-8">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <Trophy className="w-5 h-5 text-yellow-500" />
+            Achievements
+            <span className="text-sm font-normal text-gray-500 ml-2">
+              ({unlockedCount}/{totalCount} unlocked)
+            </span>
+          </h3>
+          {isEditing && (
+            <div className="text-sm text-gray-500">
+              Click achievement to preview, buttons to toggle
+            </div>
+          )}
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {achievements.map((achievement) => (
+            <Achievement
+              key={achievement.id}
+              id={achievement.id}
+              title={achievement.title}
+              description={achievement.description}
+              imageUrl={achievement.imageUrl}
+              unlocked={achievement.unlocked}
+              dateUnlocked={achievement.dateUnlocked}
+              onToggle={toggleAchievement}
+              isEditing={isEditing}
+            />
+          ))}
+        </div>
+
       </div>
     );
   };
@@ -475,7 +567,7 @@ function EmployeeProfile() {
         </div>
 
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
@@ -577,6 +669,9 @@ function EmployeeProfile() {
                               {renderSkillsDropdown()}
                             </div>
                           </div>
+
+                          {/* Achievements Section (in edit mode) */}
+                          {renderAchievements(editForm.achievements, true)}
                         </div>
                       ) : (
                         <>
@@ -616,6 +711,9 @@ function EmployeeProfile() {
                               {renderSkillBadges(profileData.skills)}
                             </div>
                           )}
+
+                          {/* Achievements Display (View Mode) */}
+                          {renderAchievements(profileData.achievements)}
                         </>
                       )}
                     </div>

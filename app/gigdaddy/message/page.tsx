@@ -74,6 +74,7 @@ function EmployeeMessage() {
       time: "10:36 AM",
       unread: 1,
       avatar: "MS",
+      service: "Labeling",
       Location: "Mandaluyong",
       status: "active"
     },
@@ -85,6 +86,7 @@ function EmployeeMessage() {
       unread: 0,
       avatar: "JS",
       Location: "Pasig",
+      service: "Packing",
       status: "active"
     },
     {
@@ -94,6 +96,7 @@ function EmployeeMessage() {
       time: "Nov 11",
       unread: 0,
       avatar: "ST",
+      service: "",
       Location: "Gigdaddy Support",
       status: "system"
     },
@@ -381,7 +384,7 @@ function EmployeeMessage() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-semibold text-gray-900">{conversation.name}</h3>
-                        <p className="text-xs text-gray-500 truncate">{conversation.Location}</p>
+                        <p className="text-xs text-gray-500 truncate">{conversation.Location} • {conversation.service}</p>
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="text-xs text-gray-500">{conversation.time}</span>
@@ -427,7 +430,7 @@ function EmployeeMessage() {
                             currentConversation.status === "active" ? "bg-green-500" : "bg-gray-400"
                           }`}></div>
                           <span className="text-xs text-gray-500">
-                            {currentConversation.status === "active" ? "Online" : "Offline"} • {currentConversation.Location}
+                            {currentConversation.status === "active" ? "Online" : "Offline"} • {currentConversation.Location} • {currentConversation.service}
                           </span>
                         </div>
                       </div>

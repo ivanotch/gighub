@@ -59,8 +59,8 @@ function CategorySelection() {
       available: true,
     },
     {
-      id: "digitalFreelancer",
-      name: "Creative Digital Freelancer",
+      id: "digital",
+      name: "Digital Creative",
       description: "Building, renovation and repair work",
       icon: MonitorCheck,
       subServices: [
