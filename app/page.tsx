@@ -320,9 +320,9 @@ function LandingPage() {
 
       {/* Hero Section */}
       <section id="home" className="bg-white text-white">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-30">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="space-y-8 lg:col-span-7">
+            <div className="space-y-8 lg:col-span-7 mt-30">
               <h1
                 className={`${rocaTwo.className} text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary-900 leading-tight tracking-tight`}
               >
@@ -350,13 +350,13 @@ function LandingPage() {
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative hidden lg:block mb-40">
+            <div className="lg:col-span-4 relative hidden lg:block ms-15">
               <Image
-                src="/images/deal.png"
+                src="/images/gd-hero.png"
                 alt="Gig application illustration"
                 width={600}
-                height={400}
-               className="w-full h-auto object-cover bg-transparent drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)]"
+                height={100}
+               className="w-full h-auto scale-170 object-cover bg-transparent drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)]"
               />
             </div>
           </div>
@@ -694,9 +694,9 @@ function LandingPage() {
             <div className="relative order-2 lg:order-1">
               <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary-200/50">
                 <img
-                  src="/images/deal.jpg"
+                  src="/images/deal.png"
                   alt="About Our Company"
-                  className="w-full h-96 object-cover"
+                  className="w-full h-96 object-cover bg-white"
                 />
               </div>
             </div>
